@@ -1040,16 +1040,18 @@
   }
 
   .hero .browser {
-    /* Browser frame scales with viewport — was a fixed 600px which
-       looked lost on big monitors. clamp keeps it sensible across
-       1366→1920+ without dominating the panel. */
-    max-width: clamp(600px, 56vw, 1100px);
+    /* Browser frame scales with viewport but caps tighter than before
+       so the hero plate fits 100vh once the lazy-loaded screenshot
+       resolves to its real aspect. */
+    max-width: clamp(540px, 48vw, 940px);
   }
 
   .hero .image {
-    /* Aspect scales modestly — keeps the image from getting absurdly
-       tall on huge viewports. */
-    aspect-ratio: 16 / 7;
+    /* Slightly wider/shorter aspect so the image footprint stays
+       within ~36vh on tall viewports — gives the meta strip room
+       without internal scroll. */
+    aspect-ratio: 16 / 6.5;
+    max-height: 40vh;
   }
 
   .meta {
