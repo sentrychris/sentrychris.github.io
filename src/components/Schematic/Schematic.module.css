@@ -10,6 +10,7 @@
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
+  opacity: 0.75;
 
   /* Layer 1 — engineering paper grid. */
   background-image:
@@ -58,6 +59,18 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
+
+/* ─── Geometric flair (triangles, hexagon, axes, plot rect) ────
+   Slightly brighter than the default .shapes stroke so the new
+   geometry registers against the gridlines without competing with
+   the construction circles. Static — visible from the start. */
+
+.geo {
+  stroke: rgba(216, 221, 190, 0.10);
+  stroke-width: 0.8;
+  stroke-linejoin: round;
+}
+
 
 /* ─── Layer 3 — HTML corner ornaments ───────────────────────── */
 

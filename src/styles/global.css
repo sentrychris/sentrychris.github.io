@@ -70,8 +70,16 @@ pre {
 
 /* Entry reveal-on-scroll has been disabled — content is visible
    immediately. The useReveal hook still mutates [data-reveal]
-   attributes but has no visual effect; kept so JSX `data-reveal`
-   attributes don't need to be stripped section-by-section. */
+   attributes but has no visual effect. */
+
+/* All CSS transitions are disabled globally — hover state changes
+   are instant. Animations (scroll-driven traces, the contact pulse
+   dot) are unaffected and remain alive. */
+*,
+*::before,
+*::after {
+  transition: none !important;
+}
 
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -79,6 +87,5 @@ pre {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
   }
 }

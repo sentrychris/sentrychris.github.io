@@ -25,12 +25,31 @@ export function Schematic() {
         viewBox="0 0 1600 1200"
         preserveAspectRatio="xMidYMid slice"
       >
-        {/* ─── Construction circles — solid + dashed centerlines ─── */}
+        {/* ─── Construction circles — solid + dashed centerlines. All
+             rendered statically; scroll-drawn connectors between them
+             are rendered separately below. ─────────────────────── */}
         <circle cx="180"  cy="260" r="220" />
         <circle cx="1380" cy="820" r="340" />
         <circle cx="780"  cy="180" r="80"  strokeDasharray="3 6" />
         <circle cx="540"  cy="900" r="160" strokeDasharray="2 7" />
         <circle cx="1180" cy="240" r="60"  strokeDasharray="4 5" />
+
+        {/* ─── Triangles — static geometric flair. ─── */}
+        <polygon className={styles.geo} points="0,1030 500,1030 0,600" />
+        <polygon className={styles.geo} points="300,510 380,510 340,580" />
+
+        {/* ─── Hexagon — static. ─── */}
+        <polygon
+          className={styles.geo}
+          points="990,720 955,781 885,781 850,720 885,659 955,659"
+        />
+
+        {/* ─── Plot rectangle — static. ─── */}
+        <rect className={styles.geo} x="800" y="360" width="180" height="80" />
+
+        {/* ─── Construction axes — static crossing lines. ─── */}
+        {/* <line className={styles.geo} x1="50" y1="540" x2="980" y2="540" /> */}
+        <line className={styles.geo} x1="1180" y1="180" x2="1180" y2="1100" />
 
         {/* ─── Crosshair plus-marks at the centers of larger circles ─── */}
         <g className={styles.cross}>
@@ -73,12 +92,12 @@ export function Schematic() {
           <path d="M 720 320 v 10 M 715 325 h 10" />
         </g>
 
-        {/* ─── Dimension annotations near the larger circles ─── */}
+        {/* ─── Dimension annotations ─── */}
         <g className={styles.annotations}>
-          <text x="180"  y="48"   textAnchor="middle">Ø.220</text>
-          <text x="1380" y="450"  textAnchor="middle">Ø.340</text>
-          <text x="540"  y="1080" textAnchor="middle">Ø.160</text>
-          <text x="780"  y="80"   textAnchor="middle">R.080</text>
+          <text x="950"  y="466"   textAnchor="middle">Ø.220</text>
+          <text x="1380" y="448"  textAnchor="middle">Ø.340</text>
+          <text x="190"  y="515" textAnchor="middle">Ø.160</text>
+          <text x="300"  y="830"   textAnchor="middle">R.080</text>
         </g>
       </svg>
 
