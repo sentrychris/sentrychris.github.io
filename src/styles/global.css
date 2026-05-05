@@ -1,0 +1,118 @@
+/* ─────────────────────────────────────────────────────────────────────
+   Global styles — paper-and-ink editorial.
+
+   Type stack:
+     headings → Inter Tight (slightly tighter Inter for crisp display)
+     body     → Inter
+     italic   → Playfair Display (used sparingly for the "Nº" signature)
+     code     → JetBrains Mono
+
+   Animation: a CSS-only [data-reveal] pattern — opacity + translate + scale
+   driven by a `data-revealed` attribute and a per-child `--reveal-delay`.
+   Gated behind prefers-reduced-motion.
+   ───────────────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--sans);
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  color: var(--ink);
+  line-height: 1.05;
+}
+
+h1 { font-size: clamp(44px, 5vw, 78px); line-height: 1; }
+h2 { font-size: clamp(40px, 4.6vw, 66px); }
+h3 { font-size: clamp(20px, 2vw, 26px); letter-spacing: -0.01em; }
+h4 { font-size: 18px; letter-spacing: -0.005em; }
+
+p { margin: 0; }
+
+a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+a:hover { color: var(--accent); }
+
+code,
+kbd,
+pre {
+  font-family: var(--mono);
+}
+
+/* ─── Reveal-on-scroll ────────────────────────────────────────
+   Add data-reveal to any element. JS (or a small hook) sets
+   data-revealed="true" when the element enters the viewport.
+   Per-child --reveal-delay creates staggered sequences. */
+
+[data-reveal] {
+  opacity: 0;
+  translate: 0 28px;
+  transition:
+    opacity   0.9s cubic-bezier(.22, 1, .36, 1) var(--reveal-delay, 0ms),
+    translate 0.9s cubic-bezier(.22, 1, .36, 1) var(--reveal-delay, 0ms),
+    scale     0.9s cubic-bezier(.22, 1, .36, 1) var(--reveal-delay, 0ms);
+  will-change: opacity, translate, scale;
+}
+
+[data-reveal][data-revealed="true"] {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+}
+
+/* Stagger helpers — for a parent containing multiple [data-reveal]
+   children, child index drives delay. Use up to 6 — most sequences
+   don't need more. */
+[data-reveal-stagger] > [data-reveal]:nth-child(1) { --reveal-delay: 0ms; }
+[data-reveal-stagger] > [data-reveal]:nth-child(2) { --reveal-delay: 90ms; }
+[data-reveal-stagger] > [data-reveal]:nth-child(3) { --reveal-delay: 180ms; }
+[data-reveal-stagger] > [data-reveal]:nth-child(4) { --reveal-delay: 270ms; }
+[data-reveal-stagger] > [data-reveal]:nth-child(5) { --reveal-delay: 360ms; }
+[data-reveal-stagger] > [data-reveal]:nth-child(6) { --reveal-delay: 450ms; }
+
+/* Reduced motion: bypass the reveal — every element is visible
+   immediately, no transforms, no transitions. */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    translate: 0 0 !important;
+    scale: 1 !important;
+    transition: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

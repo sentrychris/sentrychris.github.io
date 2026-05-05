@@ -1,0 +1,184 @@
+/* Contact — drawing title block.
+   A bordered rectangle divided into labeled cells with thin internal
+   dividers. Reads like the corner stamp on an architect's drawing. */
+
+.titleBlock {
+  width: min(640px, 100%);
+  margin: 4rem auto 0;
+  border: 1px solid var(--accent-soft);
+  background: color-mix(in oklab, var(--bone) 60%, transparent);
+}
+
+/* ─── Top stamp — drawing reference strip ─────────────────── */
+
+.stamp {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 18px;
+  border-bottom: 1px solid var(--accent-soft);
+  background: color-mix(in oklab, var(--accent-soft) 18%, transparent);
+}
+
+/* End-ticks — short vertical strokes either side, like a real
+   stamp header. */
+.stamp::before,
+.stamp::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+  background: var(--ink-faint);
+  opacity: 0.5;
+}
+.stamp::before { left: 10px; }
+.stamp::after  { right: 10px; }
+
+.stampText {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ─── Cell rows ───────────────────────────────────────────── */
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(80px, 120px) 1fr;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 18px;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* The first row sits directly under the stamp — no double border. */
+.row:first-of-type {
+  border-top: none;
+}
+
+.label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ─── STATUS value — pulsing dot + caps text ──────────────── */
+
+.statusValue {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.statusText {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent) 35%, transparent);
+  animation: pulseDot 1.6s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse {
+    animation: none;
+  }
+}
+
+/* ─── EMAIL row — the primary cell, taller, hero typography ── */
+
+.emailRow {
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+
+.email {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.1;
+  color: var(--accent);
+  text-decoration: none;
+  word-break: break-word;
+  transition: color 200ms ease;
+}
+
+.email:hover,
+.email:focus-visible {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.12em;
+}
+
+/* ─── Generic link rows (GITHUB / LINKEDIN) ───────────────── */
+
+.linkValue {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.linkValue:hover,
+.linkValue:focus-visible {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+/* ─── Mobile ──────────────────────────────────────────────── */
+
+@media (max-width: 720px) {
+  .titleBlock {
+    margin-top: 2.4rem;
+  }
+
+  .row {
+    grid-template-columns: 84px 1fr;
+    gap: 12px;
+    padding: 12px 14px;
+  }
+
+  .stamp {
+    padding: 7px 14px;
+  }
+  .stamp::before { left: 8px; }
+  .stamp::after  { right: 8px; }
+
+  .emailRow {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  .email {
+    font-size: clamp(20px, 6vw, 28px);
+  }
+}

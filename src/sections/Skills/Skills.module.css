@@ -1,0 +1,190 @@
+/* Skills — architecture diagram. Five nodes laid out as a real
+   systems topology with arrows between them.
+       Tooling
+          ↓
+   Frontend → Backend → Data
+          ↓
+       Infra & Ops
+   On mobile the grid collapses to a single column with all arrows
+   rotated to point down. */
+
+.arch {
+  margin-top: 4rem;
+  display: grid;
+  /* 3 nodes (each 1fr) and 2 arrow gutters (each auto) */
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  /* tooling · arrowDown · middle row · arrowDown · infra */
+  grid-template-rows: auto auto auto auto auto;
+  gap: 1.4rem;
+  align-items: stretch;
+}
+
+/* ─── Grid placement ───────────────────────────────────── */
+
+.tooling {
+  grid-column: 1 / 6;
+  grid-row: 1;
+  max-width: 580px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.arrowDownTop {
+  grid-column: 1 / 6;
+  grid-row: 2;
+  justify-self: center;
+  /* SVG is drawn pointing right — rotate 90° so it points down. */
+  transform: rotate(90deg);
+}
+
+.frontend { grid-column: 1; grid-row: 3; }
+.arrowR1  { grid-column: 2; grid-row: 3; align-self: center; }
+.backend  { grid-column: 3; grid-row: 3; }
+.arrowR2  { grid-column: 4; grid-row: 3; align-self: center; }
+.data     { grid-column: 5; grid-row: 3; }
+
+.arrowDownBottom {
+  grid-column: 1 / 6;
+  grid-row: 4;
+  justify-self: center;
+  transform: rotate(90deg);
+}
+
+.infra {
+  grid-column: 1 / 6;
+  grid-row: 5;
+  max-width: 580px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ─── Node ─────────────────────────────────────────────── */
+
+.node {
+  padding: 1.4rem 1.3rem;
+  border-radius: var(--r-md);
+  background: linear-gradient(
+    180deg,
+    rgba(176, 228, 204, 0.025),
+    rgba(176, 228, 204, 0.01)
+  );
+  border: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+.tag {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.items {
+  margin: 0.7rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.32rem 0.55rem;
+  border-radius: 4px;
+  background: rgba(176, 228, 204, 0.04);
+  border: 1px solid var(--line-faint);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  white-space: nowrap;
+  transition: border-color 200ms ease, background 200ms ease;
+}
+
+.item:hover {
+  border-color: rgba(64, 138, 113, 0.4);
+  background: rgba(176, 228, 204, 0.08);
+}
+
+/* ─── Arrow ────────────────────────────────────────────── */
+
+.arrow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+
+.arrowSvg {
+  filter: drop-shadow(0 0 6px rgba(64, 138, 113, 0.45));
+}
+
+.arrowCaption {
+  position: absolute;
+  top: calc(100% + 4px);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+  opacity: 0.85;
+}
+
+/* For the rotated (down) arrows the caption is re-positioned to the
+   side, then counter-rotated so the text stays horizontal. */
+.arrowDownTop .arrowCaption,
+.arrowDownBottom .arrowCaption {
+  top: 50%;
+  left: calc(100% + 14px);
+  margin-top: -0.5em;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+
+/* ─── Mobile / tablet — stack to a single column ─────────── */
+
+@media (max-width: 920px) {
+  .arch {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tooling, .frontend, .backend, .data, .infra {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+  }
+
+  /* All arrows now point downward — rotate the horizontal ones too. */
+  .arrowR1, .arrowR2 {
+    transform: rotate(90deg);
+  }
+
+  /* Counter-rotate captions so they read horizontally. */
+  .arrowR1 .arrowCaption,
+  .arrowR2 .arrowCaption {
+    top: 50%;
+    left: calc(100% + 14px);
+    margin-top: -0.5em;
+    transform: rotate(-90deg);
+    transform-origin: center;
+  }
+
+  .arrow {
+    align-self: center;
+    margin: 0.4rem 0;
+  }
+}

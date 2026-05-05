@@ -1,0 +1,232 @@
+/* Experience — drafting timeline. Each entry sits like a labeled
+   construction phase on the blueprint drawing: serif Nº numeral and a
+   dimension-callout period in the left rail; role / sectors / summary
+   / numbered specifications in the right. Hairline divider with accent
+   end-ticks between entries. Mobile collapses to a single column. */
+
+.timeline {
+  list-style: none;
+  margin: 3rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: clamp(120px, 14vw, 180px) 1fr;
+  gap: 2.5rem;
+  align-items: start;
+  position: relative;
+  padding-bottom: 5rem;
+}
+
+/* Hairline divider between entries with accent end-ticks at each end —
+   the dimension-line motif again. */
+.row:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2.4rem;
+  height: 1px;
+  background:
+    linear-gradient(to right, var(--accent) 0 8px, transparent 8px) left  / 100% 1px no-repeat,
+    linear-gradient(to left,  var(--accent) 0 8px, transparent 8px) right / 100% 1px no-repeat,
+    var(--line-faint);
+}
+
+.row:last-child { padding-bottom: 0; }
+
+/* ─── Left column — Nº + dimension-callout period ────────────── */
+
+.numberCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  position: sticky;
+  top: 6rem;
+}
+
+.number {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(56px, 6vw, 84px);
+  line-height: 0.9;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+}
+
+.period {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 220px;
+}
+
+.periodTick {
+  width: 1px;
+  height: 10px;
+  background: var(--accent);
+  opacity: 0.65;
+  flex-shrink: 0;
+}
+
+.periodRule {
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--line);
+  min-width: 8px;
+}
+
+.periodValue {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ─── Right column ───────────────────────────────────────────── */
+
+.contentCol { min-width: 0; }
+
+.role {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 0.4rem;
+  font-family: var(--sans);
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+/* Small accent-bordered marker shared by the role title and each
+   numbered specification — same vocabulary as the About callouts. */
+.roleMarker,
+.pointMarker {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  background: radial-gradient(circle at center, var(--accent) 0 1.5px, transparent 2px);
+  flex-shrink: 0;
+}
+
+.roleText { min-width: 0; }
+
+.company {
+  margin: 0 0 1.2rem 22px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.125rem;
+  color: var(--ink-mute);
+}
+
+/* ─── Sectors — bracketed mono labels ────────────────────────── */
+
+.sectors {
+  list-style: none;
+  margin: 0 0 1.4rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+}
+
+.sector {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+.sector::before { content: '['; margin-right: 4px; color: var(--accent); }
+.sector::after  { content: ']'; margin-left: 4px;  color: var(--accent); }
+
+/* ─── Summary + numbered specifications ──────────────────────── */
+
+.summary {
+  margin: 0;
+  font-family: var(--body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  max-width: 58ch;
+}
+
+.points {
+  list-style: none;
+  margin: 1.6rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  max-width: 60ch;
+}
+
+.point {
+  display: grid;
+  grid-template-columns: 1.7rem 14px 1fr;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.pointIndex {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.pointMarker {
+  align-self: center;
+  transform: translateY(1px);
+}
+
+.pointText {
+  font-family: var(--body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+/* ─── Mobile — single column ─────────────────────────────────── */
+
+@media (max-width: 720px) {
+  .timeline { gap: 3.5rem; margin-top: 2rem; }
+
+  .row {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .row:not(:last-child)::after { bottom: 1.6rem; }
+
+  .numberCol {
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .number { font-size: clamp(44px, 12vw, 64px); }
+
+  .period { flex: 1 1 auto; max-width: none; }
+}

@@ -1,0 +1,9 @@
+/* DevIcon — colored brand SVGs from the devicon registry.
+   Default rendering keeps each icon's brand color. Callers can wrap
+   the icon and apply filters (saturate, opacity) per context. */
+
+.icon {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+}

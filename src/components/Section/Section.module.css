@@ -1,0 +1,87 @@
+/* Section — Atlas long-scroll wrapper.
+   The opener uses the editorial label-with-dash + huge sans heading +
+   italic Playfair accent. Generous vertical breathing room. */
+
+.section {
+  position: relative;
+  padding: 7rem 0;
+  scroll-margin-top: 100px;
+}
+
+.wrap {
+  width: min(1180px, 92%);
+  margin: 0 auto;
+}
+
+.opener {
+  margin-bottom: 4rem;
+  max-width: 760px;
+}
+
+/* ─── Label / eyebrow ─────────────────────────────────────────
+   Coral 11px sans caps with a 18px leading dash and an optional
+   italic Nº index in faint ink. */
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.label::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.labelText {
+  display: inline-block;
+}
+
+.labelIndex {
+  margin-left: 6px;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+/* ─── Title ───────────────────────────────────────────────────
+   Inter Tight, fluid clamp scale, italic Playfair accent. */
+
+.title {
+  font-family: var(--sans);
+  font-size: clamp(40px, 4.6vw, 66px);
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  line-height: 1.05;
+  color: var(--ink);
+  max-width: 22ch;
+}
+
+.accent {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: -0.005em;
+}
+
+/* ─── Lede ────────────────────────────────────────────────────
+   Inter body, ink-soft. Max-width keeps the paragraph editorial. */
+
+.lede {
+  margin-top: 22px;
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 42ch;
+}

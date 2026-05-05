@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:vigil.edcs.app)",
+      "Bash(pnpm add *)",
+      "Bash(pnpm lint *)",
+      "Bash(pnpm tsc *)",
+      "Bash(pnpm build *)"
+    ]
+  }
+}

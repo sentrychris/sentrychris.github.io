@@ -1,0 +1,150 @@
+/* ─────────────────────────────────────────────────────────────────────
+   Atlas tokens — muted dark forest. Paper-and-ink editorial inverted
+   for a dark theme: deep green-tinted near-black is the paper, pale
+   mint is the ink, medium green is the accent. The brand still reads
+   editorial; just at night.
+
+   Single source of truth for visual values. New work should reference
+   the named tokens directly. Legacy aliases at the bottom resolve to
+   the new palette so any unmigrated CSS keeps rendering.
+   ───────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ─ Surfaces (paper — dark forest) ───────────────────────── */
+  --paper:       #091413;   /* primary background, deepest */
+  --paper-warm:  #0c1816;   /* subtle lift */
+  --paper-dark:  #050b0a;   /* deeper than paper */
+  --bone:        #13211e;   /* lightest, used for cards (subtle elevation) */
+
+  /* ─ Text (ink — pale mint family) ────────────────────────── */
+  --ink:         #d8ddbe;   /* primary text, soft mint */
+  --ink-soft:    #d8ddbe;
+  --ink-mute:    #abad9d;
+  --ink-faint:   #dfe4c5;
+
+  /* ─ Lines (mint at low alpha — faint highlights, not dark recesses) */
+  --line-faint:  rgba(176, 228, 204, 0.05);
+  --line-soft:   rgba(176, 228, 204, 0.08);
+  --line:        rgba(176, 228, 204, 0.16);
+  --line-strong: rgba(176, 228, 204, 0.28);
+
+  /* ─ Accents (green family) ───────────────────────────────── */
+  --accent:        #408a71;   /* hero accent. Used like an LED. */
+  --accent-soft:   #285a48;   /* deeper green for soft fills, hover */
+  --accent-bright: #b0e4cc;   /* mint highlight (same as --ink, exposed for clarity) */
+
+  /* Status semantics — keep distinct enough that warn/crit still read.
+     Both muted to fit the palette. */
+  --mustard:       #d4a857;   /* warning */
+  --olive:         #408a71;   /* OK / live — same as --accent */
+
+  /* ─ Type families ────────────────────────────────────────── */
+  --sans:  "Montserrat", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --body:  "Montserrat", -apple-system, system-ui, sans-serif;
+  --serif: "Playfair Display", "Times New Roman", serif;
+  --mono:  "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+
+  /* ─ Type scale ───────────────────────────────────────────── */
+  --fs-micro:   0.6875rem;  /* 11px — labels / eyebrows */
+  --fs-caption: 0.8125rem;  /* 13px */
+  --fs-body:    1rem;       /* 16px */
+  --fs-heading: 1.375rem;   /* 22px — card h3 */
+  --fs-display: 3.25rem;    /* 52px — section h2 base */
+  --fs-hero:    4.875rem;   /* 78px — hero h1 base */
+
+  /* ─ Radii ────────────────────────────────────────────────── */
+  --r-sm:    6px;
+  --r-md:    12px;
+  --r-lg:    18px;
+  --r-panel: 18px;
+  --r-pill:  999px;
+
+  /* ─ Shadows ──────────────────────────────────────────────── */
+  /* On dark, drops have to be deeper than usual to read at all.
+     Pure black + a faint mint inner highlight gives the lifted feel. */
+  --shadow:
+    0 30px 60px -30px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(176, 228, 204, 0.04);
+  --shadow-lift:
+    0 24px 48px -24px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(176, 228, 204, 0.08);
+
+  /* ═════════════════════════════════════════════════════════════
+     LEGACY ALIASES — kept so any unmigrated CSS keeps rendering.
+     New work should use the named tokens above directly.
+     ═════════════════════════════════════════════════════════════ */
+
+  /* Old --coral name retained as alias to --accent. */
+  --coral:        var(--accent);
+  --coral-soft:   var(--accent-soft);
+
+  /* Surfaces (legacy bg names → paper variants) */
+  --bg-0:         var(--paper);
+  --bg-1:         var(--paper-warm);
+  --bg-2:         var(--paper-warm);
+  --bg-3:         var(--paper-dark);
+  --bg-page:      var(--paper);
+  --bg-surface:   var(--bone);
+  --bg-elevated:  var(--bone);
+  --bg-hover:     rgba(176, 228, 204, 0.04);
+  --bg-input:     rgba(176, 228, 204, 0.03);
+
+  /* Text (legacy names → ink) */
+  --text-primary:   var(--ink);
+  --text-secondary: var(--ink-soft);
+  --text-muted:     var(--ink-mute);
+  --text-dim:       var(--ink-faint);
+
+  /* Borders (legacy aliases) */
+  --border-subtle:  var(--line-soft);
+  --border-default: var(--line);
+  --border-accent:  rgba(64, 138, 113, 0.35);
+
+  /* Old neon names — quietly mapped to greens / mint / mustard. */
+  --cyan:    var(--accent-bright);
+  --blue:    var(--accent);
+  --purple:  var(--accent-soft);
+  --emerald: var(--accent);
+  --amber:   var(--mustard);
+  --rose:    var(--accent);
+  --fuchsia: var(--accent-soft);
+
+  --cyan-primary:    var(--accent-bright);
+  --cyan-secondary:  var(--ink-soft);
+  --cyan-glow:       rgba(176, 228, 204, 0.45);
+  --blue-primary:    var(--accent);
+  --blue-secondary:  var(--accent-soft);
+  --blue-glow:       rgba(64, 138, 113, 0.45);
+  --emerald-primary: var(--accent);
+  --emerald-secondary: var(--accent-soft);
+  --emerald-glow:    rgba(64, 138, 113, 0.45);
+  --purple-primary:  var(--accent-soft);
+  --purple-secondary:var(--accent-soft);
+  --purple-glow:     rgba(40, 90, 72, 0.45);
+  --amber-primary:   var(--mustard);
+  --amber-secondary: var(--mustard);
+  --amber-glow:      rgba(212, 168, 87, 0.45);
+  --rose-primary:    var(--accent);
+  --rose-secondary:  var(--accent-soft);
+  --rose-glow:       rgba(64, 138, 113, 0.45);
+  --slate-primary:   var(--ink-mute);
+  --slate-secondary: var(--ink-faint);
+
+  /* Status — locked semantic colors */
+  --status-ok:   var(--accent);
+  --status-warn: var(--mustard);
+  --status-crit: #c46d5f;     /* desaturated coral that still reads as alert */
+  --status-info: var(--ink);
+
+  /* Gradients — Atlas uses solid colors. Aliases collapse to flat. */
+  --header-grad:      var(--bone);
+  --accent-text-grad: var(--accent);
+  --btn-primary-grad: var(--accent);
+
+  /* Shadow aliases (legacy names) */
+  --shadow-glass:        var(--shadow);
+  --shadow-glass-light:  var(--shadow);
+  --shadow-glass-dark:   var(--shadow);
+  --shadow-drama:        var(--shadow);
+  --shadow-drama-hover:  var(--shadow-lift);
+}

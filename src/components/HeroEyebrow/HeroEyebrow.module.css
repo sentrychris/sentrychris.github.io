@@ -1,0 +1,33 @@
+/* HeroEyebrow — Atlas. The "label" recipe: small accent sans caps with
+   a leading 18px accent dash. Used as the hero's first line. */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* Legacy `dot` prop renders a small filled circle instead of (or
+   alongside) the dash — kept for compatibility with the existing API.
+   New copy should drop the dot — the dash IS the indicator. */
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(64, 138, 113, 0.5);
+}

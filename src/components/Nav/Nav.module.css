@@ -1,0 +1,119 @@
+/* Nav — sticky top bar, editorial.
+   The brand mark is a italic Playfair accent "C" — the new logo. */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition:
+    background 280ms ease,
+    border-color 280ms ease,
+    backdrop-filter 280ms ease,
+    -webkit-backdrop-filter 280ms ease;
+}
+
+/* Densified state — set once the user has scrolled past the hero. */
+.scrolled {
+  background: rgba(137, 163, 155, 0);
+  visibility: hidden;
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+          backdrop-filter: blur(14px) saturate(140%);
+  border-bottom-color: var(--line);
+}
+
+.inner {
+  width: min(1180px, 92%);
+  margin: 0 auto;
+  padding: 1.1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* ─── Brand mark ────────────────────────────────────────────── */
+
+.brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.brandMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 1;
+  color: var(--accent);
+  transform: translateY(2px);
+}
+
+.brandName {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* ─── Section links ─────────────────────────────────────────── */
+
+.links {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.8rem;
+  font-family: var(--sans);
+}
+
+.link {
+  position: relative;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--ink-mute);
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -7px;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0;
+  transform: scaleX(0.4);
+  transform-origin: left;
+  transition: opacity 200ms ease, transform 220ms ease;
+}
+
+.link:hover {
+  color: var(--ink);
+}
+
+.linkActive {
+  color: var(--accent);
+}
+
+.linkActive::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+@media (max-width: 720px) {
+  .links {
+    display: none;
+  }
+}

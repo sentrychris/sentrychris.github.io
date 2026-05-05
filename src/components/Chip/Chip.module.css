@@ -1,0 +1,41 @@
+/* Chip — Atlas. Mono caps, ink-on-paper, optional small dot.
+   Editorial restraint — no neon, no border tint. */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.32rem 0.6rem;
+  border-radius: 4px;
+  background: rgba(176, 228, 204, 0.05);
+  border: 1px solid rgba(176, 228, 204, 0.08);
+  font-family: var(--sans);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  white-space: nowrap;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.live    { color: var(--olive); }
+.idle    { color: var(--mustard); }
+.crit    { color: var(--accent); }
+.info    { color: var(--ink); }
+.neutral { color: var(--ink-mute); }
+
+.live .dot {
+  animation: chipPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes chipPulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}

@@ -1,0 +1,75 @@
+/* Footer — closing chrome. Mirrors Nav's brand structure. */
+
+.footer {
+  margin-top: 6rem;
+  padding: 2.5rem 0 3rem;
+  border-top: 1px solid var(--line);
+}
+
+.inner {
+  width: min(1180px, 92%);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.brandMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--accent);
+  transform: translateY(2px);
+}
+
+.brandName {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.6rem;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0;
+  color: var(--ink-faint);
+}
+
+.copy {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+}
+
+.link {
+  color: var(--ink-mute);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 180ms ease;
+}
+
+.link:hover {
+  color: var(--accent);
+}
