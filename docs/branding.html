@@ -1,0 +1,2033 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atlas — Design Language</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Playfair+Display:ital,wght@1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ─────────────────────────────────────────────────────────────
+         ATLAS — design tokens
+         These mirror src/styles/tokens.css exactly. The page itself
+         uses these tokens, so editing one CSS variable here is the
+         same as editing the live spec. The .dark class flips a
+         scoped element to the dark palette (used by the side-by-side
+         palette swatches, by the dark-mode component demos and by
+         the cover page).
+         ───────────────────────────────────────────────────────────── */
+
+      :root {
+        /* Surfaces (paper — warm parchment cream) */
+        --paper:       #f4ede0;
+        --paper-warm:  #faf5e8;
+        --paper-dark:  #e8e0cf;
+        --bone:        #fdf9ee;
+
+        /* Text (ink — deep forest family) */
+        --ink:         #14241f;
+        --ink-soft:    #2a3a35;
+        --ink-mute:    #6b7570;
+        --ink-faint:   #95a09a;
+
+        /* Accents (green family — deeper for contrast on cream) */
+        --accent:        #2a7159;
+        --accent-soft:   #4a8770;
+        --accent-bright: #1a5840;
+
+        /* RGB triplets (used by rgba(var(--ink-rgb), 0.X) tints) */
+        --ink-rgb:         20, 36, 31;
+        --accent-rgb:      42, 113, 89;
+        --accent-soft-rgb: 74, 135, 112;
+
+        /* Lines (deep forest at low alpha) */
+        --line-faint:  rgba(var(--ink-rgb), 0.06);
+        --line-soft:   rgba(var(--ink-rgb), 0.10);
+        --line:        rgba(var(--ink-rgb), 0.16);
+        --line-strong: rgba(var(--ink-rgb), 0.28);
+
+        /* Status semantics */
+        --mustard: #a87a1c;
+        --olive:   #2a7159;
+
+        /* Type families */
+        --sans:  "Montserrat", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        --body:  "Montserrat", -apple-system, system-ui, sans-serif;
+        --serif: "Playfair Display", "Times New Roman", serif;
+        --mono:  "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+
+        /* Type scale */
+        --fs-micro:   0.6875rem;
+        --fs-caption: 0.8125rem;
+        --fs-body:    1rem;
+        --fs-heading: 1.375rem;
+        --fs-display: 3.25rem;
+        --fs-hero:    4.875rem;
+
+        /* Radii */
+        --r-sm:    6px;
+        --r-md:    12px;
+        --r-lg:    18px;
+        --r-pill:  999px;
+
+        /* Shadows */
+        --shadow:
+          0 30px 60px -30px rgba(var(--ink-rgb), 0.16),
+          0 0 0 1px rgba(var(--ink-rgb), 0.04);
+        --shadow-lift:
+          0 24px 48px -24px rgba(var(--ink-rgb), 0.24),
+          0 0 0 1px rgba(var(--ink-rgb), 0.08);
+      }
+
+      [data-theme="dark"],
+      .force-dark {
+        --paper:       #091413;
+        --paper-warm:  #0c1816;
+        --paper-dark:  #050b0a;
+        --bone:        #13211e;
+
+        --ink:         #d8ddbe;
+        --ink-soft:    #d8ddbe;
+        --ink-mute:    #abad9d;
+        --ink-faint:   #dfe4c5;
+
+        --accent:        #408a71;
+        --accent-soft:   #285a48;
+        --accent-bright: #b0e4cc;
+
+        --ink-rgb:         176, 228, 204;
+        --accent-rgb:      64, 138, 113;
+        --accent-soft-rgb: 40, 90, 72;
+
+        --shadow:
+          0 30px 60px -30px rgba(0, 0, 0, 0.65),
+          0 0 0 1px rgba(var(--ink-rgb), 0.04);
+        --shadow-lift:
+          0 24px 48px -24px rgba(0, 0, 0, 0.85),
+          0 0 0 1px rgba(var(--ink-rgb), 0.08);
+
+        --mustard: #d4a857;
+      }
+
+      .force-light {
+        /* explicit light overrides for the side-by-side palette card */
+        --paper:       #f4ede0;
+        --paper-warm:  #faf5e8;
+        --bone:        #fdf9ee;
+        --ink:         #14241f;
+        --ink-soft:    #2a3a35;
+        --ink-mute:    #6b7570;
+        --ink-faint:   #95a09a;
+        --accent:        #2a7159;
+        --accent-soft:   #4a8770;
+        --accent-bright: #1a5840;
+        --ink-rgb:         20, 36, 31;
+        --accent-rgb:      42, 113, 89;
+        --accent-soft-rgb: 74, 135, 112;
+      }
+
+      /* ─── Page chrome ──────────────────────────────────────── */
+
+      *, *::before, *::after { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--body);
+        font-size: 16px;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .page {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0 clamp(24px, 5vw, 64px);
+      }
+
+      /* ─── Cover page ───────────────────────────────────────── */
+
+      .cover {
+        min-height: 100vh;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        background:
+          radial-gradient(circle at 30% 30%, rgba(var(--accent-rgb), 0.08), transparent 50%),
+          radial-gradient(circle at 70% 70%, rgba(var(--ink-rgb), 0.04), transparent 50%),
+          var(--paper);
+        position: relative;
+      }
+
+      .coverEyebrow {
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 1.4rem;
+      }
+
+      .coverEyebrow::before {
+        content: "—";
+        margin-right: 0.6em;
+        color: var(--accent);
+      }
+
+      .coverTitle {
+        font-family: var(--sans);
+        font-weight: 700;
+        font-size: clamp(56px, 9vw, 140px);
+        line-height: 0.95;
+        letter-spacing: -0.02em;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      .coverTitle em {
+        font-family: var(--serif);
+        font-style: italic;
+        font-weight: 500;
+        color: var(--accent);
+        letter-spacing: -0.005em;
+      }
+
+      .coverLede {
+        margin: 1.6rem auto 0;
+        max-width: 38ch;
+        font-size: 18px;
+        color: var(--ink-soft);
+      }
+
+      .coverMeta {
+        margin-top: 4rem;
+        display: inline-flex;
+        gap: 2.4rem;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+      }
+
+      .coverMeta span strong {
+        display: block;
+        margin-top: 4px;
+        color: var(--ink);
+        font-weight: 600;
+        letter-spacing: 0.06em;
+      }
+
+      /* ─── Section frame ────────────────────────────────────── */
+
+      .section {
+        padding: 7rem 0;
+        border-top: 1px solid var(--line-soft);
+      }
+
+      .opener {
+        margin-bottom: 4rem;
+        max-width: 760px;
+      }
+
+      .label {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 28px;
+        font-family: var(--sans);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .label::before {
+        content: "";
+        display: inline-block;
+        width: 18px;
+        height: 1px;
+        background: var(--accent);
+      }
+
+      .label .num {
+        margin-left: 6px;
+        color: var(--ink-faint);
+        font-weight: 500;
+      }
+
+      .h2 {
+        margin: 0;
+        font-family: var(--sans);
+        font-size: clamp(34px, 4.8vw, 68px);
+        font-weight: 700;
+        letter-spacing: -0.014em;
+        line-height: 1.05;
+        color: var(--ink);
+        max-width: 22ch;
+      }
+
+      .h2 em {
+        font-family: var(--serif);
+        font-style: italic;
+        font-weight: 500;
+        color: var(--accent);
+        letter-spacing: -0.005em;
+      }
+
+      .lede {
+        margin: 22px 0 0;
+        font-family: var(--body);
+        font-size: 17px;
+        line-height: 1.55;
+        color: var(--ink-soft);
+        max-width: 56ch;
+      }
+
+      h3 {
+        font-family: var(--sans);
+        font-weight: 600;
+        font-size: 22px;
+        letter-spacing: -0.01em;
+        margin: 0 0 1.2rem;
+        color: var(--ink);
+      }
+
+      h4 {
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin: 0 0 0.8rem;
+      }
+
+      p { margin: 0 0 1rem; }
+
+      code, pre {
+        font-family: var(--mono);
+        font-size: 12px;
+      }
+
+      code {
+        padding: 1px 6px;
+        border-radius: 3px;
+        background: rgba(var(--ink-rgb), 0.06);
+        color: var(--ink);
+      }
+
+      /* ─── Token charts ─────────────────────────────────────── */
+
+      .tokenGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.4rem;
+      }
+
+      .tokenSwatch {
+        border: 1px solid var(--line);
+        border-radius: var(--r-sm);
+        overflow: hidden;
+        background: var(--paper-warm);
+      }
+
+      .tokenSwatch .chip {
+        display: block;
+        height: 96px;
+        background: var(--swatch, var(--paper));
+        border-bottom: 1px solid var(--line);
+      }
+
+      .tokenSwatch .meta {
+        padding: 0.7rem 0.9rem 0.85rem;
+      }
+
+      .tokenSwatch .name {
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        color: var(--ink);
+      }
+
+      .tokenSwatch .value {
+        margin-top: 4px;
+        font-family: var(--mono);
+        font-size: 10.5px;
+        color: var(--ink-mute);
+      }
+
+      .tokenSwatch .role {
+        margin-top: 6px;
+        font-size: 12.5px;
+        color: var(--ink-soft);
+        line-height: 1.45;
+      }
+
+      /* Side-by-side theme comparison */
+      .themeSplit {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.4rem;
+        margin-top: 1.4rem;
+      }
+
+      @media (max-width: 720px) {
+        .themeSplit { grid-template-columns: 1fr; }
+      }
+
+      .themePanel {
+        padding: 2rem;
+        border-radius: var(--r-md);
+        border: 1px solid var(--line);
+        background: var(--paper);
+        color: var(--ink);
+      }
+
+      .themePanel.dark {
+        border-color: var(--line);
+      }
+
+      .themePanel h4 {
+        margin-bottom: 1.4rem;
+      }
+
+      /* ─── Type specimens ───────────────────────────────────── */
+
+      .typeSpec {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 2rem;
+        align-items: baseline;
+        padding: 1.2rem 0;
+        border-bottom: 1px solid var(--line-faint);
+      }
+
+      .typeSpec:last-child { border-bottom: 0; }
+
+      .typeSpec .meta {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+      }
+
+      .typeSpec .meta strong {
+        display: block;
+        color: var(--ink);
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        margin-bottom: 4px;
+      }
+
+      .typeSpec .specimen {
+        color: var(--ink);
+      }
+
+      .specimen.serif  { font-family: var(--serif); font-style: italic; font-weight: 500; }
+      .specimen.sans   { font-family: var(--sans); }
+      .specimen.body   { font-family: var(--body); }
+      .specimen.mono   { font-family: var(--mono); letter-spacing: 0.04em; }
+
+      /* ─── Pattern demos ────────────────────────────────────── */
+
+      .demoGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+      }
+
+      .demoCard {
+        padding: 1.8rem;
+        border: 1px solid var(--line);
+        border-radius: var(--r-md);
+        background: var(--paper-warm);
+      }
+
+      .demoCard h4 { margin-bottom: 1rem; }
+
+      .demoCaption {
+        margin-top: 0.8rem;
+        font-size: 13px;
+        color: var(--ink-mute);
+      }
+
+      /* Drop cap demo */
+      .dropCap {
+        font-size: 16px;
+        line-height: 1.65;
+        color: var(--ink-soft);
+        margin: 0;
+      }
+
+      .dropCap::first-letter {
+        font-family: var(--serif);
+        font-style: italic;
+        font-weight: 500;
+        font-size: 60px;
+        line-height: 0.85;
+        color: var(--accent);
+        float: left;
+        margin: 4px 10px 0 0;
+      }
+
+      /* Pull quote demo */
+      .pullQuote {
+        font-family: var(--serif);
+        font-style: italic;
+        font-weight: 500;
+        font-size: 19px;
+        line-height: 1.4;
+        color: var(--ink);
+        padding: 0.4rem 0 0.4rem 1.6rem;
+        border-left: 1px solid var(--accent);
+        margin: 0;
+      }
+
+      .pullQuote::before {
+        content: "“";
+        margin-right: 0.05em;
+        color: var(--accent);
+      }
+
+      .pullQuote::after {
+        content: "”";
+        margin-left: 0.05em;
+        color: var(--accent);
+      }
+
+      /* Fleuron */
+      .fleuron {
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+        color: var(--accent);
+        margin: 0.4rem 0;
+      }
+
+      .fleuron .rule {
+        flex: 1 1 auto;
+        height: 1px;
+        background: var(--line);
+      }
+
+      .fleuron .mark {
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 18px;
+        opacity: 0.9;
+      }
+
+      /* Signature */
+      .signature {
+        text-align: center;
+      }
+
+      .signature .rule {
+        height: 1px;
+        background: var(--line);
+        margin-bottom: 1rem;
+      }
+
+      .signature .name {
+        font-family: var(--serif);
+        font-style: italic;
+        font-weight: 500;
+        font-size: 22px;
+        color: var(--accent);
+      }
+
+      .signature .meta {
+        margin-top: 0.6rem;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+      }
+
+      .signature .meta .sep {
+        margin: 0 0.6em;
+        color: var(--accent);
+      }
+
+      /* ─── Components ───────────────────────────────────────── */
+
+      /* Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.55rem 1.1rem;
+        border: 1px solid var(--line-strong);
+        border-radius: var(--r-pill);
+        background: transparent;
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+        transition:
+          background 220ms ease,
+          border-color 220ms ease,
+          color 220ms ease,
+          transform 280ms cubic-bezier(.2, .8, .2, 1);
+      }
+
+      .btn:hover {
+        background: rgba(var(--accent-rgb), 0.08);
+        border-color: var(--accent);
+        color: var(--accent);
+        transform: translateY(-1px);
+      }
+
+      .btn.primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: var(--bone);
+      }
+
+      .btn.primary:hover {
+        background: var(--accent-bright);
+        border-color: var(--accent-bright);
+        color: var(--bone);
+      }
+
+      /* Vogue pill — bordered editorial pill with icon + value + arrow */
+      .voguePill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.85rem;
+        padding: 0.55rem 1.1rem 0.55rem 0.85rem;
+        background: rgba(var(--ink-rgb), 0.025);
+        border: 1px solid var(--line);
+        border-radius: var(--r-pill);
+        text-decoration: none;
+        color: var(--ink);
+        transition:
+          border-color 240ms ease,
+          background 240ms ease,
+          transform 320ms cubic-bezier(.2, .8, .2, 1),
+          box-shadow 320ms ease;
+      }
+
+      .voguePill:hover,
+      .voguePill:focus-visible {
+        border-color: var(--accent);
+        background: rgba(var(--accent-rgb), 0.08);
+        transform: translateY(-2px);
+        outline: none;
+        box-shadow: 0 14px 28px -18px rgba(var(--ink-rgb), 0.22);
+      }
+
+      .voguePill:hover .icon,
+      .voguePill:focus-visible .icon {
+        border-color: var(--accent);
+        background: rgba(var(--accent-rgb), 0.18);
+      }
+
+      .voguePill:hover .value,
+      .voguePill:focus-visible .value {
+        color: var(--accent);
+      }
+
+      .voguePill:hover .arrow,
+      .voguePill:focus-visible .arrow {
+        transform: translateX(6px);
+      }
+
+      .voguePill .icon,
+      .voguePill .value,
+      .voguePill .arrow {
+        transition:
+          color 200ms ease,
+          background 200ms ease,
+          border-color 200ms ease,
+          transform 320ms cubic-bezier(.2, .8, .2, 1);
+      }
+
+      .voguePill.primary {
+        padding: 0.7rem 1.5rem 0.7rem 1.05rem;
+        gap: 1rem;
+        background: rgba(var(--accent-rgb), 0.06);
+        border-color: rgba(var(--accent-rgb), 0.45);
+      }
+
+      .voguePill .icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1px solid var(--line-strong);
+        background: rgba(var(--accent-rgb), 0.06);
+        color: var(--accent);
+      }
+
+      .voguePill.primary .icon {
+        width: 36px;
+        height: 36px;
+        border-color: var(--accent);
+        background: rgba(var(--accent-rgb), 0.12);
+      }
+
+      .voguePill .icon svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      .voguePill.primary .icon svg {
+        width: 17px;
+        height: 17px;
+      }
+
+      .voguePill .value {
+        font-family: var(--serif);
+        font-style: italic;
+        font-weight: 500;
+        font-size: 16px;
+        color: var(--ink);
+        letter-spacing: -0.005em;
+      }
+
+      .voguePill.primary .value {
+        font-size: 22px;
+        color: var(--accent);
+      }
+
+      .voguePill .arrow {
+        font-family: var(--serif);
+        font-style: italic;
+        color: var(--accent);
+        font-size: 18px;
+      }
+
+      .voguePill.primary .arrow { font-size: 24px; }
+
+      /* Plate badge */
+      .plateBadge {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 0.45rem;
+        padding: 0.28rem 0.55rem;
+        border: 1px solid var(--line-strong);
+        border-radius: 3px;
+        background: rgba(var(--ink-rgb), 0.025);
+      }
+
+      .plateBadge .lbl {
+        font-family: var(--mono);
+        font-size: 9.5px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+      }
+
+      .plateBadge .num {
+        font-family: var(--serif);
+        font-style: italic;
+        font-weight: 500;
+        font-size: 18px;
+        color: var(--accent);
+      }
+
+      /* Specifications schedule (About facts panel) */
+      .specsPanel {
+        border: 1px solid var(--line);
+        background: rgba(var(--ink-rgb), 0.018);
+        border-radius: 4px;
+        overflow: hidden;
+        max-width: 280px;
+      }
+
+      .specsHeader {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding: 0.55rem 0.9rem;
+        background: rgba(var(--ink-rgb), 0.04);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .specsHeader .tick {
+        width: 8px;
+        height: 1px;
+        background: var(--accent);
+      }
+
+      .specsHeader .lbl {
+        flex: 1;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        font-weight: 500;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--accent);
+        text-align: center;
+      }
+
+      .specRow {
+        display: grid;
+        grid-template-columns: 36px 1fr;
+        gap: 0.7rem;
+        align-items: start;
+        padding: 0.95rem 1rem;
+        border-bottom: 1px solid var(--line-faint);
+      }
+
+      .specRow:last-child { border-bottom: 0; }
+
+      .specRow .num {
+        font-family: var(--serif);
+        font-style: italic;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 0.9;
+        color: var(--accent);
+        text-align: center;
+        margin-top: -2px;
+      }
+
+      .specRow dt {
+        font-family: var(--mono);
+        font-size: 9.5px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+      }
+
+      .specRow dd {
+        margin: 4px 0 0;
+        font-family: var(--serif);
+        font-style: italic;
+        font-weight: 500;
+        font-size: 15px;
+        color: var(--ink);
+      }
+
+      /* Tracker — matches the live component (same pulse, hover, glow) */
+      .tracker {
+        position: relative;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2.4rem;
+      }
+
+      .tracker::before {
+        content: "";
+        position: absolute;
+        left: 5.5px;
+        top: 0.5rem;
+        bottom: 0.5rem;
+        width: 1px;
+        background: var(--line-soft);
+        transform: translateX(-50%);
+        z-index: 0;
+      }
+
+      .trackerEntry {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        padding: 0.35rem 0.5rem 0.35rem 18px;
+        text-decoration: none;
+        color: var(--ink-mute);
+        cursor: pointer;
+        background: transparent;
+        border: 0;
+        font: inherit;
+      }
+
+      .trackerEntry .dot {
+        position: absolute;
+        left: 5.5px;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        border: 1px solid var(--line-strong);
+        background: var(--paper);
+        z-index: 1;
+        transition: border-color 200ms ease, background 200ms ease;
+      }
+
+      .trackerEntry:hover .dot {
+        border-color: var(--accent);
+        background: rgba(var(--accent-rgb), 0.08);
+      }
+
+      .trackerEntry .label {
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        opacity: 0.62;
+        transition: color 200ms ease, opacity 200ms ease;
+      }
+
+      .trackerEntry:hover .label {
+        color: var(--ink);
+        opacity: 1;
+      }
+
+      /* Active — accent dot + sonar pulse via two staggered rings. */
+      .trackerEntry.active .dot {
+        background: var(--accent);
+        border-color: var(--accent);
+        box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.55);
+      }
+
+      .trackerEntry.active .dot::before,
+      .trackerEntry.active .dot::after {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: 50%;
+        border: 1px solid var(--accent);
+        pointer-events: none;
+        animation: trackerPulse 2.2s ease-out infinite;
+      }
+
+      .trackerEntry.active .dot::after {
+        animation-delay: 1.1s;
+      }
+
+      @keyframes trackerPulse {
+        0%   { transform: scale(1);   opacity: 0.7; }
+        100% { transform: scale(3.4); opacity: 0; }
+      }
+
+      .trackerEntry.active .label {
+        color: var(--accent);
+        opacity: 1;
+        font-weight: 600;
+      }
+
+      /* Schematic snippet */
+      .schematicDemo {
+        position: relative;
+        height: 260px;
+        border-radius: var(--r-md);
+        overflow: hidden;
+        background:
+          linear-gradient(to right,  rgba(var(--ink-rgb), 0.04) 1px, transparent 1px) 0 0 / 40px 40px,
+          linear-gradient(to bottom, rgba(var(--ink-rgb), 0.04) 1px, transparent 1px) 0 0 / 40px 40px,
+          var(--paper);
+        border: 1px solid var(--line);
+      }
+
+      .schematicDemo svg {
+        width: 100%;
+        height: 100%;
+        fill: none;
+        stroke: rgba(var(--ink-rgb), 0.10);
+        stroke-width: 0.8;
+      }
+
+      /* Browser frame mock */
+      .browserFrame {
+        border: 1px solid var(--line);
+        background: var(--bone);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        max-width: 520px;
+      }
+
+      .browserBar {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding: 0.65rem 0.9rem;
+        background: rgba(var(--ink-rgb), 0.04);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .browserDot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+      }
+      .browserDotR { background: rgba(196, 109, 95, 0.55); }
+      .browserDotY { background: rgba(212, 168, 87, 0.55); }
+      .browserDotG { background: rgba(var(--accent-rgb), 0.65); }
+
+      .browserUrl {
+        margin-left: 0.4rem;
+        flex: 1;
+        padding: 0.22rem 0.6rem;
+        border-radius: 3px;
+        background: rgba(var(--ink-rgb), 0.04);
+        color: var(--ink-faint);
+        font-family: var(--mono);
+        font-size: 10.5px;
+      }
+
+      .browserBody {
+        padding: 1.6rem;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--ink-mute);
+      }
+
+      /* Sun/Moon toggle (static demo) */
+      .toggleDemo {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border: 1px solid var(--line);
+        border-radius: var(--r-pill);
+        color: var(--ink-mute);
+        cursor: pointer;
+        background: transparent;
+      }
+
+      .toggleDemo svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* Pulse dot */
+      .pulse {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        animation: pulseDot 1.6s ease-in-out infinite;
+      }
+
+      @keyframes pulseDot {
+        0%, 100% { opacity: 1; }
+        50%      { opacity: 0.35; }
+      }
+
+      /* Tables */
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+
+      .table th, .table td {
+        text-align: left;
+        padding: 0.7rem 0.8rem;
+        border-bottom: 1px solid var(--line-faint);
+        vertical-align: top;
+      }
+
+      .table th {
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .table code {
+        font-size: 11.5px;
+      }
+
+      /* Voice list */
+      .voice {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.4rem;
+      }
+
+      @media (max-width: 720px) {
+        .voice { grid-template-columns: 1fr; }
+      }
+
+      .voice .col {
+        padding: 1.6rem;
+        border: 1px solid var(--line);
+        border-radius: var(--r-md);
+        background: var(--paper-warm);
+      }
+
+      .voice .col h4 {
+        margin-bottom: 1rem;
+      }
+
+      .voice .col h4.do  { color: var(--accent); }
+      .voice .col h4.dont { color: var(--mustard); }
+
+      .voice .col p { font-size: 14px; color: var(--ink-soft); margin: 0 0 0.6rem; }
+
+      /* Footer */
+      .colophon {
+        margin-top: 5rem;
+        padding: 4rem 0 5rem;
+        border-top: 1px solid var(--line);
+        text-align: center;
+        color: var(--ink-mute);
+        font-size: 13px;
+      }
+
+      .colophon .name {
+        font-family: var(--serif);
+        font-style: italic;
+        color: var(--accent);
+        font-size: 22px;
+      }
+
+      /* TOC */
+      .toc {
+        margin-top: 2rem;
+        column-count: 2;
+        column-gap: 2rem;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .toc a {
+        display: block;
+        color: var(--ink-mute);
+        text-decoration: none;
+        padding: 0.5rem 0;
+        border-bottom: 1px dashed var(--line-faint);
+      }
+
+      .toc a:hover { color: var(--accent); }
+
+      .toc a .num {
+        display: inline-block;
+        width: 28px;
+        color: var(--accent);
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 14px;
+        text-transform: none;
+      }
+
+      /* ─── Floating theme toggle ────────────────────────────── */
+
+      .themeToggle {
+        position: fixed;
+        top: 1.6rem;
+        right: 1.6rem;
+        z-index: 100;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border: 1px solid var(--line);
+        border-radius: var(--r-pill);
+        background: var(--paper-warm);
+        color: var(--ink-mute);
+        cursor: pointer;
+        font: inherit;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition:
+          color 220ms ease,
+          border-color 220ms ease,
+          background 220ms ease,
+          transform 220ms cubic-bezier(.2, .8, .2, 1);
+        box-shadow: var(--shadow);
+      }
+
+      .themeToggle:hover,
+      .themeToggle:focus-visible {
+        color: var(--accent);
+        border-color: var(--accent);
+        background: rgba(var(--accent-rgb), 0.08);
+        transform: translateY(-1px);
+        outline: none;
+      }
+
+      .themeToggle .iconStack {
+        position: relative;
+        width: 18px;
+        height: 18px;
+      }
+
+      .themeToggle svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        transition: opacity 220ms ease;
+      }
+
+      /* Light mode → show sun (next click → dark). */
+      .themeToggle .sun  { opacity: 1; }
+      .themeToggle .moon { opacity: 0; }
+
+      [data-theme="dark"] .themeToggle .sun  { opacity: 0; }
+      [data-theme="dark"] .themeToggle .moon { opacity: 1; }
+
+      /* ─── Parallax demo ────────────────────────────────────── */
+
+      .parallaxDemo {
+        position: relative;
+        height: 320px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-md);
+        background: var(--paper);
+        scrollbar-width: thin;
+        scrollbar-color: rgba(var(--ink-rgb), 0.18) transparent;
+      }
+
+      .parallaxDemo::-webkit-scrollbar { height: 6px; }
+      .parallaxDemo::-webkit-scrollbar-thumb {
+        background: rgba(var(--ink-rgb), 0.18);
+        border-radius: 3px;
+      }
+
+      .parallaxStage {
+        position: relative;
+        width: 300%;
+        height: 100%;
+      }
+
+      .parallaxLayer {
+        position: absolute;
+        inset: 0;
+        will-change: transform;
+      }
+
+      .parallaxLayer.grid {
+        background-image:
+          linear-gradient(to right,  rgba(var(--ink-rgb), 0.06) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(var(--ink-rgb), 0.06) 1px, transparent 1px);
+        background-size: 40px 40px;
+        background-position: 0 0;
+      }
+
+      .parallaxLayer.shapes svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        fill: none;
+        stroke: rgba(var(--ink-rgb), 0.12);
+        stroke-width: 0.8;
+      }
+
+      .parallaxLayer.ornaments {
+        pointer-events: none;
+      }
+
+      .parallaxOrnament {
+        position: absolute;
+        font-family: var(--mono);
+        font-size: 9px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .parallaxLabels {
+        position: absolute;
+        top: 0.7rem;
+        left: 0.9rem;
+        right: 0.9rem;
+        display: flex;
+        justify-content: space-between;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      .parallaxRates {
+        margin-top: 0.8rem;
+        display: flex;
+        gap: 1.4rem;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-mute);
+      }
+
+      .parallaxRates strong {
+        color: var(--accent);
+        font-weight: 600;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ─── Floating theme toggle (persistent via localStorage) ─── -->
+    <button id="themeToggle" class="themeToggle" type="button" aria-label="Toggle theme">
+      <span class="iconStack" aria-hidden="true">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+        </svg>
+      </span>
+    </button>
+
+    <!-- ─── Cover ────────────────────────────────────────────── -->
+
+    <section class="cover">
+      <div>
+        <p class="coverEyebrow">Atlas · Design Language · MMXXVI</p>
+        <h1 class="coverTitle">
+          Atlas. <em>An editorial<br />for the web.</em>
+        </h1>
+        <p class="coverLede">
+          Paper-and-ink at day or night. A single design language for
+          Chris Rowles' projects — restrained motion, generous
+          whitespace, italic Playfair as the signature.
+        </p>
+        <div class="coverMeta">
+          <span>Identity<strong>Atlas</strong></span>
+          <span>Edition<strong>Nº 02</strong></span>
+          <span>Year<strong>MMXXVI</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Table of contents ───────────────────────────────── -->
+
+    <section class="section page" id="toc">
+      <header class="opener">
+        <div class="label"><span>Contents</span><span class="num">Nº 00</span></div>
+        <h2 class="h2">A spec, a <em>swatch book</em>, an executable reference.</h2>
+        <p class="lede">
+          Every token, every typographic recipe, every component pattern
+          rendered live in both themes. If you're reading this in a
+          browser, the page is using the very tokens it documents.
+        </p>
+      </header>
+
+      <nav class="toc">
+        <a href="#identity"><span class="num">I</span> Identity</a>
+        <a href="#colour"><span class="num">II</span> Colour</a>
+        <a href="#typography"><span class="num">III</span> Typography</a>
+        <a href="#patterns"><span class="num">IV</span> Patterns</a>
+        <a href="#components"><span class="num">V</span> Components</a>
+        <a href="#layouts"><span class="num">VI</span> Layouts</a>
+        <a href="#motion"><span class="num">VII</span> Motion</a>
+        <a href="#spacing"><span class="num">VIII</span> Spacing</a>
+        <a href="#voice"><span class="num">IX</span> Voice</a>
+        <a href="#colophon"><span class="num">X</span> Colophon</a>
+      </nav>
+    </section>
+
+    <!-- ─── I. Identity ─────────────────────────────────────── -->
+
+    <section class="section page" id="identity">
+      <header class="opener">
+        <div class="label"><span>Identity</span><span class="num">Nº I</span></div>
+        <h2 class="h2">Printed editorial, set in serif italic, <em>at day or night.</em></h2>
+        <p class="lede">
+          Atlas reads like a small magazine. Plain declarative copy in a
+          warm sans, italic Playfair only for accent phrases and
+          numerals, mono caps for labels. A green accent acts like an
+          LED — present everywhere, dominant nowhere.
+        </p>
+      </header>
+
+      <div class="demoGrid">
+        <div class="demoCard">
+          <h4>Three sensibilities</h4>
+          <p style="color: var(--ink-soft); font-size: 14.5px; line-height: 1.6;">
+            <strong>Editorial.</strong> Serif italic accents, generous
+            whitespace, manuscript rhythm.
+          </p>
+          <p style="color: var(--ink-soft); font-size: 14.5px; line-height: 1.6;">
+            <strong>Manifest.</strong> Plain declarative copy, numbered
+            sections (Nº 01), coordinates as marginalia.
+          </p>
+          <p style="color: var(--ink-soft); font-size: 14.5px; line-height: 1.6;">
+            <strong>Quiet craft.</strong> Soft drop shadows, hairline ink
+            highlights, no neon, no glass, no frame chrome.
+          </p>
+        </div>
+
+        <div class="demoCard">
+          <h4>Six things that cannot be dropped</h4>
+          <ol style="color: var(--ink-soft); font-size: 14px; line-height: 1.7; padding-left: 1.2em;">
+            <li>The paper-and-ink palette (cream/forest, light or dark).</li>
+            <li>The type triumvirate — Montserrat, Playfair italic, JetBrains Mono.</li>
+            <li>The accent leading-dash on every section eyebrow.</li>
+            <li>The italic Playfair accent phrase on hero/section titles.</li>
+            <li>The Nº NN badge on each section.</li>
+            <li>Restrained motion under <code>prefers-reduced-motion</code>.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── II. Colour ──────────────────────────────────────── -->
+
+    <section class="section page" id="colour">
+      <header class="opener">
+        <div class="label"><span>Colour</span><span class="num">Nº II</span></div>
+        <h2 class="h2">Two themes, <em>one palette.</em></h2>
+        <p class="lede">
+          Light is the default — warm parchment cream, deep forest ink,
+          deeper emerald accent. Dark inverts to forest paper and pale
+          mint ink. Both share the same green accent family. The runtime
+          flips between them via <code>data-theme</code> on
+          <code>&lt;html&gt;</code>.
+        </p>
+      </header>
+
+      <p style="color: var(--ink-mute); font-size: 13px;">
+        These two panels are <em>forced</em> light and dark for
+        side-by-side comparison — they don't follow the page theme.
+        Toggle the rest of the page via the <code>☀ / ☾</code> button at
+        the top-right.
+      </p>
+
+      <div class="themeSplit">
+        <!-- LIGHT — uses force-light to override the inherited theme -->
+        <div class="themePanel force-light">
+          <h4>Light theme</h4>
+          <div class="tokenGrid">
+            <div class="tokenSwatch"><span class="chip" style="--swatch: var(--paper)"></span><div class="meta"><div class="name">--paper</div><div class="value">#f4ede0</div><div class="role">Page background — warm parchment cream</div></div></div>
+            <div class="tokenSwatch"><span class="chip" style="--swatch: var(--paper-warm)"></span><div class="meta"><div class="name">--paper-warm</div><div class="value">#faf5e8</div><div class="role">Subtle elevation</div></div></div>
+            <div class="tokenSwatch"><span class="chip" style="--swatch: var(--bone)"></span><div class="meta"><div class="name">--bone</div><div class="value">#fdf9ee</div><div class="role">Lightest — cards, browser chrome</div></div></div>
+            <div class="tokenSwatch"><span class="chip" style="--swatch: var(--ink)"></span><div class="meta"><div class="name">--ink</div><div class="value">#14241f</div><div class="role">Primary text — deep forest near-black</div></div></div>
+            <div class="tokenSwatch"><span class="chip" style="--swatch: var(--ink-mute)"></span><div class="meta"><div class="name">--ink-mute</div><div class="value">#6b7570</div><div class="role">Secondary text, labels in body</div></div></div>
+            <div class="tokenSwatch"><span class="chip" style="--swatch: var(--accent)"></span><div class="meta"><div class="name">--accent</div><div class="value">#2a7159</div><div class="role">Hero accent — deep emerald</div></div></div>
+            <div class="tokenSwatch"><span class="chip" style="--swatch: var(--accent-soft)"></span><div class="meta"><div class="name">--accent-soft</div><div class="value">#4a8770</div><div class="role">Hover fills, secondary accent</div></div></div>
+            <div class="tokenSwatch"><span class="chip" style="--swatch: var(--accent-bright)"></span><div class="meta"><div class="name">--accent-bright</div><div class="value">#1a5840</div><div class="role">Deepest emerald — emphasis</div></div></div>
+          </div>
+        </div>
+
+        <!-- DARK — force-dark forces the dark palette regardless of toggle -->
+        <div class="themePanel force-dark">
+          <h4>Dark theme</h4>
+          <div class="tokenGrid">
+            <div class="tokenSwatch"><span class="chip" style="--swatch: var(--paper)"></span><div class="meta"><div class="name">--paper</div><div class="value">#091413</div><div class="role">Page background — dark forest</div></div></div>
+            <div class="tokenSwatch"><span class="chip" style="--swatch: var(--paper-warm)"></span><div class="meta"><div class="name">--paper-warm</div><div class="value">#0c1816</div><div class="role">Subtle lift</div></div></div>
+            <div class="tokenSwatch"><span class="chip" style="--swatch: var(--bone)"></span><div class="meta"><div class="name">--bone</div><div class="value">#13211e</div><div class="role">Lightest — cards</div></div></div>
+            <div class="tokenSwatch"><span class="chip" style="--swatch: var(--ink)"></span><div class="meta"><div class="name">--ink</div><div class="value">#d8ddbe</div><div class="role">Primary text — pale mint</div></div></div>
+            <div class="tokenSwatch"><span class="chip" style="--swatch: var(--ink-mute)"></span><div class="meta"><div class="name">--ink-mute</div><div class="value">#abad9d</div><div class="role">Secondary text</div></div></div>
+            <div class="tokenSwatch"><span class="chip" style="--swatch: var(--accent)"></span><div class="meta"><div class="name">--accent</div><div class="value">#408a71</div><div class="role">Hero accent — medium green</div></div></div>
+            <div class="tokenSwatch"><span class="chip" style="--swatch: var(--accent-soft)"></span><div class="meta"><div class="name">--accent-soft</div><div class="value">#285a48</div><div class="role">Hover fills</div></div></div>
+            <div class="tokenSwatch"><span class="chip" style="--swatch: var(--accent-bright)"></span><div class="meta"><div class="name">--accent-bright</div><div class="value">#b0e4cc</div><div class="role">Mint highlight</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 4rem;">Lines &amp; tints — rgb-triplet pattern</h3>
+      <p style="color: var(--ink-soft); max-width: 60ch;">
+        Borders, hovers and glows reference an rgb-triplet token
+        (<code>--ink-rgb</code>, <code>--accent-rgb</code>) so the
+        same <code>rgba(var(--ink-rgb), 0.06)</code> rule resolves to a
+        dark-on-cream shadow in light mode and a mint-on-forest
+        highlight in dark mode without changing the CSS.
+      </p>
+
+      <table class="table" style="margin-top: 1.2rem;">
+        <thead><tr><th>Token</th><th>Light</th><th>Dark</th><th>Used for</th></tr></thead>
+        <tbody>
+          <tr><td><code>--line-faint</code></td><td>rgba(20, 36, 31, .06)</td><td>rgba(176, 228, 204, .05)</td><td>Hairline dividers between rows</td></tr>
+          <tr><td><code>--line-soft</code></td><td>rgba(20, 36, 31, .10)</td><td>rgba(176, 228, 204, .08)</td><td>Default borders, schematic rule</td></tr>
+          <tr><td><code>--line</code></td><td>rgba(20, 36, 31, .16)</td><td>rgba(176, 228, 204, .16)</td><td>Card borders, button outlines</td></tr>
+          <tr><td><code>--line-strong</code></td><td>rgba(20, 36, 31, .28)</td><td>rgba(176, 228, 204, .28)</td><td>Plate badges, emphasis borders</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ─── III. Typography ─────────────────────────────────── -->
+
+    <section class="section page" id="typography">
+      <header class="opener">
+        <div class="label"><span>Typography</span><span class="num">Nº III</span></div>
+        <h2 class="h2">A triumvirate, <em>used with restraint.</em></h2>
+        <p class="lede">
+          Three families do all the work. Italic Playfair is reserved —
+          accent phrases on titles, italic numerals, the magazine
+          signature — and never set as body. Mono caps drive every
+          eyebrow / label / fact-list value. Montserrat carries
+          everything else.
+        </p>
+      </header>
+
+      <h3>Families</h3>
+
+      <div class="typeSpec">
+        <div class="meta"><strong>Sans / display</strong>Montserrat<br />500 · 600 · 700</div>
+        <div class="specimen sans" style="font-size: 38px; line-height: 1.05; font-weight: 700; letter-spacing: -0.014em;">12+ years building beautiful apps.</div>
+      </div>
+      <div class="typeSpec">
+        <div class="meta"><strong>Body</strong>Montserrat<br />400 · 500</div>
+        <div class="specimen body" style="font-size: 17px; line-height: 1.55;">A highly-skilled Lead Developer with 12+ years of experience, in building, testing and maintaining software and web applications across a wide range of business sectors.</div>
+      </div>
+      <div class="typeSpec">
+        <div class="meta"><strong>Italic</strong>Playfair Display<br />Italic 500 / 600</div>
+        <div class="specimen serif" style="font-size: 38px; color: var(--accent);">beautiful web apps.</div>
+      </div>
+      <div class="typeSpec">
+        <div class="meta"><strong>Mono</strong>JetBrains Mono<br />400 · 500</div>
+        <div class="specimen mono" style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent);">— Available · Lead/Senior Roles &amp; Consulting</div>
+      </div>
+
+      <h3 style="margin-top: 4rem;">Scale</h3>
+
+      <table class="table">
+        <thead><tr><th>Token</th><th>Size</th><th>Used for</th></tr></thead>
+        <tbody>
+          <tr><td><code>--fs-hero</code></td><td>4.875rem (78px)</td><td>Hero h1 base, scales clamp(44, 6vw, 100)</td></tr>
+          <tr><td><code>--fs-display</code></td><td>3.25rem (52px)</td><td>Section h2 base, scales clamp(32, 4vw, 64)</td></tr>
+          <tr><td><code>--fs-heading</code></td><td>1.375rem (22px)</td><td>h3, sub-section titles</td></tr>
+          <tr><td><code>--fs-body</code></td><td>1rem (16px)</td><td>Default body</td></tr>
+          <tr><td><code>--fs-caption</code></td><td>0.8125rem (13px)</td><td>Small captions, fine print</td></tr>
+          <tr><td><code>--fs-micro</code></td><td>0.6875rem (11px)</td><td>Mono caps labels, eyebrows</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ─── IV. Patterns ────────────────────────────────────── -->
+
+    <section class="section page" id="patterns">
+      <header class="opener">
+        <div class="label"><span>Patterns</span><span class="num">Nº IV</span></div>
+        <h2 class="h2">Recurring marks, <em>set across the system.</em></h2>
+        <p class="lede">
+          The label-with-dash, the italic Playfair accent on titles, the
+          Nº badge, the drop cap, the pull quote, the fleuron divider,
+          and the magazine signature. Each shows up in multiple sections
+          — they are the brand's recurring fingerprints.
+        </p>
+      </header>
+
+      <div class="demoGrid">
+        <!-- Eyebrow label -->
+        <div class="demoCard">
+          <h4>Eyebrow label</h4>
+          <div class="label"><span>About</span><span class="num">Nº 01</span></div>
+          <p class="demoCaption">Mono 11px, accent colour, leading 18px accent dash, optional italic Playfair Nº badge in faint ink.</p>
+        </div>
+
+        <!-- Title with accent -->
+        <div class="demoCard">
+          <h4>Title with accent phrase</h4>
+          <h2 class="h2" style="font-size: 38px;">Software for <em>everyone.</em></h2>
+          <p class="demoCaption">Inter Tight headline + italic Playfair phrase in accent. One accent per heading, never two.</p>
+        </div>
+
+        <!-- Drop cap -->
+        <div class="demoCard">
+          <h4>Drop cap</h4>
+          <p class="dropCap">Proven track record of inheriting complex legacy systems, bringing them back up to standard, and shipping clean, well-tested code on top.</p>
+          <p class="demoCaption">Italic Playfair first letter, accent colour, floats left for body wrap. Used on About's first paragraph and Experience summaries.</p>
+        </div>
+
+        <!-- Pull quote -->
+        <div class="demoCard">
+          <h4>Pull quote</h4>
+          <blockquote class="pullQuote">Most of the work has been hands-on across the full stack: frontend, backend, infrastructure.</blockquote>
+          <p class="demoCaption">Italic Playfair, accent left border, accent curly quotes. Reserved for the second paragraph of About.</p>
+        </div>
+
+        <!-- Fleuron -->
+        <div class="demoCard">
+          <h4>Magazine fleuron</h4>
+          <div class="fleuron">
+            <span class="rule"></span>
+            <span class="mark">✻</span>
+            <span class="rule"></span>
+          </div>
+          <p class="demoCaption">Hairline rule + italic Playfair ✻ in accent. Separates magazine sections (Experience entries, Contact composition).</p>
+        </div>
+
+        <!-- Signature -->
+        <div class="demoCard">
+          <h4>Signature flourish</h4>
+          <div class="signature">
+            <div class="rule"></div>
+            <p class="name">Atlas · 51.5074° N · 0.1278° W · MMXXVI</p>
+            <p class="meta">United Kingdom <span class="sep">·</span> MMXXVI</p>
+          </div>
+          <p class="demoCaption">Italic Playfair sign-off line, mono caps location strip beneath. Closes About and Contact.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── V. Components ───────────────────────────────────── -->
+
+    <section class="section page" id="components">
+      <header class="opener">
+        <div class="label"><span>Components</span><span class="num">Nº V</span></div>
+        <h2 class="h2">The system's <em>working parts.</em></h2>
+        <p class="lede">
+          Buttons, pills, cards, schedules, badges, the Tracker, the
+          Schematic, the browser frame. Each rendered live below — copy
+          the markup or the React component out of <code>src/components/</code>.
+        </p>
+      </header>
+
+      <h3>Buttons</h3>
+      <p style="color: var(--ink-soft);">Primary button uses the accent fill, default is outline. Both pill-shaped.</p>
+      <div style="display: inline-flex; gap: 14px; margin-top: 1rem;">
+        <button class="btn primary">See work</button>
+        <button class="btn">Get in touch</button>
+      </div>
+
+      <h3 style="margin-top: 4rem;">Vogue pills</h3>
+      <p style="color: var(--ink-soft);">Editorial pill with brand icon, italic Playfair value, italic arrow. Two scales: primary (centerpiece) + default (channels).</p>
+
+      <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.4rem; align-items: flex-start;">
+        <a class="voguePill primary" href="#">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 7.5l8.5 6 8.5-6"/></svg>
+          </span>
+          <span class="value">crowles.sdx@gmail.com</span>
+          <span class="arrow">→</span>
+        </a>
+
+        <a class="voguePill" href="#">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-1.93c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.25 3.34.95.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.27-5.24-5.66 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.17.91-.25 1.89-.38 2.86-.38.97 0 1.95.13 2.86.38 2.18-1.48 3.14-1.17 3.14-1.17.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.07 0 4.4-2.69 5.37-5.25 5.65.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>
+          </span>
+          <span class="value">GitHub</span>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+
+      <h3 style="margin-top: 4rem;">Plate badge</h3>
+      <p style="color: var(--ink-soft);">Italic Roman numeral inside a thin accent rule. Used on Projects sheets ("Plate I") and other architectural-plate references.</p>
+      <div style="margin-top: 1rem;">
+        <span class="plateBadge"><span class="lbl">Plate</span><span class="num">I</span></span>
+      </div>
+
+      <h3 style="margin-top: 4rem;">Specifications schedule</h3>
+      <p style="color: var(--ink-soft);">Bordered "specifications" panel (architecture-drawing convention). Header strip with ticks, hairline-separated rows with italic Roman numerals + mono-caps label + italic value.</p>
+      <div style="margin-top: 1.4rem;">
+        <dl class="specsPanel">
+          <div class="specsHeader" aria-hidden="true">
+            <span class="tick"></span>
+            <span class="lbl">Specifications</span>
+            <span class="tick"></span>
+          </div>
+          <div class="specRow"><span class="num">I</span><div><dt>Based</dt><dd>United Kingdom</dd></div></div>
+          <div class="specRow"><span class="num">II</span><div><dt>Role</dt><dd>Lead Developer</dd></div></div>
+          <div class="specRow"><span class="num">III</span><div><dt>Years</dt><dd>12+</dd></div></div>
+          <div class="specRow"><span class="num">IV</span><div><dt>Open to</dt><dd>Lead · Senior · Consulting</dd></div></div>
+        </dl>
+      </div>
+
+      <h3 style="margin-top: 4rem;">Tracker</h3>
+      <p style="color: var(--ink-soft);">Vertical section spy. Hairline rule threading dot indicators, mono-caps labels. Active dot fills accent + carries a 2.2s sonar-pulse animation.</p>
+
+      <ol class="tracker" style="margin-top: 1.4rem;">
+        <li><a class="trackerEntry" href="#"><span class="dot"></span><span class="label">Home</span></a></li>
+        <li><a class="trackerEntry active" href="#"><span class="dot"></span><span class="label">About</span></a></li>
+        <li><a class="trackerEntry" href="#"><span class="dot"></span><span class="label">Skills</span></a></li>
+        <li><a class="trackerEntry" href="#"><span class="dot"></span><span class="label">Experience</span></a></li>
+        <li><a class="trackerEntry" href="#"><span class="dot"></span><span class="label">Work</span></a></li>
+        <li><a class="trackerEntry" href="#"><span class="dot"></span><span class="label">Contact</span></a></li>
+      </ol>
+
+      <h3 style="margin-top: 4rem;">Browser frame</h3>
+      <p style="color: var(--ink-soft);">Minimal Atlas-styled window: three dots + faux URL with a green lock dot. Wraps project screenshots on the Projects panel.</p>
+      <div style="margin-top: 1.4rem;">
+        <div class="browserFrame">
+          <div class="browserBar">
+            <span class="browserDot browserDotR"></span>
+            <span class="browserDot browserDotY"></span>
+            <span class="browserDot browserDotG"></span>
+            <span class="browserUrl">● https://status.edcs.app</span>
+          </div>
+          <div class="browserBody">// project screenshot lives here.</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 4rem;">Schematic background</h3>
+      <p style="color: var(--ink-soft);">Three-layered ambient blueprint mounted at the app root. Engineering-paper grid + SVG construction shapes (circles, hexagon, triangles, axes, ruler ticks, datum marks, dimension annotations) + HTML corner ornaments (compass, coordinates, drawing reference). On desktop the layers parallax at different rates as the user pages between sections.</p>
+      <div class="schematicDemo" style="margin-top: 1.4rem;">
+        <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice">
+          <circle cx="80" cy="80" r="60" />
+          <circle cx="320" cy="120" r="50" stroke-dasharray="3 6" />
+          <polygon points="200,50 230,110 170,110" />
+          <polygon points="240,160 280,160 260,120" />
+          <line x1="20" y1="140" x2="380" y2="140" />
+          <path d="M -20 60 Q 200 220 420 60" stroke-dasharray="2 10" stroke="rgba(var(--ink-rgb), 0.10)" />
+        </svg>
+      </div>
+
+      <h3 style="margin-top: 4rem;">Theme toggle</h3>
+      <p style="color: var(--ink-soft);">Sun/moon icon button in Nav. <code>useTheme</code> hook reads the stored preference (or falls back to <code>prefers-color-scheme</code>) and writes <code>data-theme</code> on <code>&lt;html&gt;</code>.</p>
+      <div style="margin-top: 1rem; display: inline-flex; gap: 14px;">
+        <button class="toggleDemo" aria-label="Switch to dark theme" title="Light → dark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <button class="toggleDemo" aria-label="Switch to light theme" title="Dark → light">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ─── VI. Layouts ─────────────────────────────────────── -->
+
+    <section class="section page" id="layouts">
+      <header class="opener">
+        <div class="label"><span>Layouts</span><span class="num">Nº VI</span></div>
+        <h2 class="h2">Five panels, <em>five recipes.</em></h2>
+        <p class="lede">
+          Sections alternate between two registers: <strong>Vogue</strong>
+          (centred editorial composition with italic accents and
+          fleurons) and <strong>Diagram</strong> (architectural drawing
+          spread with title blocks, plates, schedules). The order is
+          About (Vogue) → Skills (Diagram) → Experience (Vogue) →
+          Projects (Diagram) → Contact (Vogue).
+        </p>
+      </header>
+
+      <h3>Desktop horizontal pager</h3>
+      <p style="color: var(--ink-soft);">
+        On desktop (≥921px) <code>&lt;main&gt;</code> becomes a horizontal scroll
+        container with <code>scroll-snap-type: x mandatory</code>; each
+        section is a 100vw × 100vh panel. The
+        <code>useHorizontalScroll</code> hook converts vertical wheel
+        events (when a section's internal scroll is exhausted) into
+        smooth <code>main.scrollTo</code> calls between panels. Mobile
+        keeps the natural vertical long-scroll.
+      </p>
+
+      <h3 style="margin-top: 3rem;">Vertical centring</h3>
+      <p style="color: var(--ink-soft);">
+        Every panel uses <code>display: flex; flex-direction: column;
+        justify-content: safe center</code>. With symmetric top/bottom
+        padding, content sits at the actual viewport midpoint. Long
+        panels (e.g. Projects) keep <code>overflow-y: auto</code> as a
+        fallback so the wheel hijack can pass through.
+      </p>
+
+      <h3 style="margin-top: 3rem;">Tracker offset</h3>
+      <p style="color: var(--ink-soft);">
+        Section padding-left is <code>clamp(180px, 14vw, 280px)</code> so
+        the fixed Tracker (~175px wide on the left edge) never overlaps
+        content. Content centres within the remaining width.
+      </p>
+    </section>
+
+    <!-- ─── VII. Motion ─────────────────────────────────────── -->
+
+    <section class="section page" id="motion">
+      <header class="opener">
+        <div class="label"><span>Motion</span><span class="num">Nº VII</span></div>
+        <h2 class="h2">Subtle by default, <em>respectful always.</em></h2>
+        <p class="lede">
+          Atlas runs no entry transitions and no global hover eases —
+          all CSS transitions are killed at the root. Motion is reserved
+          for ambient indicators (the contact pulse), the
+          horizontal-pager animation, the schematic parallax, and a
+          handful of one-shot moments (Hero count-up, Tracker ping).
+          Everything bows to <code>prefers-reduced-motion</code>.
+        </p>
+      </header>
+
+      <div class="demoGrid">
+        <div class="demoCard">
+          <h4>Pulse dot — Contact status</h4>
+          <p style="color: var(--ink); display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-mute);">
+            <span class="pulse"></span>
+            <span>Open to work · Replies within a day</span>
+          </p>
+          <p class="demoCaption">8px accent dot, 1.6s ease-in-out opacity 1 → 0.35 → 1. CSS animation, gated under reduced-motion.</p>
+        </div>
+
+        <div class="demoCard">
+          <h4>Tracker sonar pulse</h4>
+          <p style="color: var(--ink-soft); font-size: 14px;">
+            Active dot emits two staggered hairline accent rings
+            (<code>::before</code> + <code>::after</code>) that scale
+            from 1 → 3.4 with opacity 0.7 → 0 over 2.2s, 1.1s offset.
+            Reads as a soft radar ping.
+          </p>
+        </div>
+
+        <div class="demoCard">
+          <h4>Tracker ping travel</h4>
+          <p style="color: var(--ink-soft); font-size: 14px;">
+            On <code>activeId</code> change, a small accent dot
+            animates along the rule from the previous entry to the new
+            one via Web Animations API — bypasses the global
+            <code>transition: none</code> rule.
+          </p>
+        </div>
+
+        <div class="demoCard">
+          <h4>Schematic parallax</h4>
+          <p style="color: var(--ink-soft); font-size: 14px;">
+            As <code>main.scrollLeft</code> changes, the grid
+            (background-position) drifts at 15%, the SVG shapes
+            (transform) drift at 5%, the corner ornaments stay
+            anchored. Three depth layers, framerate-friendly via
+            requestAnimationFrame throttling. <strong>Live demo
+            below ↓</strong>
+          </p>
+        </div>
+
+        <div class="demoCard">
+          <h4>Hero number count-up</h4>
+          <p style="color: var(--ink-soft); font-size: 14px;">
+            The <code>useCountUp</code> hook ticks a number from 0 to
+            its target via requestAnimationFrame with an ease-out
+            cubic over 1.2s on first mount. Respects reduced-motion
+            (returns the final value immediately).
+          </p>
+        </div>
+
+        <div class="demoCard">
+          <h4>Cursor-tracked spotlight + tilt</h4>
+          <p style="color: var(--ink-soft); font-size: 14px;">
+            Project images carry an accent-tinted overlay with a
+            radial-gradient mask cut by <code>--mx</code> /
+            <code>--my</code> on mousemove. Hero project also tilts
+            via <code>perspective(1400px) rotateX/Y</code>.
+          </p>
+        </div>
+      </div>
+
+      <!-- ─── Live parallax demo ────────────────────────────── -->
+
+      <h3 style="margin-top: 4rem;">Live parallax demo</h3>
+      <p style="color: var(--ink-soft);">
+        Scroll horizontally inside the frame below — wheel, trackpad,
+        or drag the bottom scrollbar. The grid drifts faster than the
+        SVG shapes, the &ldquo;ATLAS&rdquo; ornament stays anchored.
+        Same three-layer recipe the live site uses for
+        <code>main.scrollLeft</code>.
+      </p>
+
+      <div id="parallaxDemo" class="parallaxDemo" style="margin-top: 1.4rem;">
+        <div class="parallaxLabels" aria-hidden="true">
+          <span>Layer 1 grid · 15%</span>
+          <span>Layer 2 shapes · 5%</span>
+          <span>Layer 3 ornament · 0%</span>
+        </div>
+
+        <div class="parallaxStage">
+          <!-- Layer 1: grid (background-position drift) -->
+          <div class="parallaxLayer grid" data-rate-bg="0.5"></div>
+
+          <!-- Layer 2: SVG shapes (transform drift) -->
+          <div class="parallaxLayer shapes" data-rate-tx="0.2">
+            <svg viewBox="0 0 2000 320" preserveAspectRatio="xMidYMid slice">
+              <circle cx="160" cy="120" r="80" />
+              <circle cx="520" cy="200" r="60" stroke-dasharray="3 6" />
+              <polygon points="380,60 440,170 320,170" />
+              <line x1="40" y1="240" x2="700" y2="240" />
+              <circle cx="900" cy="100" r="100" />
+              <polygon points="800,210 850,290 920,290 970,210" />
+              <line x1="780" y1="60" x2="1100" y2="60" stroke-dasharray="2 8" />
+              <circle cx="1300" cy="180" r="50" stroke-dasharray="3 6" />
+              <polygon points="1200,80 1280,80 1240,140" />
+              <line x1="1180" y1="240" x2="1700" y2="240" />
+              <circle cx="1700" cy="120" r="70" />
+              <polygon points="1850,60 1920,60 1885,130" />
+              <line x1="1850" y1="180" x2="1970" y2="280" />
+              <path d="M -20 150 Q 500 -40 1000 150 T 2020 150" stroke-dasharray="2 10" />
+            </svg>
+          </div>
+
+          <!-- Layer 3: anchored ornaments -->
+          <div class="parallaxLayer ornaments">
+            <span class="parallaxOrnament" style="top: 12px; left: 16px;">— Atlas · Ed.01 · MMXXVI</span>
+            <span class="parallaxOrnament" style="bottom: 14px; right: 16px;">51.5074° N · 0.1278° W</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="parallaxRates">
+        <span><strong>Grid:</strong> background-position-x × 15%</span>
+        <span><strong>Shapes:</strong> translate3d × 5%</span>
+        <span><strong>Ornaments:</strong> anchored (0%)</span>
+      </div>
+    </section>
+
+    <!-- ─── VIII. Spacing ───────────────────────────────────── -->
+
+    <section class="section page" id="spacing">
+      <header class="opener">
+        <div class="label"><span>Spacing</span><span class="num">Nº VIII</span></div>
+        <h2 class="h2">A 4rem rhythm, <em>top to bottom.</em></h2>
+        <p class="lede">
+          Section padding cascades 7→5→4→3rem from desktop to small
+          phone. Opener bottom margin cascades 4→3→2.4→2rem. Inter-block
+          gaps (rosters, fleurons, signatures) align to the 4rem
+          baseline so the whole long-scroll feels like one rhythm.
+        </p>
+      </header>
+
+      <table class="table">
+        <thead><tr><th>Breakpoint</th><th>Section padding</th><th>Opener margin-bottom</th><th>Container</th></tr></thead>
+        <tbody>
+          <tr><td>Desktop ≥921px (vert.)</td><td>7rem 0</td><td>4rem</td><td>min(1180px, 92%)</td></tr>
+          <tr><td>Tablet 720–920px</td><td>5rem 0</td><td>3rem</td><td>min(1180px, 92%)</td></tr>
+          <tr><td>Phone 421–720px</td><td>4rem 0</td><td>2.4rem</td><td>min(1180px, 88%)</td></tr>
+          <tr><td>Small phone ≤420px</td><td>3rem 0</td><td>2rem</td><td>min(1180px, 92%)</td></tr>
+          <tr><td>Desktop horizontal-pager</td><td>clamp(72, 7vh, 96)px</td><td>clamp(0.8, 2vh, 1.8rem)</td><td>clamp(180px, 14vw, 280px) left padding for Tracker</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ─── IX. Voice ───────────────────────────────────────── -->
+
+    <section class="section page" id="voice">
+      <header class="opener">
+        <div class="label"><span>Voice</span><span class="num">Nº IX</span></div>
+        <h2 class="h2">Plain, declarative, <em>operator-tone.</em></h2>
+        <p class="lede">
+          Atlas reads like a cover letter from someone who's tired of
+          marketing-speak. Specific verbs, concrete numbers, no
+          hedging, no pomp. The italic accent phrases carry the only
+          touch of romance.
+        </p>
+      </header>
+
+      <div class="voice">
+        <div class="col">
+          <h4 class="do">— Do</h4>
+          <p>Lead with verbs. <em>"Inheriting complex legacy systems, shipping clean code."</em></p>
+          <p>Specific numbers. <em>"12+ years"</em>, not <em>"a decade"</em>.</p>
+          <p>Sentence case for everything. Title Case is for film posters.</p>
+          <p>One italic accent per heading.</p>
+          <p>Plain English alternatives to jargon when both work.</p>
+        </div>
+        <div class="col">
+          <h4 class="dont">— Don't</h4>
+          <p>Don't hype. <em>"Game-changing"</em>, <em>"world-class"</em>, <em>"cutting-edge"</em> are out.</p>
+          <p>Don't pluralise. The site is one page, not "pages".</p>
+          <p>Don't ALL CAPS sentences. Caps are for mono labels only.</p>
+          <p>Don't pad with adjectives. <em>"Beautiful web apps"</em> is the maximum.</p>
+          <p>Don't sign off with emoji. The fleuron and italic Playfair carry that role.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── X. Colophon ─────────────────────────────────────── -->
+
+    <section class="section page" id="colophon">
+      <header class="opener">
+        <div class="label"><span>Colophon</span><span class="num">Nº X</span></div>
+        <h2 class="h2">Set in <em>Atlas</em>.</h2>
+        <p class="lede">
+          This page is written entirely in the spec it documents — every
+          token referenced via CSS custom properties, every component
+          rendered with the same recipes shipped to <code>chris.edcs.app</code>.
+          Use it as a swatch book. Edit one variable in the
+          <code>:root</code> at the top of the file and watch every
+          chip, pill, badge and panel below re-tint.
+        </p>
+      </header>
+
+      <p style="color: var(--ink-soft); font-size: 14px;">
+        Source of truth: <code>src/styles/tokens.css</code>. Component
+        recipes: <code>src/components/</code>. Section layouts:
+        <code>src/sections/</code>. Theme runtime: <code>src/lib/useTheme.ts</code>.
+      </p>
+
+      <div class="colophon">
+        <p>Atlas <span style="color: var(--accent);">·</span> Edition Nº 02 <span style="color: var(--accent);">·</span> MMXXVI</p>
+        <p class="name">Chris Rowles</p>
+      </div>
+    </section>
+
+    <script>
+      // ─── Theme toggle (mirrors the live useTheme hook) ───────
+      (function () {
+        const STORAGE_KEY = 'atlas-theme'
+        const html = document.documentElement
+        const stored = localStorage.getItem(STORAGE_KEY)
+        const prefersDark = window.matchMedia &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches
+        const initial = stored === 'light' || stored === 'dark'
+          ? stored
+          : (prefersDark ? 'dark' : 'light')
+        html.dataset.theme = initial
+
+        const toggle = document.getElementById('themeToggle')
+        toggle.setAttribute('aria-label',
+          'Switch to ' + (initial === 'light' ? 'dark' : 'light') + ' theme')
+        toggle.addEventListener('click', function () {
+          const next = html.dataset.theme === 'dark' ? 'light' : 'dark'
+          html.dataset.theme = next
+          try { localStorage.setItem(STORAGE_KEY, next) } catch (_) {}
+          toggle.setAttribute('aria-label',
+            'Switch to ' + (next === 'light' ? 'dark' : 'light') + ' theme')
+        })
+      })()
+
+      // ─── Tracker — click to switch active entry ──────────────
+      ;(function () {
+        const tracker = document.querySelector('.tracker')
+        if (!tracker) return
+        const entries = tracker.querySelectorAll('.trackerEntry')
+        entries.forEach(function (entry) {
+          entry.addEventListener('click', function (e) {
+            e.preventDefault()
+            entries.forEach(function (e2) { e2.classList.remove('active') })
+            entry.classList.add('active')
+          })
+        })
+      })()
+
+      // ─── Parallax demo — drifts layers as user scrolls inside ─
+      ;(function () {
+        const demo = document.getElementById('parallaxDemo')
+        if (!demo) return
+        const layers = demo.querySelectorAll('.parallaxLayer')
+        let raf = 0
+        const update = function () {
+          const x = demo.scrollLeft
+          layers.forEach(function (l) {
+            const txRate = parseFloat(l.dataset.rateTx || '0')
+            const bgRate = parseFloat(l.dataset.rateBg || '0')
+            if (txRate) l.style.transform = 'translate3d(' + (-x * txRate) + 'px, 0, 0)'
+            if (bgRate) l.style.backgroundPosition = (-x * bgRate) + 'px 0'
+          })
+          raf = 0
+        }
+        demo.addEventListener('scroll', function () {
+          if (raf) return
+          raf = requestAnimationFrame(update)
+        }, { passive: true })
+        update()
+      })()
+    </script>
+  </body>
+</html>
