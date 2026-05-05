@@ -8,6 +8,21 @@
   scroll-margin-top: 100px;
 }
 
+/* Desktop horizontal-page mode — each section is a 100vh panel.
+   Reserve a left zone so the fixed Tracker doesn't overlap content,
+   tighten vertical padding so the content fits the panel without
+   internal scroll. */
+@media (min-width: 921px) {
+  .section {
+    padding: 4.5rem clamp(60px, 6vw, 96px) 4rem clamp(180px, 14vw, 240px);
+    scroll-margin-top: 0;
+  }
+
+  .opener {
+    margin-bottom: 2.4rem;
+  }
+}
+
 .wrap {
   width: min(1180px, 92%);
   margin: 0 auto;

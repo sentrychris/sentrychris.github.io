@@ -143,6 +143,18 @@
   clear: left;
 }
 
+/* Desktop horizontal-page mode — the pull quote's vertical margins
+   would push the prose past the 100vh panel. Tighten significantly. */
+@media (min-width: 921px) {
+  .paragraph:nth-child(2) {
+    margin: 2rem 0 1.6rem 0;
+  }
+
+  .signature {
+    margin-top: 2.4rem;
+  }
+}
+
 /* Stylized opening / closing quote marks bracketing the pull quote.
    Inline (not block) so they sit alongside the text. */
 .paragraph:nth-child(2)::before {

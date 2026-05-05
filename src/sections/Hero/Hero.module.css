@@ -13,6 +13,16 @@
   align-items: center;
 }
 
+/* Desktop horizontal-page mode — match Section's left/right padding
+   so the Hero panel clears the fixed Tracker. */
+@media (min-width: 921px) {
+  .hero {
+    padding: 7rem clamp(60px, 6vw, 96px) 5rem clamp(180px, 14vw, 240px);
+    border-bottom: 0;
+    min-height: 100vh;
+  }
+}
+
 .wrap {
   width: min(1180px, 92%);
   margin: 0 auto;

@@ -293,6 +293,121 @@
   color: var(--ink-soft);
 }
 
+/* ─── Desktop horizontal-page mode ─────────────────────────
+   The vertical roster won't fit a single 100vh panel for 3+ entries.
+   On desktop we lay the entries out as a 3-column grid below the
+   opener, with each entry stacked (period+meta on top, body below)
+   like a magazine "departments" spread. */
+
+@media (min-width: 921px) {
+  .opener {
+    margin-bottom: 2rem;
+  }
+
+  .lede {
+    font-size: 15px;
+  }
+
+  .roster {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.4rem;
+  }
+
+  /* Fleuron separators are only meaningful for a vertical roster;
+     in a column grid they'd collide with the column dividers. */
+  .fleuron {
+    display: none;
+  }
+
+  /* Each entry stacks meta-on-top in a single column instead of the
+     2-col mini-spread the desktop vertical roster uses. */
+  .spread {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    align-items: start;
+  }
+
+  .meta {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .period {
+    font-size: clamp(26px, 2.2vw, 36px);
+    line-height: 1;
+  }
+
+  .company {
+    margin: 0.4rem 0 0;
+    font-size: 15px;
+  }
+
+  .sectors {
+    margin: 0.7rem 0 0;
+    gap: 0.3rem;
+  }
+
+  .sector {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+  }
+
+  .role {
+    font-size: clamp(18px, 1.6vw, 22px);
+    line-height: 1.15;
+  }
+
+  .body {
+    gap: 0.9rem;
+  }
+
+  .summary {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  /* The drop cap is too dominant in a narrow column — shrink it
+     so the prose stays readable. */
+  .summary::first-letter {
+    font-size: clamp(30px, 2.6vw, 40px);
+    line-height: 0.85;
+    margin: 2px 8px 0 0;
+  }
+
+  .exhibits {
+    margin-top: 0.6rem;
+  }
+
+  .exhibitsLabel {
+    font-size: 9px;
+    margin-bottom: 0.5rem;
+    gap: 8px;
+  }
+
+  .exhibitsLabel::before {
+    width: 14px;
+  }
+
+  .points {
+    gap: 0.45rem;
+  }
+
+  .point {
+    grid-template-columns: 20px 1fr;
+    gap: 0.5rem;
+  }
+
+  .pointIndex {
+    font-size: 14px;
+  }
+
+  .pointText {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+}
+
 /* ─── Mobile — collapse to single column ─────────────────── */
 
 @media (max-width: 720px) {

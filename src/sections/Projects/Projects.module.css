@@ -963,3 +963,143 @@
     gap: 1.6rem;
   }
 }
+
+/* ─── Desktop horizontal-page mode ──────────────────────────
+   Compress the layout so the hero plate (with browser frame) and
+   annex strip both fit a single 100vh panel. The plate tabs in the
+   sheet header still drive the swap, and the annex collapses to a
+   slim row of chips below the hero. */
+
+@media (min-width: 921px) {
+  .sheetHeader {
+    margin-top: 1.5rem;
+  }
+
+  .sheetCell,
+  .sheetCellPlates {
+    padding: 0.5rem 0.85rem;
+  }
+
+  .sheetCellLabel {
+    font-size: 9px;
+  }
+
+  .sheetCellValue {
+    font-size: 13.5px;
+  }
+
+  .layout {
+    margin-top: 1.6rem;
+    gap: 1.8rem;
+  }
+
+  .sheet {
+    gap: 1rem;
+  }
+
+  .head {
+    margin-bottom: 0.2rem;
+  }
+
+  .hero .browser {
+    /* Smaller hero so meta + annex fit beneath in 100vh. */
+    max-width: 720px;
+  }
+
+  .hero .image {
+    /* Shorter aspect — fits more comfortably under the meta strip. */
+    aspect-ratio: 16 / 8;
+  }
+
+  .meta {
+    gap: 0.7rem;
+  }
+
+  .summary {
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+
+  .actions {
+    margin-top: 0.2rem;
+  }
+
+  /* The architect's title block is the section's signature flourish
+     on the long-scroll desktop, but it pushes the panel past 100vh
+     on horizontal-pages. Drop it here — the sheet header up top still
+     carries the project metadata. */
+  .titleBlock {
+    display: none;
+  }
+
+  /* Compact annex — secondaries become a slim 2-column footer row
+     below the hero, image-on-left + meta-on-right per card, much
+     smaller than the long-scroll layout. */
+  .annex {
+    gap: 0.9rem;
+  }
+
+  .annexHeader {
+    gap: 0.7rem;
+  }
+
+  .annexLabel {
+    font-size: 9px;
+  }
+
+  .annexCount {
+    font-size: 9px;
+  }
+
+  .secondaries {
+    gap: 1rem 1.6rem;
+  }
+
+  .compact {
+    gap: 0.7rem;
+  }
+
+  .compact .head {
+    margin-bottom: 0;
+  }
+
+  .compactBody {
+    grid-template-columns: minmax(120px, 160px) 1fr;
+    gap: 0.9rem;
+  }
+
+  .compact .compactBody .image {
+    aspect-ratio: 16 / 10;
+  }
+
+  .compact .summary {
+    font-size: 12.5px;
+    line-height: 1.45;
+    /* Cap the lines so the compact card stays short. */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .compact .actions {
+    display: none;
+  }
+
+  .compact .spec {
+    gap: 0.3rem 0.8rem;
+  }
+
+  .compact .specLabel {
+    font-size: 9.5px;
+  }
+
+  /* Crop marks on compacts add visual noise in the tight horizontal
+     layout — drop them. */
+  .compact .cropTL,
+  .compact .cropTR,
+  .compact .cropBL,
+  .compact .cropBR {
+    display: none;
+  }
+}
