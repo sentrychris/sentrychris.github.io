@@ -17,7 +17,7 @@ export interface AboutCopy {
 export const about: AboutCopy = {
   eyebrow: 'About',
   title: 'Software for',
-  titleAccent: 'Everyone.',
+  titleAccent: 'everyone.',
   lede:
     'Comfortable owning systems end-to-end.',
   paragraphs: [
