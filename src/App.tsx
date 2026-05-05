@@ -9,8 +9,13 @@ import { Experience } from './sections/Experience'
 import { Projects } from './sections/Projects'
 import { Contact } from './sections/Contact'
 import { navLinks } from './content/nav'
+import { useHorizontalScroll } from './lib/useHorizontalScroll'
 
 function App() {
+  // Desktop: vertical wheel becomes horizontal page snap once a section
+  // is exhausted. Hook is a noop on mobile.
+  useHorizontalScroll()
+
   return (
     <>
       <Schematic />

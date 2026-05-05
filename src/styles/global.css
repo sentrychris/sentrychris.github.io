@@ -89,3 +89,65 @@ pre {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* ─── Desktop horizontal page layout ──────────────────────────
+   On wide screens the long-scroll becomes a horizontal page-pager:
+   each <section> in <main> becomes a full-viewport panel with its
+   own internal vertical scroll for overflow content. The wheel
+   hijack in useHorizontalScroll converts an exhausted vertical
+   wheel into a horizontal page snap, so the UX is "scroll vertically
+   through a section, then sideways into the next."
+   Mobile (≤ 920px) keeps the natural vertical long-scroll. */
+
+@media (min-width: 921px) {
+  html,
+  body {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  main {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;       /* Firefox */
+    -ms-overflow-style: none;    /* old Edge */
+  }
+
+  main::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Each direct <section> child becomes a viewport-sized panel.
+     Internal vertical scroll handles content longer than 100vh. */
+  main > section {
+    flex: 0 0 100vw;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    /* Anchor jumps land at the start of the panel, not under nav. */
+    scroll-margin-left: 0;
+  }
+
+  /* Slim, accent-tinted scrollbar inside panels — visible in narrow
+     overflow contexts, easy to ignore otherwise. */
+  main > section::-webkit-scrollbar {
+    width: 4px;
+  }
+  main > section::-webkit-scrollbar-thumb {
+    background: rgba(176, 228, 204, 0.18);
+    border-radius: 2px;
+  }
+  main > section {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(176, 228, 204, 0.18) transparent;
+  }
+}
