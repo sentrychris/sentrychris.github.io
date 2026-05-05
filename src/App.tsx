@@ -1,4 +1,5 @@
 import { Nav } from './components/Nav'
+import { Tracker } from './components/Tracker'
 import { Footer } from './components/Footer'
 import { Schematic } from './components/Schematic'
 import { Hero } from './sections/Hero'
@@ -14,6 +15,7 @@ function App() {
     <>
       <Schematic />
       <Nav links={navLinks} />
+      <Tracker />
       <main>
         <Hero />
         <About />

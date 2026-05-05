@@ -14,7 +14,9 @@
 /* ─── Opener (rendered here, not by Section) ─────────────── */
 
 .opener {
-  margin-bottom: 3rem;
+  /* Matches Section's default opener-bottom — same cadence as the
+     other sections' headers. */
+  margin-bottom: 4rem;
   max-width: 580px;
 }
 
@@ -382,7 +384,9 @@
 /* ─── Signature flourish ─────────────────────────────────── */
 
 .signature {
-  margin-top: 5rem;
+  /* Pairs with .fleuron's 4rem margins above — keeps the bottom of
+     the page on the 4rem rhythm. */
+  margin-top: 4rem;
   width: 100%;
   max-width: 520px;
   display: flex;

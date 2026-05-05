@@ -99,11 +99,11 @@
   }
 }
 
-/* Phones — much tighter. The wrap gives 8% side padding via min(),
-   which is plenty for the readable column width on phones. */
+/* Phones — tighten to a 4rem cadence (was 3.6rem; the half-rem
+   off-step felt arrhythmic against the 7→5→3 cascade). */
 @media (max-width: 720px) {
   .section {
-    padding: 3.6rem 0;
+    padding: 4rem 0;
     scroll-margin-top: 70px;
   }
 

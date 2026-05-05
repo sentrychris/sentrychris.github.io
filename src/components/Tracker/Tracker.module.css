@@ -1,0 +1,158 @@
+/* Tracker — fixed left-edge section spy with editorial pill+glow on
+   the active entry. Doesn't displace any content. */
+
+.tracker {
+  position: fixed;
+  left: 4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  pointer-events: auto;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+/* Continuous hairline rule running through the dots — sits behind
+   them via z-index. Vertically bracketed to the first/last dot
+   centres so the rule starts and ends at the marks. */
+.list::before {
+  content: "";
+  position: absolute;
+  left: 5.5px;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 1px;
+  background: var(--line-soft);
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+.item {
+  margin: 0;
+  padding: 0;
+}
+
+/* Each entry: dot on the left, label to the right. Position relative
+   so the indicator can absolutely-position over the rule centreline. */
+.entry {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.35rem 0.5rem 0.35rem 18px;
+  /* The 18px left padding leaves room for the absolutely-positioned
+     indicator to sit at left:5.5px (line centreline) without colliding
+     with the label. */
+}
+
+/* ─── Indicator (the dot / pill) ──────────────────────────── */
+
+.indicator {
+  position: absolute;
+  left: 5.5px;
+  top: 50%;
+  /* translate(-50%) anchors the centre on the line, so the pill grows
+     symmetrically left+right when active rather than displacing the
+     label. */
+  transform: translate(-50%, -50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+  z-index: 1;
+}
+
+.entry:hover .indicator {
+  border-color: var(--accent);
+  background: rgba(64, 138, 113, 0.08);
+}
+
+/* ─── Label ───────────────────────────────────────────────── */
+
+.label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  opacity: 0.62;
+  white-space: nowrap;
+}
+
+.entry:hover .label {
+  color: var(--ink);
+  opacity: 1;
+}
+
+/* ─── Active state — accent dot with sonar pulse ─────────────
+   The indicator stays the same size (no pill widening) but fills
+   accent and emits an expanding hairline ring that pings outward
+   continuously — a soft radar pulse rather than a breathing glow. */
+
+.entryActive .indicator {
+  background: var(--accent);
+  border-color: var(--accent);
+  /* Static soft glow so the dot reads as "live" between pulses. */
+  box-shadow: 0 0 8px rgba(64, 138, 113, 0.55);
+}
+
+/* The pulse — expanding accent ring, fades out as it grows.
+   ::before and ::after stagger so the ping is continuous rather
+   than blinking with a gap. */
+.entryActive .indicator::before,
+.entryActive .indicator::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  pointer-events: none;
+  animation: trackerPulse 2.2s ease-out infinite;
+}
+
+.entryActive .indicator::after {
+  animation-delay: 1.1s;
+}
+
+@keyframes trackerPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(3.4);
+    opacity: 0;
+  }
+}
+
+.entryActive .label {
+  color: var(--accent);
+  opacity: 1;
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entryActive .indicator::before,
+  .entryActive .indicator::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* ─── Mobile / tablet — hide entirely ──────────────────────── */
+
+@media (max-width: 920px) {
+  .tracker {
+    display: none;
+  }
+}

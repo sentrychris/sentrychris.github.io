@@ -25,7 +25,8 @@
        the whole left column, not just the prose) ─────────── */
 
 .opener {
-  margin-bottom: 3rem;
+  /* Matches Section's default opener-bottom for visual rhythm parity. */
+  margin-bottom: 4rem;
   max-width: 760px;
 }
 

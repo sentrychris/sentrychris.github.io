@@ -143,7 +143,10 @@
   margin-top: 3rem;
   display: flex;
   flex-direction: column;
-  gap: 5.5rem;
+  /* Hero plate → annexed plates gap. Sits between Section's 4rem
+     opener-bottom and the deeper inter-section padding (7rem) so the
+     internal break still reads as "section break, but tighter". */
+  gap: 5rem;
 }
 
 /* ─── Sheet — shared base ────────────────────────────────── */
