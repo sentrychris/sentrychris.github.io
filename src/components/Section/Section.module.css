@@ -152,38 +152,49 @@
 }
 
 /* Desktop horizontal-page mode — each section is a 100vh panel.
-   Reserve a left zone so the fixed Tracker doesn't overlap content,
-   tighten vertical padding so the content fits the panel without
-   internal scroll.
+   Type and spacing scale with the viewport via clamp + vmin so the
+   page reads tight on a 1366×768 laptop and generous on a 1920×1080+
+   monitor. Content is vertically centred (`safe center` so overflow
+   falls back to top-align rather than clipping).
+
    IMPORTANT: this block must come AFTER the base rules above,
    because @media wrappers don't bump specificity — same-selector
    rules later in the file win. */
 @media (min-width: 921px) {
   .section {
-    /* Tight vertical padding — every rem here is panel-height the
-       content can't use. Top: 4.5rem accounts for the fixed Nav
-       (68px) + breathing room. Bottom: 2rem so content sits cleanly
-       above the panel edge without floating in empty space. */
-    padding: 4.5rem clamp(60px, 6vw, 96px) 2rem clamp(180px, 14vw, 240px);
+    /* Top padding accounts for the fixed Nav (~68px) + breathing
+       room that grows on taller viewports. Side padding reserves
+       the left zone for the fixed Tracker. */
+    padding:
+      clamp(4.5rem, 8vh, 9rem)
+      clamp(60px, 6vw, 140px)
+      clamp(2rem, 5vh, 6rem)
+      clamp(180px, 14vw, 280px);
     scroll-margin-top: 0;
+    /* Vertical centring fills empty space gracefully on big
+       viewports. `safe` keyword falls back to flex-start if the
+       panel content overflows, so it never clips the top edge. */
+    display: flex;
+    flex-direction: column;
+    justify-content: safe center;
   }
 
   .opener {
-    margin-bottom: 1rem;
+    margin-bottom: clamp(1rem, 2.5vh, 2.4rem);
   }
 
   .label {
-    margin-bottom: 14px;
-    font-size: 10.5px;
+    margin-bottom: clamp(12px, 1.8vh, 22px);
+    font-size: clamp(10.5px, 1.05vmin, 12px);
   }
 
   .title {
-    font-size: clamp(30px, 3.6vw, 48px);
+    font-size: clamp(30px, 5vmin, 60px);
   }
 
   .lede {
-    margin-top: 12px;
-    font-size: 14.5px;
+    margin-top: clamp(10px, 1.6vh, 22px);
+    font-size: clamp(14px, 1.6vmin, 18.5px);
     line-height: 1.5;
   }
 }
