@@ -113,7 +113,20 @@
 }
 
 @media (max-width: 720px) {
+  /* Long-scroll portfolio — drop the links on phones. The brand mark
+     anchors the top corner; users navigate by scrolling. */
   .links {
     display: none;
+  }
+
+  .inner {
+    width: min(1180px, 88%);
+    padding: 0.85rem 0;
+  }
+
+  .brandMark {
+    width: 28px;
+    height: 28px;
+    font-size: 28px;
   }
 }

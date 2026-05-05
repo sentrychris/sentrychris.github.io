@@ -443,27 +443,126 @@
 /* ─── Mobile ──────────────────────────────────────────────── */
 
 @media (max-width: 720px) {
-  .opener {
-    margin-bottom: 2.4rem;
+  .wrap {
+    padding: 0 0.4rem;
   }
 
-  .fleuron {
-    margin: 2.8rem 0;
+  .opener {
+    margin-bottom: 2.2rem;
+  }
+
+  .label {
+    margin-bottom: 22px;
+    /* The flanking dashes can crowd the label on narrow screens —
+       drop the trailing one and keep the leading one for cadence. */
+  }
+  .label::after {
+    display: none;
+  }
+
+  .title {
+    font-size: clamp(34px, 10vw, 48px);
+  }
+
+  .lede {
+    font-size: 15px;
+    line-height: 1.5;
   }
 
   .invitation {
-    font-size: clamp(24px, 8vw, 36px);
+    font-size: clamp(26px, 9vw, 38px);
+    max-width: 16ch;
   }
 
+  .fleuron {
+    margin: 2.6rem 0;
+    max-width: 320px;
+    gap: 1rem;
+  }
+
+  /* Channel pills stack into a tidy centred column, each pill auto-
+     widening to its content. The label sits above. */
+  .channelsList {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  /* Primary pill grows to the content max so the icon, value and
+     arrow have room to breathe — but never wider than the column. */
   .btnPrimary {
-    max-width: 100%;
+    padding: 0.6rem 1.2rem 0.6rem 0.8rem;
+    gap: 0.85rem;
+  }
+
+  .btnPrimary .btnIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .btnPrimary .btnIcon svg {
+    width: 15px;
+    height: 15px;
   }
 
   .btnPrimary .btnValue {
     font-size: clamp(18px, 6vw, 24px);
   }
 
+  .btnPrimary .btnArrow {
+    font-size: clamp(20px, 6vw, 24px);
+  }
+
+  /* Status caption — tighter letter-spacing keeps it on one line on
+     phone widths; wrap onto two if needed. */
+  .status {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 0.5rem;
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    max-width: 28ch;
+  }
+
+  /* Signature wraps gracefully — "Yours," can sit above the name on
+     very narrow screens rather than getting clipped. */
   .signature {
-    margin-top: 3.4rem;
+    margin-top: 3.2rem;
+  }
+
+  .signatureText {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 0.6rem;
+    font-size: clamp(18px, 5.6vw, 22px);
+  }
+
+  .signatureMeta {
+    font-size: 9.5px;
+    letter-spacing: 0.22em;
+  }
+
+  .signatureMetaSep {
+    margin: 0 0.5em;
+  }
+}
+
+/* Very narrow phones — final tighten. */
+@media (max-width: 420px) {
+  .invitation {
+    font-size: clamp(22px, 9vw, 30px);
+  }
+
+  .fleuron {
+    margin: 2.2rem 0;
+    max-width: 240px;
+  }
+
+  .correspondenceLabel {
+    gap: 0.5rem;
+  }
+
+  .correspondenceLabelTick {
+    width: 14px;
   }
 }

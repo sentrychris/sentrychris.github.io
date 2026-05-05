@@ -85,3 +85,68 @@
   color: var(--ink-soft);
   max-width: 42ch;
 }
+
+/* ─── Mobile — tighten padding and opener rhythm ────────────── */
+
+/* Tablet / large phones — section breathing room comes down a step. */
+@media (max-width: 920px) {
+  .section {
+    padding: 5rem 0;
+  }
+
+  .opener {
+    margin-bottom: 3rem;
+  }
+}
+
+/* Phones — much tighter. The wrap gives 8% side padding via min(),
+   which is plenty for the readable column width on phones. */
+@media (max-width: 720px) {
+  .section {
+    padding: 3.6rem 0;
+    scroll-margin-top: 70px;
+  }
+
+  .wrap {
+    width: min(1180px, 88%);
+  }
+
+  .opener {
+    margin-bottom: 2.4rem;
+  }
+
+  .label {
+    margin-bottom: 20px;
+    font-size: 10.5px;
+  }
+
+  .title {
+    font-size: clamp(34px, 9.5vw, 48px);
+    line-height: 1.06;
+  }
+
+  .lede {
+    margin-top: 18px;
+    font-size: 15.5px;
+    line-height: 1.5;
+  }
+}
+
+/* Small phones — final tighten. */
+@media (max-width: 420px) {
+  .section {
+    padding: 3rem 0;
+  }
+
+  .wrap {
+    width: min(1180px, 92%);
+  }
+
+  .opener {
+    margin-bottom: 2rem;
+  }
+
+  .title {
+    font-size: clamp(30px, 9.5vw, 40px);
+  }
+}

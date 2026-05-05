@@ -189,7 +189,10 @@ function Sheet({
 
       {isCompact ? (
         <div className={styles.compactBody}>
-          <Frame project={project} />
+          {/* Browser chrome is always rendered; CSS hides it on desktop
+              compacts (where it'd compete with the hero plate) and shows
+              it on mobile so every project reads as its own little site. */}
+          <Frame project={project} browser />
           <Meta project={project} />
         </div>
       ) : (
