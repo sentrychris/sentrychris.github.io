@@ -64,7 +64,11 @@ export function useHorizontalScroll() {
       // Reset the destination's internal scroll so the user always
       // enters at the natural reading edge for their direction.
       target.scrollTop = direction === 'next' ? 0 : target.scrollHeight
-      target.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' })
+      // Use main.scrollTo (not target.scrollIntoView) so the browser
+      // never tries to vertically scroll body/html to bring the panel
+      // into view — that's the source of the perceived "scroll up
+      // before transition" on the first wheel.
+      main.scrollTo({ left: target.offsetLeft, behavior: 'smooth' })
       if (transitionTimer != null) window.clearTimeout(transitionTimer)
       transitionTimer = window.setTimeout(() => {
         isTransitioning = false

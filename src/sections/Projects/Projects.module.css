@@ -991,39 +991,39 @@
   }
 
   .layout {
-    margin-top: 1.6rem;
-    gap: 1.8rem;
-  }
-
-  .sheet {
+    margin-top: 0.8rem;
     gap: 1rem;
   }
 
+  .sheet {
+    gap: 0.7rem;
+  }
+
   .head {
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.1rem;
   }
 
   .hero .browser {
-    /* Smaller hero so meta + annex fit beneath in 100vh. */
-    max-width: 720px;
+    /* Smaller hero so meta + actions fit comfortably in 100vh. */
+    max-width: 600px;
   }
 
   .hero .image {
     /* Shorter aspect — fits more comfortably under the meta strip. */
-    aspect-ratio: 16 / 8;
+    aspect-ratio: 16 / 7;
   }
 
   .meta {
-    gap: 0.7rem;
+    gap: 0.55rem;
   }
 
   .summary {
-    font-size: 14.5px;
-    line-height: 1.55;
+    font-size: 13.5px;
+    line-height: 1.5;
   }
 
   .actions {
-    margin-top: 0.2rem;
+    margin-top: 0.1rem;
   }
 
   /* The architect's title block is the section's signature flourish

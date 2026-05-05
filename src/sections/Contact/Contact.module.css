@@ -579,39 +579,53 @@
 
 @media (min-width: 921px) {
   .opener {
-    margin-bottom: 1.6rem;
+    margin-bottom: 1rem;
   }
 
   .label {
-    margin-bottom: 18px;
+    margin-bottom: 14px;
+  }
+
+  .title {
+    font-size: clamp(28px, 3.2vw, 44px);
   }
 
   .lede {
-    margin-top: 14px;
-    font-size: 15px;
+    margin-top: 10px;
+    font-size: 13.5px;
+    line-height: 1.45;
   }
 
   .invitation {
-    font-size: clamp(24px, 2.6vw, 32px);
+    font-size: clamp(20px, 2.2vw, 28px);
+    line-height: 1.15;
   }
 
   .fleuron {
-    margin: 1.4rem 0;
+    margin: 1rem 0;
   }
 
   .correspondence {
-    gap: 0.85rem;
-  }
-
-  .channels {
     gap: 0.7rem;
   }
 
+  .channels {
+    gap: 0.55rem;
+  }
+
   .signature {
-    margin-top: 1.6rem;
+    margin-top: 1.2rem;
   }
 
   .signatureRule {
-    margin-bottom: 1rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .signatureText {
+    font-size: clamp(15px, 1.4vw, 17px);
+  }
+
+  .signatureMeta {
+    margin-top: 0.5rem;
   }
 }

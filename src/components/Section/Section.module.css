@@ -8,29 +8,6 @@
   scroll-margin-top: 100px;
 }
 
-/* Desktop horizontal-page mode — each section is a 100vh panel.
-   Reserve a left zone so the fixed Tracker doesn't overlap content,
-   tighten vertical padding so the content fits the panel without
-   internal scroll. */
-@media (min-width: 921px) {
-  .section {
-    padding: 4rem clamp(60px, 6vw, 96px) 3.4rem clamp(180px, 14vw, 240px);
-    scroll-margin-top: 0;
-  }
-
-  .opener {
-    /* Tight in horizontal mode so the section header sits close to
-       its body — the panels are short, big margins waste vertical
-       real estate. */
-    margin-bottom: 1.4rem;
-  }
-
-  .lede {
-    margin-top: 14px;
-    font-size: 15.5px;
-  }
-}
-
 .wrap {
   width: min(1180px, 92%);
   margin: 0 auto;
@@ -171,5 +148,42 @@
 
   .title {
     font-size: clamp(30px, 9.5vw, 40px);
+  }
+}
+
+/* Desktop horizontal-page mode — each section is a 100vh panel.
+   Reserve a left zone so the fixed Tracker doesn't overlap content,
+   tighten vertical padding so the content fits the panel without
+   internal scroll.
+   IMPORTANT: this block must come AFTER the base rules above,
+   because @media wrappers don't bump specificity — same-selector
+   rules later in the file win. */
+@media (min-width: 921px) {
+  .section {
+    /* Tight vertical padding — every rem here is panel-height the
+       content can't use. Top: 4.5rem accounts for the fixed Nav
+       (68px) + breathing room. Bottom: 2rem so content sits cleanly
+       above the panel edge without floating in empty space. */
+    padding: 4.5rem clamp(60px, 6vw, 96px) 2rem clamp(180px, 14vw, 240px);
+    scroll-margin-top: 0;
+  }
+
+  .opener {
+    margin-bottom: 1rem;
+  }
+
+  .label {
+    margin-bottom: 14px;
+    font-size: 10.5px;
+  }
+
+  .title {
+    font-size: clamp(30px, 3.6vw, 48px);
+  }
+
+  .lede {
+    margin-top: 12px;
+    font-size: 14.5px;
+    line-height: 1.5;
   }
 }

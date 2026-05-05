@@ -14,6 +14,21 @@
     -webkit-backdrop-filter 280ms ease;
 }
 
+/* Desktop horizontal-page mode — Nav must be `position: fixed` so it
+   doesn't add its own height to body.scrollHeight. Otherwise
+   body.scrollHeight = nav.height + main.height (100vh) > 100vh,
+   and any subsequent scrollIntoView call on a panel triggers a
+   smooth body-scroll-up to bring the panel fully into view. That
+   reads as a "scroll up before transition" on the first wheel. */
+@media (min-width: 921px) {
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
 /* Densified state — set once the user has scrolled past the hero. */
 .scrolled {
   background: rgba(137, 163, 155, 0);

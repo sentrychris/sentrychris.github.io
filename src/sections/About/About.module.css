@@ -143,17 +143,9 @@
   clear: left;
 }
 
-/* Desktop horizontal-page mode — the pull quote's vertical margins
-   would push the prose past the 100vh panel. Tighten significantly. */
-@media (min-width: 921px) {
-  .paragraph:nth-child(2) {
-    margin: 6rem 0 2.6rem 0;
-  }
-
-  .signature {
-    margin-top: 2.4rem;
-  }
-}
+/* Desktop horizontal-page overrides for About are at the bottom of
+   the file so they win against the base rules below — see the
+   bottom @media (min-width: 921px) block. */
 
 /* Stylized opening / closing quote marks bracketing the pull quote.
    Inline (not block) so they sit alongside the text. */
@@ -411,5 +403,58 @@
 
   .factsHeaderText {
     letter-spacing: 0.22em;
+  }
+}
+
+/* Desktop horizontal-page mode — every section is a 100vh panel.
+   Compress the editorial spread so it fits without internal scroll:
+   tighten the pull quote's vertical margins, the signature top
+   margin, and the layout gap. Placed last so its same-selector
+   overrides beat the base rules above (media queries don't bump
+   specificity). */
+@media (min-width: 921px) {
+  .layout {
+    gap: 3rem;
+  }
+
+  .paragraph {
+    font-size: 15.5px;
+    line-height: 1.6;
+    margin: 0 0 1rem;
+  }
+
+  .paragraph:first-child::first-letter {
+    font-size: clamp(56px, 6.5vw, 88px);
+  }
+
+  /* The standalone vertical-mode pull-quote margin is generous
+     (6rem 0 2.6rem 0). Tighten significantly for horizontal panels. */
+  .paragraph:nth-child(2) {
+    margin: 1.6rem 0 1.6rem 0;
+    font-size: clamp(15px, 1.5vw, 19px);
+  }
+
+  .factsHeader {
+    padding: 0.4rem 0.8rem;
+  }
+
+  .fact {
+    padding: 0.7rem 0.85rem;
+  }
+
+  .factValue {
+    font-size: 14.5px;
+  }
+
+  .signature {
+    margin-top: 1.6rem;
+  }
+
+  .signatureRule {
+    margin-bottom: 0.85rem;
+  }
+
+  .signatureText {
+    font-size: clamp(15px, 1.4vw, 17.5px);
   }
 }

@@ -124,37 +124,37 @@ pre {
   }
 
   /* Each direct <section> child (and the trailing <footer>) becomes
-     a viewport-sized panel. Default is `overflow-y: hidden` so wheel
-     events go straight to horizontal page snaps without nudging an
-     internal scrollbar. Sections that legitimately need internal
-     vertical scroll (currently #work) opt in below. */
+     a viewport-sized panel. Vertical scroll is allowed so panels that
+     marginally overflow at smaller desktop viewports don't dead-end
+     the pager — once the user scrolls to the bottom of an overflowing
+     panel, the wheel hijack converts the next wheel into a horizontal
+     page snap.
+     Per-panel content is designed to fit 1366x768+; the scrollbar
+     should rarely appear in practice. */
   main > section,
   main > footer {
     flex: 0 0 100vw;
     width: 100vw;
     height: 100vh;
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: auto;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     scroll-margin-left: 0;
     /* Stop wheel scroll from chaining out of a section into the
        horizontal page-pager — the wheel hijack is the only path. */
     overscroll-behavior: contain;
-  }
-
-  /* Projects — long enough that internal vertical scroll is the
-     right answer. The wheel hijack still translates an exhausted
-     scroll into a horizontal page snap. */
-  main > section#work {
-    overflow-y: auto;
+    /* Slim accent-tinted scrollbar — visible only when content
+       actually overflows, easy to ignore otherwise. */
     scrollbar-width: thin;
     scrollbar-color: rgba(176, 228, 204, 0.18) transparent;
   }
-  main > section#work::-webkit-scrollbar {
+  main > section::-webkit-scrollbar,
+  main > footer::-webkit-scrollbar {
     width: 4px;
   }
-  main > section#work::-webkit-scrollbar-thumb {
+  main > section::-webkit-scrollbar-thumb,
+  main > footer::-webkit-scrollbar-thumb {
     background: rgba(176, 228, 204, 0.18);
     border-radius: 2px;
   }
