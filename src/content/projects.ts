@@ -43,7 +43,7 @@ export const projects: ProjectsCopy = {
       summary:
         'A lightweight, real-time monitoring dashboard for your servers. Live metrics streamed over WebSocket, gauges, charts, service probes - all in one polished UI that drops in front of Vigil Collector.',
       url: 'https://status.edcs.app',
-      image: '/projects/vigil-dashboard.png',
+      image: '/projects/vigil.webp',
       alt: 'Vigil dashboard — CPU, memory, disk and network charts streaming live.',
       badge: 'System Monitoring',
       stack: ['Python', 'Tornado', 'FastAPI', 'TypeScript', 'Vue 3', 'D3', 'WebSocket'],
@@ -57,7 +57,7 @@ export const projects: ProjectsCopy = {
       summary:
         'A simple, fast, and free online markdown editor with live preview rendering. Write, format, and export your markdown documents instantly to HTML or PDF. Built on top of Monaco which powers Visual Studio Code.',
       url: 'https://versyxdigital.github.io/mkeditor',
-      image: '/projects/mkeditor.png',
+      image: '/projects/mkeditor.webp',
       alt: 'Placeholder screenshot — Vigil hub view, swap for project two.',
       stack: ['TypeScript', 'Monaco (VS Code)', 'Bootstrap', 'Electron', 'Webpack'],
       links: [
@@ -70,7 +70,7 @@ export const projects: ProjectsCopy = {
       summary:
         'A dedicated project for fans of the game Elite Dangerous. A companion site powered by its own API. Data on ~100 million star systems is served at light speed. Data is sourced from communtiy tools and in-game journals. ',
       url: 'https://edcs.app',
-      image: '/projects/edcs.png',
+      image: '/projects/edcs.webp',
       alt: 'Placeholder screenshot — Vigil overview, swap for project three.',
       stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
       links: [

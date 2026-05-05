@@ -12,29 +12,44 @@
   overflow: hidden;
   opacity: 0.75;
 
-  /* Layer 1 — engineering paper grid.
-     Parallax is applied here via `background-position-x` (driven by
-     --schematic-x in JS as <main> scrolls). The grid tiles infinitely
-     so the drift never exposes the page bg, and the SVG shapes /
-     corner ornaments below stay anchored to the viewport. */
+  /* JS writes the raw `main.scrollLeft` here; layers below apply
+     different multipliers for layered parallax depth. */
   --schematic-x: 0px;
+}
+
+/* ─── Layer 1 — engineering paper grid (fastest drift) ────────
+   Background tiles infinitely via background-repeat, so applying
+   parallax via `background-position-x` will never expose the page
+   background. */
+.parallaxGrid {
+  position: absolute;
+  inset: 0;
   background-image:
     linear-gradient(to right,  rgba(var(--ink-rgb), 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(var(--ink-rgb), 0.04) 1px, transparent 1px);
   background-size: 80px 80px;
-  background-position: var(--schematic-x) 0;
+  /* Drift = -15% of scrollLeft → grid moves opposite to panels at
+     ~15% rate (closest layer, most visible motion). */
+  background-position: calc(var(--schematic-x) * -0.15) 0;
 }
 
-/* ─── Layer 2 — geometry SVG ────────────────────────────────── */
+/* ─── Layer 2 — geometry SVG (slower drift) ──────────────────
+   Canvas is 3× viewport wide; transform translates it leftward at
+   ~5% of scrollLeft so new shapes drift into view from the right
+   as the user pages through. The wider canvas guarantees there's
+   always content to reveal — the SVG never runs out. */
 
 .shapes {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  top: 0;
+  left: 0;
+  width: 300vw;
   height: 100%;
   fill: none;
   stroke: rgba(var(--ink-rgb), 0.07);
   stroke-width: 0.7;
+  transform: translate3d(calc(var(--schematic-x) * -0.05), 0, 0);
+  will-change: transform;
 }
 
 .cross {
@@ -144,8 +159,13 @@
 /* ─── Mobile — drop the busier elements on narrow viewports ─── */
 
 @media (max-width: 720px) {
-  .schematic {
+  .parallaxGrid {
     background-size: 56px 56px;
+  }
+  .shapes {
+    /* No parallax on mobile (no horizontal pager). */
+    width: 100%;
+    transform: none;
   }
   .sweep,
   .ruler,
@@ -154,5 +174,16 @@
   .coords,
   .ref {
     display: none;
+  }
+}
+
+/* Honour reduced-motion: cancel the parallax transform but keep
+   the static decoration. */
+@media (prefers-reduced-motion: reduce) {
+  .parallaxGrid {
+    background-position: 0 0;
+  }
+  .shapes {
+    transform: none;
   }
 }
