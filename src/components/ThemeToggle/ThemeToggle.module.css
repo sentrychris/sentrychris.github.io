@@ -1,0 +1,56 @@
+/* ThemeToggle — small icon button. Sits in the Nav. Sun shows in
+   light mode (next click → dark), moon shows in dark mode (next →
+   light). Icons stack and crossfade via opacity tied to the
+   `data-theme` attribute on <html>. */
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  color: var(--ink-mute);
+  cursor: pointer;
+  font: inherit;
+}
+
+.toggle:hover,
+.toggle:focus-visible {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.06);
+  outline: none;
+}
+
+.toggle:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Stack both icons; crossfade based on theme. */
+.iconStack {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
+.sun,
+.moon {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Light mode (default) → show SUN (clicking switches to dark). */
+.sun  { opacity: 1; }
+.moon { opacity: 0; }
+
+/* Dark mode → show MOON. */
+:global([data-theme="dark"]) .sun  { opacity: 0; }
+:global([data-theme="dark"]) .moon { opacity: 1; }

@@ -48,6 +48,13 @@
   gap: 1rem;
 }
 
+/* Right cluster — section links + theme toggle. */
+.right {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
 /* ─── Brand mark ────────────────────────────────────────────── */
 
 .brand {

@@ -73,7 +73,7 @@
 
 .entry:hover .indicator {
   border-color: var(--accent);
-  background: rgba(64, 138, 113, 0.08);
+  background: rgba(var(--accent-rgb), 0.08);
 }
 
 /* ─── Label ───────────────────────────────────────────────── */
@@ -103,7 +103,7 @@
   background: var(--accent);
   border-color: var(--accent);
   /* Static soft glow so the dot reads as "live" between pulses. */
-  box-shadow: 0 0 8px rgba(64, 138, 113, 0.55);
+  box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.55);
 }
 
 /* The pulse — expanding accent ring, fades out as it grows.

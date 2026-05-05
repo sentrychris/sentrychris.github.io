@@ -4,7 +4,7 @@
  * the parts to keep. */
 
 export interface ExperienceEntry {
-  /** Role title — e.g. "Lead developer". */
+  /** Role title — e.g. "Lead Developer". */
   role: string
   /** Company name — set to `null` to mask (e.g., NDA roles). */
   company: string | null

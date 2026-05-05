@@ -27,7 +27,7 @@ export const about: AboutCopy = {
   ],
   facts: [
     { label: 'Based', value: 'United Kingdom' },
-    { label: 'Role', value: 'Lead developer' },
+    { label: 'Role', value: 'Lead Developer' },
     { label: 'Years', value: '12+' },
     { label: 'Open to', value: 'Lead · Senior · Consulting' },
   ],

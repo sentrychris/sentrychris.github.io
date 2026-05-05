@@ -7,8 +7,8 @@
   gap: 0.45rem;
   padding: 0.32rem 0.6rem;
   border-radius: 4px;
-  background: rgba(176, 228, 204, 0.05);
-  border: 1px solid rgba(176, 228, 204, 0.08);
+  background: rgba(var(--ink-rgb), 0.05);
+  border: 1px solid rgba(var(--ink-rgb), 0.08);
   font-family: var(--sans);
   font-size: 9.5px;
   font-weight: 500;

@@ -14,7 +14,7 @@
   align-items: stretch;
   border: 1px solid var(--line);
   border-radius: 4px;
-  background: rgba(176, 228, 204, 0.018);
+  background: rgba(var(--ink-rgb), 0.018);
   overflow: hidden;
   position: relative;
 }
@@ -51,7 +51,7 @@
 .sheetCellPlates {
   /* Centre the tab list horizontally inside the wide middle cell. */
   justify-content: center;
-  background: rgba(176, 228, 204, 0.012);
+  background: rgba(var(--ink-rgb), 0.012);
 }
 
 .sheetCellLabel {
@@ -110,14 +110,14 @@
 .plateTab:hover,
 .plateTab:focus-visible {
   color: var(--ink);
-  background: rgba(64, 138, 113, 0.05);
+  background: rgba(var(--accent-rgb), 0.05);
   outline: none;
 }
 
 .plateTabActive {
   color: var(--ink);
   border-bottom-color: var(--accent);
-  background: rgba(64, 138, 113, 0.07);
+  background: rgba(var(--accent-rgb), 0.07);
 }
 
 .plateTabNumeral {
@@ -206,7 +206,7 @@
   padding: 0.28rem 0.55rem;
   border: 1px solid var(--line-strong);
   border-radius: 3px;
-  background: rgba(176, 228, 204, 0.025);
+  background: rgba(var(--ink-rgb), 0.025);
   white-space: nowrap;
 }
 
@@ -232,7 +232,7 @@
 .hero .plateBadge {
   padding: 0.36rem 0.65rem;
   border-color: var(--accent);
-  background: rgba(64, 138, 113, 0.08);
+  background: rgba(var(--accent-rgb), 0.08);
 }
 
 .hero .plateBadgeNumeral {
@@ -255,8 +255,8 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
-  background: rgba(64, 138, 113, 0.06);
-  border: 1px solid rgba(64, 138, 113, 0.4);
+  background: rgba(var(--accent-rgb), 0.06);
+  border: 1px solid rgba(var(--accent-rgb), 0.4);
   border-radius: 4px;
   white-space: nowrap;
   transition:
@@ -278,7 +278,7 @@
 
 .headButton:hover .featureAction,
 .headButton:focus-visible .featureAction {
-  background: rgba(64, 138, 113, 0.18);
+  background: rgba(var(--accent-rgb), 0.18);
   border-color: var(--accent);
   transform: translateY(-1px);
 }
@@ -297,8 +297,8 @@
 
 .title {
   margin: 0;
-  font-family: var(--sans);
-  font-weight: 600;
+  font-family: var(--serif);
+  font-style: italic;
   font-size: clamp(20px, 2vw, 28px);
   line-height: 1.2;
   letter-spacing: -0.015em;
@@ -347,7 +347,7 @@
 .hero .browser:hover {
   box-shadow:
     var(--shadow-lift),
-    0 0 60px -10px rgba(64, 138, 113, 0.45);
+    0 0 60px -10px rgba(var(--accent-rgb), 0.45);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -553,7 +553,7 @@
   align-items: center;
   gap: 0.55rem;
   padding: 0.7rem 1rem;
-  background: rgba(176, 228, 204, 0.04);
+  background: rgba(var(--ink-rgb), 0.04);
   border-bottom: 1px solid var(--line);
 }
 
@@ -561,19 +561,19 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: rgba(176, 228, 204, 0.18);
+  background: rgba(var(--ink-rgb), 0.18);
   flex-shrink: 0;
 }
 .browserDotR { background: rgba(196, 109, 95, 0.55); }
 .browserDotY { background: rgba(212, 168, 87, 0.55); }
-.browserDotG { background: rgba(64, 138, 113, 0.6);  }
+.browserDotG { background: rgba(var(--accent-rgb), 0.6);  }
 
 .browserUrl {
   margin-left: 0.5rem;
   flex: 1;
   padding: 0.28rem 0.7rem;
   border-radius: 4px;
-  background: rgba(176, 228, 204, 0.04);
+  background: rgba(var(--ink-rgb), 0.04);
   color: var(--ink-faint);
   font-family: var(--mono);
   font-size: 11px;
@@ -633,7 +633,7 @@
   grid-template-columns: 1.6fr repeat(4, 1fr);
   border: 1px solid var(--line);
   border-radius: 4px;
-  background: rgba(176, 228, 204, 0.025);
+  background: rgba(var(--ink-rgb), 0.025);
   overflow: hidden;
 }
 
@@ -651,7 +651,7 @@
 }
 
 .titleBlockCellWide {
-  background: rgba(64, 138, 113, 0.06);
+  background: rgba(var(--accent-rgb), 0.06);
 }
 
 .titleBlockLabel {

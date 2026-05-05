@@ -176,7 +176,7 @@
      parent grid's align-items: center. No sticky here — that would
      compete with the center alignment. */
   border: 1px solid var(--line);
-  background: rgba(176, 228, 204, 0.018);
+  background: rgba(var(--ink-rgb), 0.018);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -188,7 +188,7 @@
   align-items: center;
   gap: 0.55rem;
   padding: 0.55rem 0.9rem;
-  background: rgba(176, 228, 204, 0.04);
+  background: rgba(var(--ink-rgb), 0.04);
   border-bottom: 1px solid var(--line);
 }
 

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { ThemeToggle } from '../ThemeToggle'
 import styles from './Nav.module.css'
 
 export interface NavLink {
@@ -109,21 +110,24 @@ export function Nav({ links }: NavProps) {
             CR
           </span>
         </a>
-        <nav className={styles.links} aria-label="Sections">
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className={
-                link.spy && link.spy === activeId
-                  ? `${styles.link} ${styles.linkActive}`
-                  : styles.link
-              }
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
+        <div className={styles.right}>
+          <nav className={styles.links} aria-label="Sections">
+            {links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className={
+                  link.spy && link.spy === activeId
+                    ? `${styles.link} ${styles.linkActive}`
+                    : styles.link
+                }
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   )

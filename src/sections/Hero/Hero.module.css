@@ -46,7 +46,6 @@
 .accent {
   font-family: var(--serif);
   font-style: italic;
-  font-weight: 500;
   color: var(--accent);
   letter-spacing: -0.005em;
 }
