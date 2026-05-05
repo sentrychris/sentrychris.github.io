@@ -10,9 +10,37 @@
   border-top: 1px solid var(--line);
 }
 
+/* Desktop horizontal-page mode — Footer is the final panel after
+   Contact (rendered inside <main>). Centre the brand mark + meta
+   strip so the panel reads as a deliberate sign-off rather than a
+   chrome strip stuck at the bottom. */
 @media (min-width: 921px) {
   .footer {
-    display: none;
+    margin-top: 0;
+    padding: 4rem clamp(60px, 6vw, 96px) 3.4rem clamp(180px, 14vw, 240px);
+    border-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.6rem;
+  }
+
+  .brandMark {
+    width: 44px;
+    height: 44px;
+    font-size: 44px;
+  }
+
+  .meta {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.2rem 1.8rem;
   }
 }
 

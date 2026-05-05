@@ -14,12 +14,20 @@
    internal scroll. */
 @media (min-width: 921px) {
   .section {
-    padding: 4.5rem clamp(60px, 6vw, 96px) 4rem clamp(180px, 14vw, 240px);
+    padding: 4rem clamp(60px, 6vw, 96px) 3.4rem clamp(180px, 14vw, 240px);
     scroll-margin-top: 0;
   }
 
   .opener {
-    margin-bottom: 2.4rem;
+    /* Tight in horizontal mode so the section header sits close to
+       its body — the panels are short, big margins waste vertical
+       real estate. */
+    margin-bottom: 1.4rem;
+  }
+
+  .lede {
+    margin-top: 14px;
+    font-size: 15.5px;
   }
 }
 

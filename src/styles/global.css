@@ -123,11 +123,13 @@ pre {
     display: none;
   }
 
-  /* Each direct <section> child becomes a viewport-sized panel.
-     Sections are designed to fit 100vh — internal scroll is OFF
-     so wheel events translate cleanly into horizontal page snaps
-     instead of nudging an internal scrollbar first. */
-  main > section {
+  /* Each direct <section> child (and the trailing <footer>) becomes
+     a viewport-sized panel. Default is `overflow-y: hidden` so wheel
+     events go straight to horizontal page snaps without nudging an
+     internal scrollbar. Sections that legitimately need internal
+     vertical scroll (currently #work) opt in below. */
+  main > section,
+  main > footer {
     flex: 0 0 100vw;
     width: 100vw;
     height: 100vh;
@@ -136,5 +138,24 @@ pre {
     scroll-snap-align: start;
     scroll-snap-stop: always;
     scroll-margin-left: 0;
+    /* Stop wheel scroll from chaining out of a section into the
+       horizontal page-pager — the wheel hijack is the only path. */
+    overscroll-behavior: contain;
+  }
+
+  /* Projects — long enough that internal vertical scroll is the
+     right answer. The wheel hijack still translates an exhausted
+     scroll into a horizontal page snap. */
+  main > section#work {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(176, 228, 204, 0.18) transparent;
+  }
+  main > section#work::-webkit-scrollbar {
+    width: 4px;
+  }
+  main > section#work::-webkit-scrollbar-thumb {
+    background: rgba(176, 228, 204, 0.18);
+    border-radius: 2px;
   }
 }

@@ -14,12 +14,16 @@
 }
 
 /* Desktop horizontal-page mode — match Section's left/right padding
-   so the Hero panel clears the fixed Tracker. */
+   so the Hero panel clears the fixed Tracker. Top-align (instead of
+   the default vertical centering) so font-load reflow can't shift
+   the centred wrap upward and read as a "scroll up" before the
+   horizontal page snap. */
 @media (min-width: 921px) {
   .hero {
-    padding: 7rem clamp(60px, 6vw, 96px) 5rem clamp(180px, 14vw, 240px);
+    padding: clamp(96px, 14vh, 160px) clamp(60px, 6vw, 96px) 5rem clamp(180px, 14vw, 240px);
     border-bottom: 0;
     min-height: 100vh;
+    align-items: flex-start;
   }
 }
 

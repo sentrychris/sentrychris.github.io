@@ -20,7 +20,7 @@ export const skills: SkillsCopy = {
   title: 'Stack and',
   titleAccent: 'tooling.',
   lede:
-    'Polyglot by necessity, opinionated by experience. The list is long because the years are long; the working set on any given engagement is much smaller.',
+    'Polyglot by necessity, opinionated by experience.',
   groups: [
     {
       name: 'Frontend',

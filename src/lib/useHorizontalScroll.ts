@@ -31,17 +31,25 @@ export function useHorizontalScroll() {
     let isTransitioning = false
     let transitionTimer: number | null = null
 
-    function findCurrentSection(): HTMLElement | null {
+    function isPanel(el: Element | null): el is HTMLElement {
+      if (!el) return false
+      const tag = el.tagName.toLowerCase()
+      return tag === 'section' || tag === 'footer'
+    }
+
+    function findCurrentPanel(): HTMLElement | null {
       if (!main) return null
-      const sections = Array.from(main.querySelectorAll(':scope > section'))
+      const panels = Array.from(
+        main.querySelectorAll(':scope > section, :scope > footer'),
+      )
       const scrollLeft = main.scrollLeft
       const center = scrollLeft + window.innerWidth / 2
       let closest: HTMLElement | null = null
       let closestDist = Infinity
-      for (const s of sections) {
+      for (const s of panels) {
         const el = s as HTMLElement
-        const sectionCenter = el.offsetLeft + el.offsetWidth / 2
-        const dist = Math.abs(sectionCenter - center)
+        const panelCenter = el.offsetLeft + el.offsetWidth / 2
+        const dist = Math.abs(panelCenter - center)
         if (dist < closestDist) {
           closestDist = dist
           closest = el
@@ -73,22 +81,22 @@ export function useHorizontalScroll() {
       // horizontal trackpad gestures pass straight through.
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return
 
-      const section = findCurrentSection()
-      if (!section) return
+      const panel = findCurrentPanel()
+      if (!panel) return
 
       const atBottom =
-        section.scrollTop >= section.scrollHeight - section.clientHeight - 2
-      const atTop = section.scrollTop <= 2
+        panel.scrollTop >= panel.scrollHeight - panel.clientHeight - 2
+      const atTop = panel.scrollTop <= 2
 
       if (e.deltaY > 0 && atBottom) {
-        const next = section.nextElementSibling as HTMLElement | null
-        if (next && next.tagName.toLowerCase() === 'section') {
+        const next = panel.nextElementSibling
+        if (isPanel(next)) {
           e.preventDefault()
           transitionTo(next, 'next')
         }
       } else if (e.deltaY < 0 && atTop) {
-        const prev = section.previousElementSibling as HTMLElement | null
-        if (prev && prev.tagName.toLowerCase() === 'section') {
+        const prev = panel.previousElementSibling
+        if (isPanel(prev)) {
           e.preventDefault()
           transitionTo(prev, 'prev')
         }
@@ -99,21 +107,21 @@ export function useHorizontalScroll() {
       // Page Down / Right Arrow → next panel; Page Up / Left Arrow → prev.
       // Arrow Up/Down still drive native vertical scroll within section.
       if (isTransitioning) return
-      const section = findCurrentSection()
-      if (!section) return
+      const panel = findCurrentPanel()
+      if (!panel) return
 
       const forward = e.key === 'PageDown' || e.key === 'ArrowRight'
       const backward = e.key === 'PageUp' || e.key === 'ArrowLeft'
 
       if (forward) {
-        const next = section.nextElementSibling as HTMLElement | null
-        if (next && next.tagName.toLowerCase() === 'section') {
+        const next = panel.nextElementSibling
+        if (isPanel(next)) {
           e.preventDefault()
           transitionTo(next, 'next')
         }
       } else if (backward) {
-        const prev = section.previousElementSibling as HTMLElement | null
-        if (prev && prev.tagName.toLowerCase() === 'section') {
+        const prev = panel.previousElementSibling
+        if (isPanel(prev)) {
           e.preventDefault()
           transitionTo(prev, 'prev')
         }

@@ -972,7 +972,9 @@
 
 @media (min-width: 921px) {
   .sheetHeader {
-    margin-top: 1.5rem;
+    /* Sit immediately below the opener — Section.opener has a tight
+       margin-bottom in horizontal mode, no need for extra space here. */
+    margin-top: 0;
   }
 
   .sheetCell,

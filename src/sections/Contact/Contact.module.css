@@ -570,3 +570,48 @@
     width: 14px;
   }
 }
+
+/* ─── Desktop horizontal-page mode ───────────────────────────
+   The magazine close needs to fit a single 100vh panel — the
+   default 4rem fleurons + 4rem opener + 4rem signature spacing
+   add ~290px of vertical air that doesn't fit. Tighten across
+   the board while keeping the editorial cadence. */
+
+@media (min-width: 921px) {
+  .opener {
+    margin-bottom: 1.6rem;
+  }
+
+  .label {
+    margin-bottom: 18px;
+  }
+
+  .lede {
+    margin-top: 14px;
+    font-size: 15px;
+  }
+
+  .invitation {
+    font-size: clamp(24px, 2.6vw, 32px);
+  }
+
+  .fleuron {
+    margin: 1.4rem 0;
+  }
+
+  .correspondence {
+    gap: 0.85rem;
+  }
+
+  .channels {
+    gap: 0.7rem;
+  }
+
+  .signature {
+    margin-top: 1.6rem;
+  }
+
+  .signatureRule {
+    margin-bottom: 1rem;
+  }
+}

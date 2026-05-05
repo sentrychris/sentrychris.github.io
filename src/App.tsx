@@ -28,13 +28,18 @@ function App() {
         <Experience />
         <Projects />
         <Contact />
+        {/* Footer lives inside <main> so the desktop horizontal-page
+            layout treats it as a final panel after Contact (instead
+            of an out-of-flow element below the locked viewport). On
+            mobile it falls back to its natural below-the-scroll
+            position via the long-scroll layout. */}
+        <Footer
+          links={[
+            { href: 'https://github.com/sentrychris', label: 'GitHub' },
+            { href: 'https://linkedin.com/in/chris-rowles', label: 'LinkedIn' },
+          ]}
+        />
       </main>
-      <Footer
-        links={[
-          { href: 'https://github.com/sentrychris', label: 'GitHub' },
-          { href: 'https://linkedin.com/in/chris-rowles', label: 'LinkedIn' },
-        ]}
-      />
     </>
   )
 }

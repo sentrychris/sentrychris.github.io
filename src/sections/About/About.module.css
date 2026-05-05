@@ -120,7 +120,7 @@
   line-height: 0.8;
   color: var(--accent);
   float: left;
-  margin: 6px 14px 0 0;
+  margin: 2px 10px 0 0;
   padding: 0;
 }
 
@@ -135,7 +135,7 @@
   font-weight: 500;
   font-size: clamp(16.5px, 1.8vw, 22.5px);
   line-height: 1.4;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.03em;
   color: var(--ink);
   max-width: 32em;
   /* Clear the floated drop cap so the pull quote starts at the left
@@ -147,7 +147,7 @@
    would push the prose past the 100vh panel. Tighten significantly. */
 @media (min-width: 921px) {
   .paragraph:nth-child(2) {
-    margin: 2rem 0 1.6rem 0;
+    margin: 6rem 0 2.6rem 0;
   }
 
   .signature {
