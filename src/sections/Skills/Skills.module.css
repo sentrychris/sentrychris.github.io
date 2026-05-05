@@ -147,7 +147,7 @@
 .arrowDownTop .arrowCaption,
 .arrowDownBottom .arrowCaption {
   top: 50%;
-  left: calc(100% + 14px);
+  left: calc(100% + -8px);
   margin-top: -0.5em;
   transform: rotate(-90deg);
   transform-origin: center;

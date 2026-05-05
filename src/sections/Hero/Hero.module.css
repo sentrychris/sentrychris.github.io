@@ -194,19 +194,18 @@
 
 /* Desktop horizontal-page mode — Hero scales type and spacing up
    with viewport so the panel feels proportional on big monitors.
-   Top-aligned (not vertically centred) so font-load reflow can't
-   shift the centred wrap upward and read as a "scroll up" before
-   the horizontal page snap. */
+   Vertical centring comes from the global `main > section` rule in
+   global.css; symmetric top/bottom padding ensures the wrap reads
+   as visually centred in the panel (top padding ≥ Nav height). */
 @media (min-width: 921px) {
   .hero {
     padding:
-      clamp(96px, 12vh, 150px)
+      clamp(96px, 10vh, 130px)
       clamp(60px, 6vw, 140px)
-      clamp(3rem, 6vh, 6rem)
+      clamp(96px, 10vh, 130px)
       clamp(180px, 14vw, 280px);
     border-bottom: 0;
     min-height: 100vh;
-    align-items: flex-start;
   }
 
   .title {

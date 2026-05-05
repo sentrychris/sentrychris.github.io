@@ -33,8 +33,8 @@ export interface ProjectsCopy {
 
 export const projects: ProjectsCopy = {
   eyebrow: 'Selected work',
-  title: 'A few things',
-  titleAccent: 'shipped recently.',
+  title: 'Some of my',
+  titleAccent: 'work.',
   lede:
     'Most production work is under NDA, the open ones are below. Reach out for the rest.',
   projects: [

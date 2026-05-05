@@ -22,8 +22,8 @@ export const about: AboutCopy = {
     'Comfortable owning systems end-to-end.',
   paragraphs: [
     'A proven track record of inheriting complex legacy systems, bringing them back up to standard, and shipping clean, well-tested code on top.',
-    'Most of the work has been hands-on across the full stack: frontend, backend, infrastructure, and the connective tissue between them. The rest has been leading teams through code review, mentoring, and architectural decisions.',
-    'I also ship things in my spare time. A few of those are below.',
+    'Most of the work has been hands-on across the full stack: frontend, backend, and infrastructure. The rest has been leading teams through reviews, mentoring, and architectural decisions.',
+    'I also ship things in my spare time.',
   ],
   facts: [
     { label: 'Based', value: 'United Kingdom' },

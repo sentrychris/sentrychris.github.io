@@ -588,7 +588,8 @@
   }
 
   .title {
-    font-size: clamp(32px, 4.8vw, 76px);
+    /* Unified section header size — matches Section / About / Experience. */
+    font-size: clamp(32px, 4vw, 64px);
   }
 
   .lede {

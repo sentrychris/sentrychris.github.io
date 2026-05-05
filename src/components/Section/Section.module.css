@@ -162,18 +162,20 @@
    rules later in the file win. */
 @media (min-width: 921px) {
   .section {
-    /* Top padding accounts for the fixed Nav (~68px) + breathing
-       room that grows on taller viewports. Side padding reserves
-       the left zone for the fixed Tracker. */
+    /* Symmetric top/bottom padding so the wrap, vertically centred
+       by `justify-content: safe center`, lands at the actual panel
+       midpoint instead of being offset by asymmetric padding.
+       Top must be at least the fixed Nav height (~68px); kept tight
+       so longer panels (Work) still fit. */
     padding:
-      clamp(4.5rem, 8vh, 9rem)
+      clamp(72px, 7vh, 96px)
       clamp(60px, 6vw, 140px)
-      clamp(2rem, 5vh, 6rem)
+      clamp(72px, 7vh, 96px)
       clamp(180px, 14vw, 280px);
     scroll-margin-top: 0;
-    /* Vertical centring fills empty space gracefully on big
-       viewports. `safe` keyword falls back to flex-start if the
-       panel content overflows, so it never clips the top edge. */
+    /* Vertical centring also enforced via the global
+       `main > section` rule (see global.css) so it applies to Hero
+       too. Kept here for clarity even though it's redundant. */
     display: flex;
     flex-direction: column;
     justify-content: safe center;
@@ -189,7 +191,15 @@
   }
 
   .title {
-    font-size: clamp(30px, 5vmin, 60px);
+    /* Unified section header size — matches About / Experience /
+       Contact custom openers. Capped at 64px so longer titles
+       (e.g. "A few things shipped recently") don't wrap to 2 lines
+       on 1920×1080 and overflow the panel. */
+    font-size: clamp(32px, 4vw, 64px);
+  }
+
+  .opener {
+    margin-bottom: clamp(0.8rem, 2vh, 1.8rem);
   }
 
   .lede {

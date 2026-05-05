@@ -148,6 +148,13 @@ pre {
        actually overflows, easy to ignore otherwise. */
     scrollbar-width: thin;
     scrollbar-color: rgba(176, 228, 204, 0.18) transparent;
+    /* Vertically centre every panel's content (`safe` falls back to
+       flex-start if content overflows so the top edge isn't clipped).
+       This applies to Hero too, which has its own .hero class — the
+       per-section .section rule wouldn't reach it. */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: safe center !important;
   }
   main > section::-webkit-scrollbar,
   main > footer::-webkit-scrollbar {

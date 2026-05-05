@@ -97,7 +97,7 @@ export function Contact() {
         <div className={styles.signature} aria-hidden="true">
           <span className={styles.signatureRule} />
           <p className={styles.signatureText}>
-            <span className={styles.signaturePart}>Yours,</span>
+            <span className={styles.signaturePart}>Thanks,</span>
             <span className={styles.signatureName}>Chris Rowles</span>
           </p>
           <p className={styles.signatureMeta}>

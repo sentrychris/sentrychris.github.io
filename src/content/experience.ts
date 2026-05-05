@@ -28,10 +28,10 @@ export interface ExperienceCopy {
 
 export const experience: ExperienceCopy = {
   eyebrow: 'Experience',
-  title: 'Many years across',
-  titleAccent: 'sectors.',
+  title: 'Years of',
+  titleAccent: 'experience.',
   lede:
-    'A condensed view. Reach out if you want the long version with references.',
+    'Reach out if you want the long version with references.',
   entries: [
     {
       role: 'Lead Developer',
