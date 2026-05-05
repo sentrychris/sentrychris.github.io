@@ -1,177 +1,263 @@
-/* Experience — drafting timeline. Each entry sits like a labeled
-   construction phase on the blueprint drawing: serif Nº numeral and a
-   dimension-callout period in the left rail; role / sectors / summary
-   / numbered specifications in the right. Hairline divider with accent
-   end-ticks between entries. Mobile collapses to a single column. */
+/* Experience — refined editorial roster (Vogue treatment).
+   Opener rendered inside the body. Each role is a 2-column mini-spread
+   with italic Playfair period on the left and prose with a drop cap
+   on the right. Magazine-style fleuron (✻) separators between entries. */
 
-.timeline {
+/* ─── Opener (rendered here, not by Section) ─────────────── */
+
+.opener {
+  margin-bottom: 5rem;
+  max-width: 760px;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.label::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.labelText {
+  display: inline-block;
+}
+
+.labelIndex {
+  margin-left: 6px;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: clamp(40px, 4.6vw, 66px);
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  line-height: 1.05;
+  color: var(--ink);
+  max-width: 22ch;
+}
+
+.titleAccent {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: -0.005em;
+}
+
+.lede {
+  margin: 22px 0 0;
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 42ch;
+}
+
+/* ─── Roster ─────────────────────────────────────────────── */
+
+.roster {
   list-style: none;
-  margin: 3rem 0 0;
+  margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
   gap: 5rem;
 }
 
-.row {
-  display: grid;
-  grid-template-columns: clamp(120px, 14vw, 180px) 1fr;
-  gap: 2.5rem;
-  align-items: start;
-  position: relative;
-  padding-bottom: 5rem;
+.entry {
+  margin: 0;
 }
 
-/* Hairline divider between entries with accent end-ticks at each end —
-   the dimension-line motif again. */
-.row:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 2.4rem;
+/* ─── Fleuron separator between entries ──────────────────── */
+
+.fleuron {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  margin: 0 0 5rem;
+  color: var(--accent);
+}
+
+.fleuronRule {
+  flex: 1 1 auto;
   height: 1px;
-  background:
-    linear-gradient(to right, var(--accent) 0 8px, transparent 8px) left  / 100% 1px no-repeat,
-    linear-gradient(to left,  var(--accent) 0 8px, transparent 8px) right / 100% 1px no-repeat,
-    var(--line-faint);
+  background: var(--line);
 }
 
-.row:last-child { padding-bottom: 0; }
+.fleuronMark {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.9;
+}
 
-/* ─── Left column — Nº + dimension-callout period ────────────── */
+/* ─── Spread (the 2-col mini editorial spread) ───────────── */
 
-.numberCol {
+.spread {
+  display: grid;
+  grid-template-columns: minmax(180px, 260px) 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* ─── Left column — meta (period, company, sectors) ──────── */
+
+.meta {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
-  position: sticky;
-  top: 6rem;
 }
 
-.number {
+.period {
+  margin: 0;
   font-family: var(--serif);
   font-style: italic;
   font-weight: 500;
-  font-size: clamp(56px, 6vw, 84px);
-  line-height: 0.9;
+  font-size: clamp(40px, 4.4vw, 64px);
+  line-height: 0.95;
   color: var(--accent);
   letter-spacing: -0.01em;
 }
 
-.period {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  max-width: 220px;
-}
-
-.periodTick {
-  width: 1px;
-  height: 10px;
-  background: var(--accent);
-  opacity: 0.65;
-  flex-shrink: 0;
-}
-
-.periodRule {
-  flex: 1 1 auto;
-  height: 1px;
-  background: var(--line);
-  min-width: 8px;
-}
-
-.periodValue {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-/* ─── Right column ───────────────────────────────────────────── */
-
-.contentCol { min-width: 0; }
-
-.role {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 0 0 0.4rem;
-  font-family: var(--sans);
-  font-size: clamp(22px, 2.2vw, 28px);
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.015em;
-  color: var(--ink);
-}
-
-/* Small accent-bordered marker shared by the role title and each
-   numbered specification — same vocabulary as the About callouts. */
-.roleMarker,
-.pointMarker {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 1px solid var(--accent);
-  background: radial-gradient(circle at center, var(--accent) 0 1.5px, transparent 2px);
-  flex-shrink: 0;
-}
-
-.roleText { min-width: 0; }
-
 .company {
-  margin: 0 0 1.2rem 22px;
+  margin: 0.7rem 0 0;
   font-family: var(--serif);
   font-style: italic;
-  font-weight: 400;
-  font-size: 1.125rem;
+  font-weight: 500;
+  font-size: clamp(16px, 1.6vw, 20px);
+  line-height: 1.25;
   color: var(--ink-mute);
+  letter-spacing: -0.005em;
 }
-
-/* ─── Sectors — bracketed mono labels ────────────────────────── */
 
 .sectors {
-  list-style: none;
-  margin: 0 0 1.4rem;
+  margin: 1.4rem 0 0;
   padding: 0;
+  list-style: none;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 1rem;
+  flex-direction: column;
+  gap: 0.45rem;
 }
 
+/* Each sector reads like an architectural-spec line: a leading `+`
+   in accent (datum-style), then mono-caps text in faint ink. */
 .sector {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 9.5px;
   font-weight: 500;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ink-faint);
-  white-space: nowrap;
 }
 
-.sector::before { content: '['; margin-right: 4px; color: var(--accent); }
-.sector::after  { content: ']'; margin-left: 4px;  color: var(--accent); }
+.sector::before {
+  content: "+";
+  color: var(--accent);
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 600;
+}
 
-/* ─── Summary + numbered specifications ──────────────────────── */
+/* ─── Right column — body (role, summary, exhibits) ──────── */
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  min-width: 0;
+}
+
+.role {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: clamp(26px, 2.6vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  line-height: 1.1;
+  color: var(--ink);
+  max-width: 22ch;
+}
 
 .summary {
   margin: 0;
   font-family: var(--body);
-  font-size: 1rem;
+  font-size: 17px;
   line-height: 1.7;
   color: var(--ink-soft);
-  max-width: 58ch;
+}
+
+/* Drop cap on the summary's first letter — italic Playfair accent,
+   floats left, body wraps around. Same recipe as About's drop cap. */
+.summary::first-letter {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(48px, 5vw, 72px);
+  line-height: 0.85;
+  color: var(--accent);
+  float: left;
+  margin: 4px 12px 0 0;
+  padding: 0;
+}
+
+/* ─── Exhibits (Roman-numeralled outcome points) ────────── */
+
+.exhibits {
+  margin-top: 1rem;
+  /* Clear the floated drop cap so this block starts cleanly under
+     the prose rather than wrapping next to it. */
+  clear: left;
+}
+
+.exhibitsLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 0.9rem;
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.exhibitsLabel::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.exhibitsLabelText {
+  display: inline-block;
 }
 
 .points {
-  list-style: none;
-  margin: 1.6rem 0 0;
+  margin: 0;
   padding: 0;
+  list-style: none;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
@@ -180,53 +266,58 @@
 
 .point {
   display: grid;
-  grid-template-columns: 1.7rem 14px 1fr;
-  gap: 0.5rem;
+  grid-template-columns: 32px 1fr;
+  gap: 0.7rem;
   align-items: baseline;
 }
 
 .pointIndex {
-  font-family: var(--mono);
-  font-size: 11px;
+  font-family: var(--serif);
+  font-style: italic;
   font-weight: 500;
-  letter-spacing: 0.16em;
+  font-size: 18px;
+  line-height: 1;
   color: var(--accent);
-  text-transform: uppercase;
-}
-
-.pointMarker {
-  align-self: center;
-  transform: translateY(1px);
+  text-align: center;
 }
 
 .pointText {
   font-family: var(--body);
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.55;
   color: var(--ink-soft);
 }
 
-/* ─── Mobile — single column ─────────────────────────────────── */
+/* ─── Mobile — collapse to single column ─────────────────── */
 
 @media (max-width: 720px) {
-  .timeline { gap: 3.5rem; margin-top: 2rem; }
+  .opener {
+    margin-bottom: 3rem;
+  }
 
-  .row {
+  .roster {
+    gap: 3.5rem;
+  }
+
+  .fleuron {
+    margin-bottom: 3.5rem;
+  }
+
+  .spread {
     grid-template-columns: 1fr;
-    gap: 1.4rem;
-    padding-bottom: 3.5rem;
+    gap: 1.8rem;
   }
 
-  .row:not(:last-child)::after { bottom: 1.6rem; }
-
-  .numberCol {
-    position: static;
-    flex-direction: row;
-    align-items: center;
-    gap: 1.2rem;
+  .period {
+    font-size: clamp(36px, 8vw, 56px);
   }
 
-  .number { font-size: clamp(44px, 12vw, 64px); }
+  .role {
+    font-size: clamp(22px, 5vw, 30px);
+  }
 
-  .period { flex: 1 1 auto; max-width: none; }
+  .summary::first-letter {
+    font-size: clamp(40px, 11vw, 60px);
+    margin: 2px 9px 0 0;
+  }
 }
