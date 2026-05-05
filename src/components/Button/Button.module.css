@@ -5,7 +5,7 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 22px;
+  padding: 2px 24px;
   border-radius: var(--r-pill);
   font-family: var(--sans);
   font-size: 14px;
