@@ -25,8 +25,45 @@ export function Nav({ links }: NavProps) {
   const [scrolled, setScrolled] = useState(false)
   const headerRef = useRef<HTMLElement>(null)
 
-  // Scroll-spy via IntersectionObserver.
+  // Scroll-spy. Desktop horizontal layout tracks main.scrollLeft
+  // (sections all share the vertical viewport, so IO can't pick one);
+  // mobile vertical long-scroll uses the IntersectionObserver path.
   useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 921px)').matches
+
+    if (desktop) {
+      const main = document.querySelector('main')
+      if (!main) return
+
+      function updateActive() {
+        const sections = Array.from(
+          main!.querySelectorAll<HTMLElement>(':scope > section'),
+        )
+        if (sections.length === 0) return
+        const scrollLeft = main!.scrollLeft
+        const center = scrollLeft + main!.clientWidth / 2
+        let closest: HTMLElement | null = null
+        let closestDist = Infinity
+        for (const s of sections) {
+          const sectionCenter = s.offsetLeft + s.offsetWidth / 2
+          const dist = Math.abs(sectionCenter - center)
+          if (dist < closestDist) {
+            closestDist = dist
+            closest = s
+          }
+        }
+        if (closest) setActiveId(closest.id)
+      }
+
+      updateActive()
+      main.addEventListener('scroll', updateActive, { passive: true })
+      window.addEventListener('resize', updateActive)
+      return () => {
+        main.removeEventListener('scroll', updateActive)
+        window.removeEventListener('resize', updateActive)
+      }
+    }
+
     const ids = links.map((l) => l.spy).filter((s): s is string => Boolean(s))
     if (ids.length === 0) return
 

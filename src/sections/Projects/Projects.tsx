@@ -27,7 +27,6 @@ export function Projects() {
       eyebrow={projects.eyebrow}
       title={projects.title}
       titleAccent={projects.titleAccent}
-      lede={projects.lede}
     >
       {/* Sheet header — drawing-sheet info strip + plate tab selector. */}
       <header className={styles.sheetHeader}>

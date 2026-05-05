@@ -124,30 +124,17 @@ pre {
   }
 
   /* Each direct <section> child becomes a viewport-sized panel.
-     Internal vertical scroll handles content longer than 100vh. */
+     Sections are designed to fit 100vh — internal scroll is OFF
+     so wheel events translate cleanly into horizontal page snaps
+     instead of nudging an internal scrollbar first. */
   main > section {
     flex: 0 0 100vw;
     width: 100vw;
     height: 100vh;
-    overflow-y: auto;
     overflow-x: hidden;
+    overflow-y: hidden;
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    /* Anchor jumps land at the start of the panel, not under nav. */
     scroll-margin-left: 0;
-  }
-
-  /* Slim, accent-tinted scrollbar inside panels — visible in narrow
-     overflow contexts, easy to ignore otherwise. */
-  main > section::-webkit-scrollbar {
-    width: 4px;
-  }
-  main > section::-webkit-scrollbar-thumb {
-    background: rgba(176, 228, 204, 0.18);
-    border-radius: 2px;
-  }
-  main > section {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(176, 228, 204, 0.18) transparent;
   }
 }

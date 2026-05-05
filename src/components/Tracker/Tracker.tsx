@@ -9,6 +9,46 @@ export function Tracker() {
   const [activeId, setActiveId] = useState<string | null>(null)
 
   useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 921px)').matches
+
+    // Desktop horizontal — track <main>'s scrollLeft and pick the
+    // section whose centre is closest to the viewport centre. The
+    // IO-based vertical detection is unreliable in horizontal layout
+    // because all sections always intersect the vertical band.
+    if (desktop) {
+      const main = document.querySelector('main')
+      if (!main) return
+
+      function updateActive() {
+        const sections = Array.from(
+          main!.querySelectorAll<HTMLElement>(':scope > section'),
+        )
+        if (sections.length === 0) return
+        const scrollLeft = main!.scrollLeft
+        const center = scrollLeft + main!.clientWidth / 2
+        let closest: HTMLElement | null = null
+        let closestDist = Infinity
+        for (const s of sections) {
+          const sectionCenter = s.offsetLeft + s.offsetWidth / 2
+          const dist = Math.abs(sectionCenter - center)
+          if (dist < closestDist) {
+            closestDist = dist
+            closest = s
+          }
+        }
+        if (closest) setActiveId(closest.id)
+      }
+
+      updateActive()
+      main.addEventListener('scroll', updateActive, { passive: true })
+      window.addEventListener('resize', updateActive)
+      return () => {
+        main.removeEventListener('scroll', updateActive)
+        window.removeEventListener('resize', updateActive)
+      }
+    }
+
+    // Mobile vertical long-scroll — original IntersectionObserver path.
     const ids = navLinks.map((l) => l.spy).filter((s): s is string => Boolean(s))
     if (ids.length === 0) return
 
