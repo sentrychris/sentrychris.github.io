@@ -20,9 +20,8 @@ export function Footer({
       <div className={styles.inner}>
         <a href="#top" className={styles.brand} aria-label="Chris Rowles — top">
           <span className={styles.brandMark} aria-hidden="true">
-            C
+            CR
           </span>
-          <span className={styles.brandName}>Chris Rowles</span>
         </a>
         <div className={styles.meta}>
           <span className={styles.copy}>© {year}</span>

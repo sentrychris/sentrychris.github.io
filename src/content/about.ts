@@ -19,7 +19,7 @@ export const about: AboutCopy = {
   title: 'Software for',
   titleAccent: 'Everyone.',
   lede:
-    'Twelve-plus years building, scaling, and maintaining production web applications across many business sectors. Comfortable owning systems end-to-end.',
+    'Comfortable owning systems end-to-end.',
   paragraphs: [
     'A proven track record of inheriting complex legacy systems, bringing them back up to standard, and shipping clean, well-tested code on top.',
     'Most of the work has been hands-on across the full stack: frontend, backend, infrastructure, and the connective tissue between them. The rest has been leading teams through code review, mentoring, and architectural decisions.',

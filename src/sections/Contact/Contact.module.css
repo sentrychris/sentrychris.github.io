@@ -1,99 +1,343 @@
-/* Contact — drawing title block.
-   A bordered rectangle divided into labeled cells with thin internal
-   dividers. Reads like the corner stamp on an architect's drawing. */
+/* Contact — magazine close. Centred editorial composition with the
+   email as the visual centre, italic Playfair throughout, fleuron
+   separators, and a sign-off flourish at the bottom. */
 
-.titleBlock {
-  width: min(640px, 100%);
-  margin: 4rem auto 0;
-  border: 1px solid var(--accent-soft);
-  background: color-mix(in oklab, var(--bone) 60%, transparent);
-}
-
-/* ─── Top stamp — drawing reference strip ─────────────────── */
-
-.stamp {
-  position: relative;
+.wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  padding: 8px 18px;
-  border-bottom: 1px solid var(--accent-soft);
-  background: color-mix(in oklab, var(--accent-soft) 18%, transparent);
 }
 
-/* End-ticks — short vertical strokes either side, like a real
-   stamp header. */
-.stamp::before,
-.stamp::after {
-  content: "";
-  position: absolute;
-  top: 4px;
-  bottom: 4px;
-  width: 1px;
-  background: var(--ink-faint);
-  opacity: 0.5;
-}
-.stamp::before { left: 10px; }
-.stamp::after  { right: 10px; }
+/* ─── Opener (rendered here, not by Section) ─────────────── */
 
-.stampText {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-
-/* ─── Cell rows ───────────────────────────────────────────── */
-
-.row {
-  display: grid;
-  grid-template-columns: minmax(80px, 120px) 1fr;
-  align-items: center;
-  gap: 18px;
-  padding: 14px 18px;
-  border-top: 1px solid var(--line-soft);
-}
-
-/* The first row sits directly under the stamp — no double border. */
-.row:first-of-type {
-  border-top: none;
+.opener {
+  margin-bottom: 3rem;
+  max-width: 580px;
 }
 
 .label {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-
-/* ─── STATUS value — pulsing dot + caps text ──────────────── */
-
-.statusValue {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-}
-
-.statusText {
-  font-family: var(--mono);
+  gap: 12px;
+  margin-bottom: 28px;
+  font-family: var(--sans);
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--accent);
 }
 
+.label::before,
+.label::after {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.labelText {
+  display: inline-block;
+}
+
+.labelIndex {
+  margin-left: 6px;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: clamp(40px, 4.6vw, 66px);
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+.titleAccent {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: -0.005em;
+}
+
+.lede {
+  margin: 22px auto 0;
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 50ch;
+}
+
+/* ─── Invitation pull-quote ─────────────────────────────── */
+
+.invitation {
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  max-width: 22ch;
+}
+
+.invitationBreak {
+  display: inline;
+}
+
+@media (min-width: 720px) {
+  /* Allow the two short sentences to break on their own line on
+     larger screens for a more deliberate magazine cadence. */
+  .invitationBreak {
+    display: block;
+    height: 0;
+  }
+}
+
+/* ─── Magazine fleuron divider ──────────────────────────── */
+
+.fleuron {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  width: 100%;
+  max-width: 460px;
+  margin: 4rem 0;
+  color: var(--accent);
+}
+
+.fleuronRule {
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--line);
+}
+
+.fleuronMark {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.9;
+}
+
+/* ─── Correspondence (the email centerpiece) ───────────── */
+
+.correspondence {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  width: 100%;
+}
+
+.correspondenceLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.correspondenceLabelTick {
+  width: 18px;
+  height: 1px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.correspondenceLabelText {
+  display: inline-block;
+}
+
+/* ─── Vogue pill — editorial pill button ─────────────────────
+   Pill-shaped link with a brand icon on the left, italic Playfair
+   value in the middle, and an italic Playfair arrow on the right
+   that slides on hover. Two scales: primary (email centerpiece)
+   + default (channel pills). */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.55rem 1.1rem 0.55rem 0.85rem;
+  text-decoration: none;
+  background: rgba(176, 228, 204, 0.025);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+  white-space: nowrap;
+  min-width: 0;
+  transition:
+    border-color 240ms ease,
+    background 240ms ease,
+    transform 320ms cubic-bezier(.2, .8, .2, 1),
+    box-shadow 320ms ease;
+}
+
+/* Soft accent rim-glow + lift on hover. Reads editorial, not chunky. */
+.btn:hover,
+.btn:focus-visible {
+  border-color: var(--accent);
+  background: rgba(64, 138, 113, 0.08);
+  transform: translateY(-2px);
+  outline: none;
+  box-shadow: 0 14px 28px -18px rgba(0, 0, 0, 0.7);
+}
+
+.btn:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* Icon sits in a thin accent ring, like a stamped monogram on a
+   calling card. Filled brand glyphs (GitHub / LinkedIn) and the
+   stroke mail icon both inherit currentColor → accent. */
+.btnIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: rgba(64, 138, 113, 0.06);
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: border-color 240ms ease, background 240ms ease;
+}
+
+.btnIcon svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.btn:hover .btnIcon,
+.btn:focus-visible .btnIcon {
+  border-color: var(--accent);
+  background: rgba(64, 138, 113, 0.18);
+}
+
+.btnValue {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(15px, 1.6vw, 18px);
+  line-height: 1.15;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  transition: color 200ms ease;
+}
+
+.btnArrow {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(18px, 1.8vw, 22px);
+  line-height: 1;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: transform 320ms cubic-bezier(.2, .8, .2, 1);
+}
+
+.btn:hover .btnArrow,
+.btn:focus-visible .btnArrow {
+  transform: translateX(6px);
+}
+
+.btn:hover .btnValue,
+.btn:focus-visible .btnValue {
+  color: var(--accent);
+}
+
+/* ─── Primary variant — the email centerpiece ─────────────── */
+
+.btnPrimary {
+  padding: 0.7rem 1.5rem 0.7rem 1.05rem;
+  gap: 1rem;
+  border-color: rgba(64, 138, 113, 0.45);
+  background: rgba(64, 138, 113, 0.06);
+}
+
+.btnPrimary .btnIcon {
+  width: 36px;
+  height: 36px;
+  border-color: var(--accent);
+  background: rgba(64, 138, 113, 0.12);
+}
+
+.btnPrimary .btnIcon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.btnPrimary .btnValue {
+  font-size: clamp(20px, 2.4vw, 28px);
+  color: var(--accent);
+  letter-spacing: -0.008em;
+}
+
+.btnPrimary .btnArrow {
+  font-size: clamp(22px, 2.4vw, 28px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn:hover,
+  .btn:focus-visible,
+  .btnIcon,
+  .btnValue,
+  .btnArrow {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Status caption — small italic remark beneath the email. */
+.status {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
 .pulse {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--accent);
   box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent) 35%, transparent);
-  animation: pulseDot 1.6s ease-in-out infinite;
+  animation: pulseDot 1.8s ease-in-out infinite;
+}
+
+.statusText {
+  display: inline-block;
 }
 
 @keyframes pulseDot {
@@ -107,78 +351,119 @@
   }
 }
 
-/* ─── EMAIL row — the primary cell, taller, hero typography ── */
+/* ─── Channels — also reachable via ──────────────────────── */
 
-.emailRow {
-  padding-top: 22px;
-  padding-bottom: 22px;
+.channels {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+  max-width: 560px;
 }
 
-.email {
+.channelsLabel {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* Pills sit auto-width side-by-side, centred. Wraps on narrow screens. */
+.channelsList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem 1rem;
+}
+
+/* ─── Signature flourish ─────────────────────────────────── */
+
+.signature {
+  margin-top: 5rem;
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signatureRule {
+  display: block;
+  height: 1px;
+  background: var(--line);
+  width: 100%;
+  margin-bottom: 1.6rem;
+}
+
+.signatureText {
+  margin: 0;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
   font-family: var(--serif);
   font-style: italic;
   font-weight: 500;
-  font-size: clamp(24px, 3vw, 36px);
+  font-size: clamp(20px, 2.4vw, 28px);
   line-height: 1.1;
-  color: var(--accent);
-  text-decoration: none;
-  word-break: break-word;
-  transition: color 200ms ease;
-}
-
-.email:hover,
-.email:focus-visible {
-  text-decoration: underline;
-  text-decoration-color: var(--accent);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.12em;
-}
-
-/* ─── Generic link rows (GITHUB / LINKEDIN) ───────────────── */
-
-.linkValue {
-  font-family: var(--sans);
-  font-size: 15px;
-  font-weight: 500;
   letter-spacing: -0.005em;
   color: var(--ink);
-  text-decoration: none;
-  transition: color 200ms ease;
 }
 
-.linkValue:hover,
-.linkValue:focus-visible {
+.signaturePart {
+  color: var(--ink-mute);
+}
+
+.signatureName {
   color: var(--accent);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.18em;
+}
+
+.signatureMeta {
+  margin: 0.7rem 0 0;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.signatureMetaPart {
+  display: inline-block;
+}
+
+.signatureMetaSep {
+  margin: 0 0.7em;
+  color: var(--accent);
+  opacity: 0.7;
 }
 
 /* ─── Mobile ──────────────────────────────────────────────── */
 
 @media (max-width: 720px) {
-  .titleBlock {
-    margin-top: 2.4rem;
+  .opener {
+    margin-bottom: 2.4rem;
   }
 
-  .row {
-    grid-template-columns: 84px 1fr;
-    gap: 12px;
-    padding: 12px 14px;
+  .fleuron {
+    margin: 2.8rem 0;
   }
 
-  .stamp {
-    padding: 7px 14px;
-  }
-  .stamp::before { left: 8px; }
-  .stamp::after  { right: 8px; }
-
-  .emailRow {
-    padding-top: 18px;
-    padding-bottom: 18px;
+  .invitation {
+    font-size: clamp(24px, 8vw, 36px);
   }
 
-  .email {
-    font-size: clamp(20px, 6vw, 28px);
+  .btnPrimary {
+    max-width: 100%;
+  }
+
+  .btnPrimary .btnValue {
+    font-size: clamp(18px, 6vw, 24px);
+  }
+
+  .signature {
+    margin-top: 3.4rem;
   }
 }

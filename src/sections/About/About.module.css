@@ -111,7 +111,7 @@
 /* Italic Playfair accent letter that drops into the first paragraph,
    with the body text wrapping around it. CSS ::first-letter targets
    the actual first letter natively, so no JSX changes needed. */
-/* .paragraph:first-child::first-letter {
+.paragraph:first-child::first-letter {
   font-family: var(--serif);
   font-style: italic;
   font-weight: 500;
@@ -121,12 +121,12 @@
   float: left;
   margin: 6px 14px 0 0;
   padding: 0;
-} */
+}
 
 /* ─── Second paragraph — pull quote ──────────────────────── */
 
 .paragraph:nth-child(2) {
-  margin: 2.4rem 0;
+  margin: 8rem 0 4rem 0;
   padding: 0.4rem 0 0.4rem 1.8rem;
   border-left: 1px solid var(--accent);
   font-family: var(--serif);

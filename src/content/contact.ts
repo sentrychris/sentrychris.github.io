@@ -28,7 +28,7 @@ export const contact: ContactCopy = {
   titleAccent: 'touch.',
   lede:
     'Open to lead engineering roles, senior IC roles, and consulting. Quickest replies are by email; everything else also reaches me.',
-  email: { user: 'crowles.sdx', domain: 'gmail.com' },
+  email: { user: 'christopher.rowles', domain: 'outlook.com' },
   methods: [
     {
       label: 'GitHub',

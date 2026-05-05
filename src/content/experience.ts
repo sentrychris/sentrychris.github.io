@@ -31,7 +31,7 @@ export const experience: ExperienceCopy = {
   title: 'Many years across',
   titleAccent: 'sectors.',
   lede:
-    'A condensed view. Each entry is one role; sectors are listed as chips. Reach out if you want the long version with references.',
+    'A condensed view. Reach out if you want the long version with references.',
   entries: [
     {
       role: 'Lead Developer',
@@ -65,7 +65,7 @@ export const experience: ExperienceCopy = {
       period: '2019 — present',
       sectors: ['Agency', 'Consulting', 'Development', 'Design'],
       summary:
-        'A small development agency focused on consultation, infrastructure and frontend for clients across sectors. We also build and contribute to open source projects.',
+        'Bespoke development agency focused on consultation, infrastructure and frontend for clients across sectors. We also build and contribute to open source projects.',
       points: [
         'Assisted clients in modernising their web applications, improving performance and scalability.',
         'Provided strategic consulting on web architecture and development best practices.',

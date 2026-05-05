@@ -69,7 +69,7 @@ export function Nav({ links }: NavProps) {
       <div className={styles.inner}>
         <a href="#top" className={styles.brand} aria-label="Chris Rowles — home">
           <span className={styles.brandMark} aria-hidden="true">
-            C.R
+            CR
           </span>
         </a>
         <nav className={styles.links} aria-label="Sections">
