@@ -65,7 +65,9 @@ export function Section({
                 {titleAccent && (
                   <>
                     {' '}
-                    <span className={styles.accent}>{titleAccent}</span>
+                    <span className={styles.accent}>
+                      {titleAccent}
+                    </span>
                   </>
                 )}
               </h2>

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import styles from './Schematic.module.css'
 
 /**
@@ -18,8 +19,39 @@ import styles from './Schematic.module.css'
  * Everything renders in mint at very low alpha — texture, not noise.
  */
 export function Schematic() {
+  const ref = useRef<HTMLDivElement>(null)
+
+  // Subtle parallax: as <main> scrolls horizontally between panels,
+  // translate the fixed schematic at ~15% of the scroll distance in
+  // the opposite direction. The blueprint appears to drift behind the
+  // foreground panels, giving the page depth without any extra DOM.
+  useEffect(() => {
+    if (!window.matchMedia('(min-width: 921px)').matches) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const main = document.querySelector('main')
+    const el = ref.current
+    if (!main || !el) return
+
+    let raf = 0
+    const update = () => {
+      const drift = main.scrollLeft * -0.15
+      el.style.setProperty('--schematic-x', `${drift}px`)
+      raf = 0
+    }
+    const onScroll = () => {
+      if (raf) return
+      raf = requestAnimationFrame(update)
+    }
+    update()
+    main.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      main.removeEventListener('scroll', onScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [])
+
   return (
-    <div className={styles.schematic} aria-hidden="true">
+    <div ref={ref} className={styles.schematic} aria-hidden="true">
       <svg
         className={styles.shapes}
         viewBox="0 0 1600 1200"

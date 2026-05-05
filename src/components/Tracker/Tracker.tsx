@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { navLinks } from '../../content/nav'
 import styles from './Tracker.module.css'
 
@@ -7,6 +7,54 @@ import styles from './Tracker.module.css'
  */
 export function Tracker() {
   const [activeId, setActiveId] = useState<string | null>(null)
+  const listRef = useRef<HTMLOListElement>(null)
+  const pingRef = useRef<HTMLSpanElement>(null)
+  const prevActiveRef = useRef<string | null>(null)
+
+  // When activeId changes, animate the ping element along the rule
+  // from the previous active dot's Y to the new active dot's Y, then
+  // fade out. Web Animations API → not affected by the global CSS
+  // `transition: none` rule.
+  useEffect(() => {
+    const list = listRef.current
+    const ping = pingRef.current
+    if (!list || !ping) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const prev = prevActiveRef.current
+    prevActiveRef.current = activeId
+    if (!activeId || !prev || prev === activeId) return
+
+    const prevDot = list
+      .querySelector<HTMLAnchorElement>(`a[href="#${prev}"]`)
+      ?.querySelector<HTMLElement>('span[aria-hidden="true"]')
+    const newDot = list
+      .querySelector<HTMLAnchorElement>(`a[href="#${activeId}"]`)
+      ?.querySelector<HTMLElement>('span[aria-hidden="true"]')
+    if (!prevDot || !newDot) return
+
+    const listRect = list.getBoundingClientRect()
+    const prevRect = prevDot.getBoundingClientRect()
+    const newRect = newDot.getBoundingClientRect()
+    const prevY = prevRect.top - listRect.top + prevRect.height / 2
+    const newY = newRect.top - listRect.top + newRect.height / 2
+    const distance = Math.abs(newY - prevY)
+    if (distance < 1) return
+
+    ping.animate(
+      [
+        { transform: `translate(-50%, ${prevY}px) scale(0.6)`, opacity: 0 },
+        { transform: `translate(-50%, ${prevY}px) scale(1)`, opacity: 1, offset: 0.1 },
+        { transform: `translate(-50%, ${newY}px) scale(1)`, opacity: 1, offset: 0.85 },
+        { transform: `translate(-50%, ${newY}px) scale(1.6)`, opacity: 0 },
+      ],
+      {
+        duration: Math.min(700, 280 + distance * 1.2),
+        easing: 'cubic-bezier(.4, 0, .2, 1)',
+        fill: 'forwards',
+      },
+    )
+  }, [activeId])
 
   useEffect(() => {
     const desktop = window.matchMedia('(min-width: 921px)').matches
@@ -77,7 +125,7 @@ export function Tracker() {
 
   return (
     <aside className={styles.tracker} aria-label="Page sections">
-      <ol className={styles.list}>
+      <ol ref={listRef} className={styles.list}>
         {navLinks.map((link) => {
           const isActive = link.spy != null && link.spy === activeId
           return (
@@ -93,6 +141,9 @@ export function Tracker() {
             </li>
           )
         })}
+        {/* Ping — accent dot animated along the rule between active
+            entries via the Web Animations API in the effect above. */}
+        <span ref={pingRef} className={styles.ping} aria-hidden="true" />
       </ol>
     </aside>
   )

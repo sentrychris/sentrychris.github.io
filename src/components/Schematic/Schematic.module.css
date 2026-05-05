@@ -12,11 +12,17 @@
   overflow: hidden;
   opacity: 0.75;
 
-  /* Layer 1 — engineering paper grid. */
+  /* Layer 1 — engineering paper grid.
+     Parallax is applied here via `background-position-x` (driven by
+     --schematic-x in JS as <main> scrolls). The grid tiles infinitely
+     so the drift never exposes the page bg, and the SVG shapes /
+     corner ornaments below stay anchored to the viewport. */
+  --schematic-x: 0px;
   background-image:
     linear-gradient(to right,  rgba(var(--ink-rgb), 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(var(--ink-rgb), 0.04) 1px, transparent 1px);
   background-size: 80px 80px;
+  background-position: var(--schematic-x) 0;
 }
 
 /* ─── Layer 2 — geometry SVG ────────────────────────────────── */

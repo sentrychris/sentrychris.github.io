@@ -156,3 +156,21 @@
     display: none;
   }
 }
+
+/* ─── Ping — accent dot that travels along the rule between active
+   sections via the Web Animations API in Tracker.tsx. Sits on the
+   centreline (same x as `.list::before`); JS sets translate Y. */
+.ping {
+  position: absolute;
+  left: 5.5px;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.65);
+  transform: translate(-50%, -100px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+}
