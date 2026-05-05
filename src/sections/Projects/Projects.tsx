@@ -5,29 +5,17 @@ import { Button } from '../../components/Button'
 import { useReveal } from '../../lib/useReveal'
 import styles from './Projects.module.css'
 
+/** Roman numerals for plate references. */
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI'] as const
+
 /**
- * Projects — editorial spread on the blueprint.
- *
- * NOT a vertical sequence. Layout breaks into three parts:
- *   1. INDEX strip — mono-caps TOC linking to all three projects
- *   2. HERO sheet — the first project gets a wide presentation, large
- *      cinematic image with the cursor-tracked spotlight reveal
- *   3. SECONDARY 2-up grid — projects 2 & 3 sit below in compact form,
- *      mirrored: project 2 has image LEFT, project 3 has image RIGHT
- *
- * Each image carries the green-tinted overlay + spotlight reveal
- * (mix-blend-mode: color + a radial mask whose radius follows --mr,
- * registered via @property so it can be transitioned).
+ * Projects
  */
 export function Projects() {
-  // The featured (hero) project. Click an INDEX entry or a compact's
-  // title row to swap which project sits in the hero slot.
   const [activeIndex, setActiveIndex] = useState(0)
   const layoutRef = useReveal<HTMLDivElement>()
 
   const heroProject = projects.projects[activeIndex]
-  // Secondaries: every project except the active one, preserving the
-  // original order so the visual sequence stays predictable.
   const secondaries = projects.projects
     .map((project, originalIndex) => ({ project, originalIndex }))
     .filter(({ originalIndex }) => originalIndex !== activeIndex)
@@ -41,30 +29,49 @@ export function Projects() {
       titleAccent={projects.titleAccent}
       lede={projects.lede}
     >
-      <nav className={styles.index} aria-label="Projects index">
-        {projects.projects.map((p, i) => {
-          const isActive = i === activeIndex
-          return (
-            <button
-              key={p.title}
-              type="button"
-              onClick={() => setActiveIndex(i)}
-              className={`${styles.indexEntry} ${isActive ? styles.indexActive : ''}`}
-              aria-pressed={isActive}
-              aria-label={
-                isActive
-                  ? `${p.title} — currently featured`
-                  : `Feature ${p.title}`
-              }
-            >
-              <span className={styles.indexNumero}>
-                Nº {String(i + 1).padStart(2, '0')}
-              </span>
-              <span className={styles.indexTitle}>{p.title}</span>
-            </button>
-          )
-        })}
-      </nav>
+      {/* Sheet header — drawing-sheet info strip + plate tab selector. */}
+      <header className={styles.sheetHeader}>
+        <div className={styles.sheetCell}>
+          <span className={styles.sheetCellLabel}>Sheet</span>
+          <span className={styles.sheetCellValue}>A — Projects</span>
+        </div>
+
+        <div
+          className={styles.sheetCellPlates}
+          role="group"
+          aria-label="Plate index"
+        >
+          <span className={styles.sheetCellLabel}>Plates</span>
+          <ol className={styles.plateTabs}>
+            {projects.projects.map((p, i) => {
+              const isActive = i === activeIndex
+              return (
+                <li key={p.title}>
+                  <button
+                    type="button"
+                    onClick={() => setActiveIndex(i)}
+                    className={`${styles.plateTab} ${isActive ? styles.plateTabActive : ''}`}
+                    aria-pressed={isActive}
+                    aria-label={
+                      isActive
+                        ? `${p.title} — currently featured`
+                        : `Feature ${p.title}`
+                    }
+                  >
+                    <span className={styles.plateTabNumeral}>{ROMAN[i]}</span>
+                    <span className={styles.plateTabTitle}>{p.title}</span>
+                  </button>
+                </li>
+              )
+            })}
+          </ol>
+        </div>
+
+        <div className={styles.sheetCell}>
+          <span className={styles.sheetCellLabel}>Scale</span>
+          <span className={styles.sheetCellValue}>1:1 · MMXXVI</span>
+        </div>
+      </header>
 
       {/* The body reveals as a single block on scroll-in. Per-Sheet
           [data-reveal] would hide swapped-in Sheets after the IO has
@@ -75,23 +82,37 @@ export function Projects() {
           <Sheet
             project={heroProject}
             index={activeIndex}
+            total={projects.projects.length}
             variant="hero"
           />
         )}
 
         {secondaries.length > 0 && (
-          <div className={styles.secondaries}>
-            {secondaries.map(({ project, originalIndex }, i) => (
-              <Sheet
-                key={project.title}
-                project={project}
-                index={originalIndex}
-                variant="compact"
-                flipped={i % 2 === 1}
-                onFeature={() => setActiveIndex(originalIndex)}
-              />
-            ))}
-          </div>
+          <section className={styles.annex} aria-label="Annexed plates">
+            <header className={styles.annexHeader} aria-hidden="true">
+              <span className={styles.annexRule} />
+              <span className={styles.annexLabel}>Annexed Plates</span>
+              <span className={styles.annexCount}>
+                {String(secondaries.length).padStart(2, '0')} ·{' '}
+                {String(projects.projects.length).padStart(2, '0')}
+              </span>
+              <span className={styles.annexRule} />
+            </header>
+
+            <div className={styles.secondaries}>
+              {secondaries.map(({ project, originalIndex }, i) => (
+                <Sheet
+                  key={project.title}
+                  project={project}
+                  index={originalIndex}
+                  total={projects.projects.length}
+                  variant="compact"
+                  flipped={i % 2 === 1}
+                  onFeature={() => setActiveIndex(originalIndex)}
+                />
+              ))}
+            </div>
+          </section>
         )}
       </div>
     </Section>
@@ -104,35 +125,43 @@ export function Projects() {
 type SheetProps = {
   project: Project
   index: number
+  total: number
   flipped?: boolean
 } & (
   | { variant: 'hero'; onFeature?: never }
   | { variant: 'compact'; onFeature: () => void }
 )
 
-function Sheet({ project, index, variant, flipped, onFeature }: SheetProps) {
-  const numero = `Nº ${String(index + 1).padStart(2, '0')}`
+function Sheet({
+  project,
+  index,
+  total,
+  variant,
+  flipped,
+  onFeature,
+}: SheetProps) {
+  const numeral = ROMAN[index] ?? String(index + 1)
   const isCompact = variant === 'compact'
 
-  // Hero head: Nº + title + (optional) badge.
-  // Compact head: Nº + title + clear "Feature ↑" affordance — drops
-  // the badge since badges read better in the featured slot anyway.
+  const plateBadge = (
+    <span className={styles.plateBadge} aria-hidden="true">
+      <span className={styles.plateBadgeLabel}>Plate</span>
+      <span className={styles.plateBadgeNumeral}>{numeral}</span>
+    </span>
+  )
+
   const headContents = isCompact ? (
     <>
-      <span className={styles.numero} aria-hidden="true">
-        {numero}
-      </span>
+      {plateBadge}
       <h3 className={styles.title}>{project.title}</h3>
       <span className={styles.featureAction} aria-hidden="true">
-        <span className={styles.featureLabel}>Feature</span>
+        <span className={styles.featureLabel}>Open Plate</span>
         <span className={styles.featureArrow}>↑</span>
       </span>
     </>
   ) : (
     <>
-      <span className={styles.numero} aria-hidden="true">
-        {numero}
-      </span>
+      {plateBadge}
       <h3 className={styles.title}>{project.title}</h3>
       {project.badge && (
         <span className={styles.badge}>{project.badge}</span>
@@ -167,6 +196,7 @@ function Sheet({ project, index, variant, flipped, onFeature }: SheetProps) {
         <>
           <Frame project={project} browser />
           <Meta project={project} />
+          <TitleBlock project={project} index={index} total={total} />
         </>
       )}
     </article>
@@ -177,8 +207,8 @@ function Sheet({ project, index, variant, flipped, onFeature }: SheetProps) {
  * The image frame.
  *  - Default: figure with cursor-tracked spotlight + corner crop marks.
  *  - browser=true: wrap the figure in a minimal browser chrome (three
- *    dots + faux URL with a green lock dot); drop the crop marks since
- *    the chrome takes over as the visual frame. Used by the hero sheet.
+ *    dots + faux URL with a green lock dot) and overlay a small north
+ *    arrow ornament in the corner. Used by the hero plate.
  */
 function Frame({ project, browser }: { project: Project; browser?: boolean }) {
   const figure = (
@@ -217,9 +247,56 @@ function Frame({ project, browser }: { project: Project; browser?: boolean }) {
           <span className={styles.browserLock}>●</span>
           {project.url}
         </span>
+        <NorthArrow className={styles.browserNorth} />
       </div>
       {figure}
     </div>
+  )
+}
+
+/**
+ * The architect's title block — bottom-right of the hero plate.
+ * Multi-cell strip with PROJECT, TYPE, SCALE, DRAWN, SHEET fields.
+ * Reads exactly like the title block on a real drawing sheet.
+ */
+function TitleBlock({
+  project,
+  index,
+  total,
+}: {
+  project: Project
+  index: number
+  total: number
+}) {
+  return (
+    <aside className={styles.titleBlock} aria-hidden="true">
+      <div className={styles.titleBlockGrid}>
+        <div className={`${styles.titleBlockCell} ${styles.titleBlockCellWide}`}>
+          <span className={styles.titleBlockLabel}>Project</span>
+          <span className={styles.titleBlockValue}>{project.title}</span>
+        </div>
+        {project.badge && (
+          <div className={styles.titleBlockCell}>
+            <span className={styles.titleBlockLabel}>Type</span>
+            <span className={styles.titleBlockValue}>{project.badge}</span>
+          </div>
+        )}
+        <div className={styles.titleBlockCell}>
+          <span className={styles.titleBlockLabel}>Scale</span>
+          <span className={styles.titleBlockValue}>1:1</span>
+        </div>
+        <div className={styles.titleBlockCell}>
+          <span className={styles.titleBlockLabel}>Drawn</span>
+          <span className={styles.titleBlockValue}>MMXXVI</span>
+        </div>
+        <div className={styles.titleBlockCell}>
+          <span className={styles.titleBlockLabel}>Sheet</span>
+          <span className={styles.titleBlockValue}>
+            {ROMAN[index]} of {ROMAN[total - 1]}
+          </span>
+        </div>
+      </div>
+    </aside>
   )
 }
 
@@ -282,6 +359,39 @@ function CropMark({ className }: { className: string }) {
   )
 }
 
+/** Architectural north-arrow ornament — small circle with N marker
+ *  and an arrow pointing up. Sits in the browser chrome corner. */
+function NorthArrow({ className }: { className: string }) {
+  return (
+    <svg
+      className={className}
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="0.9"
+      aria-hidden="true"
+    >
+      <circle cx="10" cy="10" r="8.4" />
+      <path d="M10 3.4 L10 16.6" />
+      <path d="M10 3.4 L7.4 7.4 L10 6.4 L12.6 7.4 Z" fill="currentColor" stroke="none" />
+      <text
+        x="10"
+        y="13.4"
+        textAnchor="middle"
+        fontSize="4.6"
+        fill="currentColor"
+        stroke="none"
+        fontFamily="serif"
+        fontStyle="italic"
+      >
+        N
+      </text>
+    </svg>
+  )
+}
+
 /**
  * Cursor-tracked spotlight: writes --mx and --my (percentages) to the
  * frame element on mousemove. The CSS overlay uses these in a radial
@@ -312,10 +422,10 @@ const TILT_MAX = 5
 function handleTilt(event: MouseEvent<HTMLElement>) {
   const el = event.currentTarget
   const rect = el.getBoundingClientRect()
-  const px = (event.clientX - rect.left) / rect.width   // 0..1 (left → right)
-  const py = (event.clientY - rect.top) / rect.height   // 0..1 (top → bottom)
-  const tiltX = (py - 0.5) * TILT_MAX                   // top → -, bottom → +
-  const tiltY = -(px - 0.5) * TILT_MAX                  // left → +, right → -
+  const px = (event.clientX - rect.left) / rect.width
+  const py = (event.clientY - rect.top) / rect.height
+  const tiltX = (py - 0.5) * TILT_MAX
+  const tiltY = -(px - 0.5) * TILT_MAX
   el.style.setProperty('--tilt-x', `${tiltX}deg`)
   el.style.setProperty('--tilt-y', `${tiltY}deg`)
 }

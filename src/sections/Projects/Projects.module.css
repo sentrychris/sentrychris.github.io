@@ -1,93 +1,137 @@
-/* Projects — editorial spread on the blueprint. NOT a vertical sequence.
-   INDEX strip → HERO sheet → SECONDARY 2-up grid (mirrored). */
+/* Projects — architectural drawing-sheet treatment.
+   SHEET HEADER (info strip + plate tabs) → HERO PLATE (browser frame
+   + title block) → ANNEXED PLATES (2-up grid of compact plates). */
 
-/* ─── INDEX strip (TOC at the top) ───────────────────────── */
+/* ─── Sheet header — drawing-sheet info strip ───────────────
+   Multi-cell horizontal strip. Cells separated by hairlines like the
+   info bar at the top of an architectural drawing sheet. The middle
+   cell holds the plate tab selector that drives the hero swap. */
 
-.index {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 2rem;
-  align-items: baseline;
+.sheetHeader {
   margin-top: 3rem;
-  padding-bottom: 1.4rem;
-  border-bottom: 1px dashed var(--line-soft);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: stretch;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: rgba(176, 228, 204, 0.018);
+  overflow: hidden;
   position: relative;
 }
 
-/* Accent end-ticks bracketing the dashed rule, like a dimension line. */
-.index::before,
-.index::after {
+/* Subtle accent end-ticks at the bottom edge — same dimension-line
+   convention used elsewhere in the section. */
+.sheetHeader::before,
+.sheetHeader::after {
   content: "";
   position: absolute;
   bottom: -5px;
   width: 1px;
   height: 10px;
   background: var(--accent);
-  opacity: 0.6;
+  opacity: 0.55;
 }
-.index::before { left: 0; }
-.index::after  { right: 0; }
+.sheetHeader::before { left: 0; }
+.sheetHeader::after  { right: 0; }
 
-.indexEntry {
-  /* Reset button defaults — the entry is rendered as <button> now so
-     clicking swaps the active hero project. */
-  background: transparent;
-  border: 0;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  /* Restore the visual layout. */
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.55rem;
-  text-decoration: none;
-  color: var(--ink-faint);
-  transition: color 220ms ease;
-  position: relative;
+.sheetCell,
+.sheetCellPlates {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1.1rem;
 }
 
-.indexEntry:hover {
+.sheetCell + .sheetCell,
+.sheetCellPlates + .sheetCell,
+.sheetCell + .sheetCellPlates {
+  border-left: 1px solid var(--line);
+}
+
+.sheetCellPlates {
+  /* Centre the tab list horizontally inside the wide middle cell. */
+  justify-content: center;
+  background: rgba(176, 228, 204, 0.012);
+}
+
+.sheetCellLabel {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
   color: var(--accent);
+  white-space: nowrap;
 }
 
-.indexEntry:focus-visible {
-  outline: 1px solid var(--accent);
-  outline-offset: 4px;
-  border-radius: 2px;
-}
-
-/* Active (currently featured) entry — accent dot leading the entry
-   plus a subtle accent text colour shift. */
-.indexActive {
-  color: var(--accent);
-}
-.indexActive::before {
-  content: "";
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 8px rgba(64, 138, 113, 0.55);
-  margin-right: 0.4rem;
-  align-self: center;
-}
-.indexActive .indexTitle {
-  color: var(--ink);
-}
-
-.indexNumero {
+.sheetCellValue {
   font-family: var(--serif);
   font-style: italic;
   font-weight: 500;
-  font-size: 18px;
-  color: var(--accent);
-  line-height: 1;
+  font-size: 15px;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  white-space: nowrap;
 }
 
-.indexTitle {
+/* ─── Plate tabs (the shuffle control) ───────────────────────
+   Sit inside the middle cell of the sheet header. Each tab is
+   PLATE NUMERAL (italic Playfair) + PROJECT TITLE (mono caps).
+   The active tab gets an accent underline like a selected drawing
+   tab in a CAD app. */
+
+.plateTabs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.plateTab {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  padding: 0.32rem 0.65rem;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+  color: var(--ink-mute);
+  font: inherit;
+  transition:
+    color 200ms ease,
+    border-color 200ms ease,
+    background 200ms ease;
+}
+
+.plateTab:hover,
+.plateTab:focus-visible {
+  color: var(--ink);
+  background: rgba(64, 138, 113, 0.05);
+  outline: none;
+}
+
+.plateTabActive {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+  background: rgba(64, 138, 113, 0.07);
+}
+
+.plateTabNumeral {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.plateTabTitle {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -111,12 +155,12 @@
   scroll-margin-top: 100px;
 }
 
-/* ─── Head row — Nº · title · badge ───────────────────────── */
+/* ─── Head row — plate badge · title · badge ─────────────── */
 
 .head {
   display: grid;
   grid-template-columns: auto 1fr auto;
-  align-items: baseline;
+  align-items: center;
   column-gap: 1.2rem;
   margin-bottom: 0.4rem;
 }
@@ -148,8 +192,52 @@
   border-radius: 2px;
 }
 
-/* "Feature ↑" affordance — accent-bordered pill in the right slot of
-   the compact head. Mono caps with an arrow that lifts on hover so
+/* ─── Plate badge — italic numeral inside a thin accent rule ──
+   Replaces the loose Nº numeral. Reads as a stamped plate marker:
+   "PLATE I" / "PLATE II". Used on every sheet, hero and compact. */
+
+.plateBadge {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  padding: 0.28rem 0.55rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  background: rgba(176, 228, 204, 0.025);
+  white-space: nowrap;
+}
+
+.plateBadgeLabel {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.plateBadgeNumeral {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--accent);
+}
+
+/* Hero plate badge — slightly bigger so it reads as the headline plate. */
+.hero .plateBadge {
+  padding: 0.36rem 0.65rem;
+  border-color: var(--accent);
+  background: rgba(64, 138, 113, 0.08);
+}
+
+.hero .plateBadgeNumeral {
+  font-size: 22px;
+}
+
+/* "Open Plate ↑" affordance — accent-bordered pill in the right slot
+   of the compact head. Mono caps with an arrow that lifts on hover so
    the "promote up to hero" intent reads instantly. Sits in the same
    grid cell that the badge would normally occupy. */
 .featureAction {
@@ -172,6 +260,10 @@
     background 220ms ease,
     border-color 220ms ease,
     transform 220ms cubic-bezier(.2, .8, .2, 1);
+}
+
+.featureLabel {
+  display: inline-block;
 }
 
 .featureArrow {
@@ -200,16 +292,6 @@
   }
 }
 
-.numero {
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(28px, 2.4vw, 42px);
-  line-height: 0.9;
-  color: var(--accent);
-  letter-spacing: -0.01em;
-}
-
 .title {
   margin: 0;
   font-family: var(--sans);
@@ -234,24 +316,18 @@
 
 /* ─── Hero variant — full-width, larger image, generous space ── */
 
-.hero .numero {
-  font-size: clamp(40px, 3.4vw, 56px);
-}
-
 .hero .title {
   font-size: clamp(26px, 2.6vw, 36px);
 }
 
-/* Hero image stays at 16/9 cinematic. The browser chrome (when present)
-   constrains the overall width via .hero .browser below. */
 .hero .image {
   aspect-ratio: 16 / 9;
 }
 
 /* Hero — slightly reduced width so the browser chrome reads as a
-   framed window rather than full-bleed. Centered. Also: cursor-tracked
-   perspective tilt (--tilt-x, --tilt-y written by JS on mousemove) and
-   a soft accent rim-glow on hover. */
+   framed window rather than full-bleed. Centered. Cursor-tracked
+   perspective tilt (--tilt-x, --tilt-y written by JS on mousemove)
+   and a soft accent rim-glow on hover. */
 .hero .browser {
   max-width: 920px;
   margin: 0 auto;
@@ -304,10 +380,6 @@
   gap: 1.2rem;
 }
 
-.compact .numero {
-  font-size: clamp(22px, 1.8vw, 32px);
-}
-
 .compact .title {
   font-size: clamp(18px, 1.6vw, 22px);
 }
@@ -333,6 +405,48 @@
 .compact.flipped .compactBody .meta  { grid-column: 1; grid-row: 1; text-align: right; }
 .compact.flipped .compactBody .spec,
 .compact.flipped .compactBody .actions { justify-content: flex-end; }
+
+/* ─── Annex header — strip dividing hero from secondaries ──
+   Hairline rules with a centred mono-caps "ANNEXED PLATES" label
+   and a small count readout. Reads like a section divider on a
+   drawing sheet ("PLATES OVERLEAF"). */
+
+.annex {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.annexHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--ink-faint);
+}
+
+.annexRule {
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--line);
+}
+
+.annexLabel {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.annexCount {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
 
 /* ─── Frame (shared) ─────────────────────────────────────── */
 
@@ -405,8 +519,8 @@
 
 /* ─── Browser chrome (hero only) ────────────────────────────
    Minimal Atlas-styled window: three dots + faux URL with a green
-   lock dot. No holographic sheen, no perspective tilt — just a
-   restrained frame that reads as "this is a web app". */
+   lock dot. The north-arrow ornament floats in the right edge of
+   the bar — small architectural compass-rose decoration. */
 
 .browser {
   border-radius: 8px;
@@ -432,9 +546,9 @@
   background: rgba(176, 228, 204, 0.18);
   flex-shrink: 0;
 }
-.browserDotR { background: rgba(196, 109, 95, 0.55); }   /* status-crit-ish */
-.browserDotY { background: rgba(212, 168, 87, 0.55); }   /* mustard */
-.browserDotG { background: rgba(64, 138, 113, 0.6);  }   /* accent */
+.browserDotR { background: rgba(196, 109, 95, 0.55); }
+.browserDotY { background: rgba(212, 168, 87, 0.55); }
+.browserDotG { background: rgba(64, 138, 113, 0.6);  }
 
 .browserUrl {
   margin-left: 0.5rem;
@@ -456,6 +570,15 @@
   margin-right: 0.4rem;
 }
 
+/* North arrow ornament — sits at the right end of the browser bar,
+   replacing the visual emptiness with a small architectural marker. */
+.browserNorth {
+  flex-shrink: 0;
+  color: var(--accent);
+  opacity: 0.75;
+  margin-left: 0.4rem;
+}
+
 /* L-bracket crop marks. */
 .cropTL,
 .cropTR,
@@ -474,6 +597,72 @@
 .cropBR { bottom: -8px; right: -8px; transform: rotate(180deg); }
 .cropBL { bottom: -8px; left: -8px;  transform: rotate(270deg); }
 
+/* ─── Title block — architect's title block at the bottom of the
+       hero plate. Multi-cell horizontal strip with PROJECT, TYPE,
+       SCALE, DRAWN, SHEET fields, hairline-separated. ─────────── */
+
+.titleBlock {
+  margin-top: 1.2rem;
+  align-self: flex-end;
+  width: 100%;
+  max-width: 920px;   /* match browser width */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.titleBlockGrid {
+  display: grid;
+  grid-template-columns: 1.6fr repeat(4, 1fr);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: rgba(176, 228, 204, 0.025);
+  overflow: hidden;
+}
+
+.titleBlockCell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.7rem 0.95rem;
+  border-left: 1px solid var(--line);
+  min-width: 0;
+}
+
+.titleBlockCell:first-child {
+  border-left: 0;
+}
+
+.titleBlockCellWide {
+  background: rgba(64, 138, 113, 0.06);
+}
+
+.titleBlockLabel {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.titleBlockValue {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 14.5px;
+  line-height: 1.2;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.titleBlockCellWide .titleBlockValue {
+  color: var(--accent);
+  font-size: 16px;
+}
+
 /* ─── Meta (summary + spec + actions) ────────────────────── */
 
 .meta {
@@ -491,7 +680,6 @@
   color: var(--ink-soft);
 }
 
-/* In compact mode the summary sits beside a smaller image; tighter. */
 .compact .summary {
   font-size: 0.95rem;
   line-height: 1.55;
@@ -541,21 +729,46 @@
 
 /* ─── Mobile / tablet collapse ───────────────────────────── */
 
-/* Below 920px: secondaries stack to a single column. They keep their
-   internal image+meta layout (still side-by-side at this size). */
+/* Below 1080px: title block wraps cells onto two rows so the field
+   labels stay legible without scrolling. */
+@media (max-width: 1080px) {
+  .titleBlockGrid {
+    grid-template-columns: 1.6fr 1fr 1fr;
+  }
+}
+
+/* Below 920px: secondaries stack to a single column, sheet header
+   stacks its three cells, and the title block collapses further. */
 @media (max-width: 920px) {
+  .sheetHeader {
+    grid-template-columns: 1fr;
+  }
+  .sheetCell + .sheetCell,
+  .sheetCellPlates + .sheetCell,
+  .sheetCell + .sheetCellPlates {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+  .sheetCellPlates {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
   .secondaries {
     grid-template-columns: 1fr;
     gap: 4.5rem;
+  }
+
+  .titleBlockGrid {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
 /* Below 720px: everything gets simpler. Compact internal grid
    collapses too — image full-width, meta below. Crop marks hide. */
 @media (max-width: 720px) {
-  .index {
+  .sheetHeader {
     margin-top: 2rem;
-    gap: 0.4rem 1.2rem;
   }
 
   .layout {
@@ -565,16 +778,18 @@
 
   .head {
     grid-template-columns: auto 1fr;
-    row-gap: 0.2rem;
+    row-gap: 0.4rem;
   }
 
   .title {
     grid-column: 1 / -1;
   }
 
-  .badge {
+  .badge,
+  .featureAction {
     grid-column: 2;
     grid-row: 1;
+    justify-self: end;
   }
 
   .compactBody,
@@ -605,5 +820,16 @@
   .cropBL,
   .cropBR {
     display: none;
+  }
+
+  .titleBlockGrid {
+    grid-template-columns: 1fr;
+  }
+  .titleBlockCell {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+  .titleBlockCell:first-child {
+    border-top: 0;
   }
 }
