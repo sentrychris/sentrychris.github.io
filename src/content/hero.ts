@@ -2,6 +2,8 @@
  * Voice: BRANDING.md §3 (plain, technical, confident, operator-tone).
  * The accent phrase renders inside the gradient text on the hero. */
 
+import type { Lang } from '../lib/useLanguage'
+
 export interface HeroCopy {
   eyebrow: string
   title: string
@@ -16,7 +18,7 @@ export interface HeroCopy {
   meta: ReadonlyArray<{ label: string; value: string }>
 }
 
-export const hero: HeroCopy = {
+const en: HeroCopy = {
   eyebrow: 'AVAILABLE · LEAD/SENIOR ROLES & CONSULTING',
   title: '12+ years building',
   accent: 'beautiful web apps.',
@@ -32,3 +34,39 @@ export const hero: HeroCopy = {
     { label: 'Stack', value: 'Polyglot · web-first' },
   ],
 }
+
+const ru: HeroCopy = {
+  eyebrow: 'ОТКРЫТ К ПРЕДЛОЖЕНИЯМ · LEAD/SENIOR РОЛИ И КОНСАЛТИНГ',
+  title: '12+ лет создаю',
+  accent: 'красивые веб-приложения.',
+  lede:
+    'Высококвалифицированный ведущий разработчик с более чем 12-летним опытом создания, тестирования и поддержки программного обеспечения и веб-приложений в различных бизнес-сферах.',
+  ctas: [
+    { label: 'Посмотреть работы', href: '#work', variant: 'primary' },
+    { label: 'Связаться', href: '#contact', variant: 'default' },
+  ],
+  meta: [
+    { label: 'Лет', value: '12+' },
+    { label: 'Роль', value: 'Ведущий разработчик' },
+    { label: 'Стек', value: 'Полиглот · web-first' },
+  ],
+}
+
+const es: HeroCopy = {
+  eyebrow: 'DISPONIBLE · ROLES LEAD/SENIOR Y CONSULTORÍA',
+  title: '12+ años creando',
+  accent: 'aplicaciones web bonitas.',
+  lede:
+    'Lead Developer altamente cualificado con más de 12 años de experiencia construyendo, probando y manteniendo software y aplicaciones web en una amplia variedad de sectores.',
+  ctas: [
+    { label: 'Ver proyectos', href: '#work', variant: 'primary' },
+    { label: 'Contactar', href: '#contact', variant: 'default' },
+  ],
+  meta: [
+    { label: 'Años', value: '12+' },
+    { label: 'Rol', value: 'Lead Developer' },
+    { label: 'Stack', value: 'Polígloto · web-first' },
+  ],
+}
+
+export const hero: Record<Lang, HeroCopy> = { en, es, ru }

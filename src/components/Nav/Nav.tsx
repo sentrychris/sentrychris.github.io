@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { ThemeToggle } from '../ThemeToggle'
+import { LanguageToggle } from '../LanguageToggle'
 import styles from './Nav.module.css'
 
 export interface NavLink {
@@ -126,6 +127,7 @@ export function Nav({ links }: NavProps) {
               </a>
             ))}
           </nav>
+          <LanguageToggle />
           <ThemeToggle />
         </div>
       </div>

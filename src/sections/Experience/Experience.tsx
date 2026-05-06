@@ -1,5 +1,6 @@
-import { experience } from '../../content/experience'
+import { experience as experienceI18n } from '../../content/experience'
 import { Section } from '../../components/Section'
+import { useLanguage } from '../../lib/useLanguage'
 import { useReveal } from '../../lib/useReveal'
 import styles from './Experience.module.css'
 
@@ -11,6 +12,8 @@ const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'] as const
  */
 export function Experience() {
   const wrapRef = useReveal<HTMLDivElement>()
+  const { lang } = useLanguage()
+  const experience = experienceI18n[lang]
 
   return (
     <Section id="experience">
@@ -59,7 +62,7 @@ export function Experience() {
                     <p className={styles.company}>{entry.company}</p>
                   )}
                   {entry.sectors.length > 0 && (
-                    <ul className={styles.sectors} aria-label="Sectors">
+                    <ul className={styles.sectors} aria-label={experience.ui.sectors}>
                       {entry.sectors.map((sector) => (
                         <li key={sector} className={styles.sector}>
                           {sector}
@@ -78,7 +81,7 @@ export function Experience() {
                     <div className={styles.exhibits}>
                       <div className={styles.exhibitsLabel} aria-hidden="true">
                         <span className={styles.exhibitsLabelText}>
-                          Exhibits
+                          {experience.ui.exhibits}
                         </span>
                       </div>
                       <ol className={styles.points}>

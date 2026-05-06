@@ -9,6 +9,7 @@ import { Experience } from './sections/Experience'
 import { Projects } from './sections/Projects'
 import { Contact } from './sections/Contact'
 import { navLinks } from './content/nav'
+import { useLanguage } from './lib/useLanguage'
 import { useHorizontalScroll } from './lib/useHorizontalScroll'
 
 function App() {
@@ -16,10 +17,12 @@ function App() {
   // is exhausted. Hook is a noop on mobile.
   useHorizontalScroll()
 
+  const { lang } = useLanguage()
+
   return (
     <>
       <Schematic />
-      <Nav links={navLinks} />
+      <Nav links={navLinks[lang]} />
       <Tracker />
       <main>
         <Hero />

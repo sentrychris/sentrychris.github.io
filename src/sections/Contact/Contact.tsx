@@ -1,5 +1,6 @@
-import { contact } from '../../content/contact'
+import { contact as contactI18n } from '../../content/contact'
 import { Section } from '../../components/Section'
+import { useLanguage } from '../../lib/useLanguage'
 import { useReveal } from '../../lib/useReveal'
 import styles from './Contact.module.css'
 
@@ -7,6 +8,8 @@ import styles from './Contact.module.css'
  * Contact
  */
 export function Contact() {
+  const { lang } = useLanguage()
+  const contact = contactI18n[lang]
   const email = `${contact.email.user}@${contact.email.domain}`
   const wrapRef = useReveal<HTMLDivElement>()
 
@@ -36,11 +39,11 @@ export function Contact() {
 
         {/* Italic Playfair invitation — the magazine's closing sentiment. */}
         <p className={styles.invitation}>
-          Pour a coffee.
+          {contact.ui.invitationA}
           <span className={styles.invitationBreak} aria-hidden="true">
             {' '}
           </span>
-          Send a line.
+          {contact.ui.invitationB}
         </p>
 
         {/* Fleuron divider */}
@@ -51,7 +54,7 @@ export function Contact() {
           <div className={styles.correspondenceLabel} aria-hidden="true">
             <span className={styles.correspondenceLabelTick} />
             <span className={styles.correspondenceLabelText}>
-              Correspondence
+              {contact.ui.correspondence}
             </span>
             <span className={styles.correspondenceLabelTick} />
           </div>
@@ -59,14 +62,14 @@ export function Contact() {
           <VogueButton
             href={`mailto:${email}`}
             icon="mail"
-            value="Email"
+            value={contact.ui.emailLabel}
             primary
           />
 
           <p className={styles.status}>
             <span className={styles.pulse} aria-hidden="true" />
             <span className={styles.statusText}>
-              Open to work · Replies within a day
+              {contact.ui.statusText}
             </span>
           </p>
         </div>
@@ -77,7 +80,7 @@ export function Contact() {
         {/* Channels — secondary Vogue buttons in a row. */}
         <div className={styles.channels}>
           <div className={styles.channelsLabel} aria-hidden="true">
-            Also reachable via
+            {contact.ui.alsoReachable}
           </div>
           <div className={styles.channelsList}>
             {contact.methods.map((method) => (
@@ -97,13 +100,13 @@ export function Contact() {
         <div className={styles.signature} aria-hidden="true">
           <span className={styles.signatureRule} />
           <p className={styles.signatureText}>
-            <span className={styles.signaturePart}>Thanks,</span>
-            <span className={styles.signatureName}>Chris Rowles</span>
+            <span className={styles.signaturePart}>{contact.ui.signatureThanks}</span>
+            <span className={styles.signatureName}>{contact.ui.signatureName}</span>
           </p>
           <p className={styles.signatureMeta}>
-            <span className={styles.signatureMetaPart}>United Kingdom</span>
+            <span className={styles.signatureMetaPart}>{contact.ui.signatureLocation}</span>
             <span className={styles.signatureMetaSep}>·</span>
-            <span className={styles.signatureMetaPart}>MMXXVI</span>
+            <span className={styles.signatureMetaPart}>{contact.ui.signatureYear}</span>
           </p>
         </div>
       </div>

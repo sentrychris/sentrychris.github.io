@@ -1,5 +1,6 @@
-import { about } from '../../content/about'
+import { about as aboutI18n } from '../../content/about'
 import { Section } from '../../components/Section'
+import { useLanguage } from '../../lib/useLanguage'
 import { useReveal } from '../../lib/useReveal'
 import styles from './About.module.css'
 
@@ -24,6 +25,8 @@ const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI'] as const
  */
 export function About() {
   const wrapRef = useReveal<HTMLDivElement>()
+  const { lang } = useLanguage()
+  const about = aboutI18n[lang]
 
   return (
     <Section id="about">
@@ -61,7 +64,7 @@ export function About() {
           <aside className={styles.facts}>
             <div className={styles.factsHeader} aria-hidden="true">
               <span className={styles.factsHeaderTick} />
-              <span className={styles.factsHeaderText}>Specifications</span>
+              <span className={styles.factsHeaderText}>{about.ui.specifications}</span>
               <span className={styles.factsHeaderTick} />
             </div>
 
@@ -84,11 +87,11 @@ export function About() {
         <div className={styles.signature} aria-hidden="true">
           <span className={styles.signatureRule} />
           <p className={styles.signatureText}>
-            <span className={styles.signaturePart}>Atlas</span>
+            <span className={styles.signaturePart}>{about.ui.signatureBrand}</span>
             <span className={styles.signatureSep}>·</span>
             <span className={styles.signaturePart}>{about.coordinates}</span>
             <span className={styles.signatureSep}>·</span>
-            <span className={styles.signaturePart}>MMXXVI</span>
+            <span className={styles.signaturePart}>{about.ui.signatureYear}</span>
           </p>
         </div>
       </div>

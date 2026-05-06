@@ -1,6 +1,7 @@
 import { HeroEyebrow } from '../../components/HeroEyebrow'
 import { Button } from '../../components/Button'
-import { hero } from '../../content/hero'
+import { hero as heroI18n } from '../../content/hero'
+import { useLanguage } from '../../lib/useLanguage'
 import { useReveal } from '../../lib/useReveal'
 import { useCountUp } from '../../lib/useCountUp'
 import styles from './Hero.module.css'
@@ -19,6 +20,8 @@ import styles from './Hero.module.css'
  */
 export function Hero() {
   const ref = useReveal<HTMLDivElement>()
+  const { lang } = useLanguage()
+  const hero = heroI18n[lang]
 
   return (
     <section id="top" className={styles.hero}>

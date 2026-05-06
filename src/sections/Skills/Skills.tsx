@@ -1,6 +1,7 @@
-import { skills, type SkillGroup } from '../../content/skills'
+import { skills as skillsI18n, type SkillGroup } from '../../content/skills'
 import { Section } from '../../components/Section'
 import { DevIcon } from '../../components/DevIcon'
+import { useLanguage } from '../../lib/useLanguage'
 import { useReveal } from '../../lib/useReveal'
 import styles from './Skills.module.css'
 
@@ -30,18 +31,20 @@ import styles from './Skills.module.css'
  */
 export function Skills() {
   const ref = useReveal<HTMLDivElement>()
+  const { lang } = useLanguage()
+  const skills = skillsI18n[lang]
 
-  // Index groups by name so we can place them by topology, not by
-  // their order in the content file.
-  const byName = Object.fromEntries(
-    skills.groups.map((g) => [g.name, g]),
-  ) as Record<string, SkillGroup | undefined>
+  // Index groups by their stable key so we can place them by topology
+  // independent of locale. Display names live on `group.name`.
+  const byKey = Object.fromEntries(
+    skills.groups.map((g) => [g.key, g]),
+  ) as Record<SkillGroup['key'], SkillGroup | undefined>
 
-  const tooling = byName['Tooling']
-  const frontend = byName['Frontend']
-  const backend = byName['Backend']
-  const data = byName['Data']
-  const infra = byName['Infra & Ops']
+  const tooling = byKey.tooling
+  const frontend = byKey.frontend
+  const backend = byKey.backend
+  const data = byKey.data
+  const infra = byKey.infra
 
   return (
     <Section

@@ -1,7 +1,12 @@
 import { useState, type MouseEvent } from 'react'
-import { projects, type Project } from '../../content/projects'
+import {
+  projects as projectsI18n,
+  type Project,
+  type ProjectsCopy,
+} from '../../content/projects'
 import { Section } from '../../components/Section'
 import { Button } from '../../components/Button'
+import { useLanguage } from '../../lib/useLanguage'
 import { useReveal } from '../../lib/useReveal'
 import styles from './Projects.module.css'
 
@@ -14,6 +19,9 @@ const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI'] as const
 export function Projects() {
   const [activeIndex, setActiveIndex] = useState(0)
   const layoutRef = useReveal<HTMLDivElement>()
+  const { lang } = useLanguage()
+  const projects = projectsI18n[lang]
+  const ui = projects.ui
 
   const heroProject = projects.projects[activeIndex]
   const secondaries = projects.projects
@@ -31,16 +39,16 @@ export function Projects() {
       {/* Sheet header — drawing-sheet info strip + plate tab selector. */}
       <header className={styles.sheetHeader}>
         <div className={styles.sheetCell}>
-          <span className={styles.sheetCellLabel}>Sheet</span>
-          <span className={styles.sheetCellValue}>A — Projects</span>
+          <span className={styles.sheetCellLabel}>{ui.sheet}</span>
+          <span className={styles.sheetCellValue}>{ui.sheetValue}</span>
         </div>
 
         <div
           className={styles.sheetCellPlates}
           role="group"
-          aria-label="Plate index"
+          aria-label={ui.plateIndex}
         >
-          <span className={styles.sheetCellLabel}>Plates</span>
+          <span className={styles.sheetCellLabel}>{ui.plates}</span>
           <ol className={styles.plateTabs}>
             {projects.projects.map((p, i) => {
               const isActive = i === activeIndex
@@ -53,8 +61,8 @@ export function Projects() {
                     aria-pressed={isActive}
                     aria-label={
                       isActive
-                        ? `${p.title} — currently featured`
-                        : `Feature ${p.title}`
+                        ? ui.currentlyFeatured(p.title)
+                        : ui.feature(p.title)
                     }
                   >
                     <span className={styles.plateTabNumeral}>{ROMAN[i]}</span>
@@ -67,8 +75,8 @@ export function Projects() {
         </div>
 
         <div className={styles.sheetCell}>
-          <span className={styles.sheetCellLabel}>Scale</span>
-          <span className={styles.sheetCellValue}>1:1 · MMXXVI</span>
+          <span className={styles.sheetCellLabel}>{ui.scale}</span>
+          <span className={styles.sheetCellValue}>{ui.scaleValue}</span>
         </div>
       </header>
 
@@ -83,14 +91,15 @@ export function Projects() {
             index={activeIndex}
             total={projects.projects.length}
             variant="hero"
+            ui={ui}
           />
         )}
 
         {secondaries.length < 0 && (
-          <section className={styles.annex} aria-label="Annexed plates">
+          <section className={styles.annex} aria-label={ui.annexedPlates}>
             <header className={styles.annexHeader} aria-hidden="true">
               <span className={styles.annexRule} />
-              <span className={styles.annexLabel}>Annexed Plates</span>
+              <span className={styles.annexLabel}>{ui.annexedPlates}</span>
               <span className={styles.annexCount}>
                 {String(secondaries.length).padStart(2, '0')} ·{' '}
                 {String(projects.projects.length).padStart(2, '0')}
@@ -108,6 +117,7 @@ export function Projects() {
                   variant="compact"
                   flipped={i % 2 === 1}
                   onFeature={() => setActiveIndex(originalIndex)}
+                  ui={ui}
                 />
               ))}
             </div>
@@ -126,6 +136,7 @@ type SheetProps = {
   index: number
   total: number
   flipped?: boolean
+  ui: ProjectsCopy['ui']
 } & (
   | { variant: 'hero'; onFeature?: never }
   | { variant: 'compact'; onFeature: () => void }
@@ -138,13 +149,14 @@ function Sheet({
   variant,
   flipped,
   onFeature,
+  ui,
 }: SheetProps) {
   const numeral = ROMAN[index] ?? String(index + 1)
   const isCompact = variant === 'compact'
 
   const plateBadge = (
     <span className={styles.plateBadge} aria-hidden="true">
-      <span className={styles.plateBadgeLabel}>Plate</span>
+      <span className={styles.plateBadgeLabel}>{ui.plate}</span>
       <span className={styles.plateBadgeNumeral}>{numeral}</span>
     </span>
   )
@@ -154,7 +166,7 @@ function Sheet({
       {plateBadge}
       <h3 className={styles.title}>{project.title}</h3>
       <span className={styles.featureAction} aria-hidden="true">
-        <span className={styles.featureLabel}>Open Plate</span>
+        <span className={styles.featureLabel}>{ui.openPlate}</span>
         <span className={styles.featureArrow}>↑</span>
       </span>
     </>
@@ -178,7 +190,7 @@ function Sheet({
           type="button"
           className={`${styles.head} ${styles.headButton}`}
           onClick={onFeature}
-          aria-label={`Feature ${project.title}`}
+          aria-label={ui.feature(project.title)}
         >
           {headContents}
         </button>
@@ -192,13 +204,13 @@ function Sheet({
               compacts (where it'd compete with the hero plate) and shows
               it on mobile so every project reads as its own little site. */}
           <Frame project={project} browser />
-          <Meta project={project} />
+          <Meta project={project} ui={ui} />
         </div>
       ) : (
         <>
           <Frame project={project} browser />
-          <Meta project={project} />
-          <TitleBlock project={project} index={index} total={total} />
+          <Meta project={project} ui={ui} />
+          <TitleBlock project={project} index={index} total={total} ui={ui} />
         </>
       )}
     </article>
@@ -265,36 +277,38 @@ function TitleBlock({
   project,
   index,
   total,
+  ui,
 }: {
   project: Project
   index: number
   total: number
+  ui: ProjectsCopy['ui']
 }) {
   return (
     <aside className={styles.titleBlock} aria-hidden="true">
       <div className={styles.titleBlockGrid}>
         <div className={`${styles.titleBlockCell} ${styles.titleBlockCellWide}`}>
-          <span className={styles.titleBlockLabel}>Project</span>
+          <span className={styles.titleBlockLabel}>{ui.project}</span>
           <span className={styles.titleBlockValue}>{project.title}</span>
         </div>
         {project.badge && (
           <div className={styles.titleBlockCell}>
-            <span className={styles.titleBlockLabel}>Type</span>
+            <span className={styles.titleBlockLabel}>{ui.type}</span>
             <span className={styles.titleBlockValue}>{project.badge}</span>
           </div>
         )}
         <div className={styles.titleBlockCell}>
-          <span className={styles.titleBlockLabel}>Scale</span>
+          <span className={styles.titleBlockLabel}>{ui.scale}</span>
           <span className={styles.titleBlockValue}>1:1</span>
         </div>
         <div className={styles.titleBlockCell}>
-          <span className={styles.titleBlockLabel}>Drawn</span>
-          <span className={styles.titleBlockValue}>MMXXVI</span>
+          <span className={styles.titleBlockLabel}>{ui.drawn}</span>
+          <span className={styles.titleBlockValue}>{ui.drawnValue}</span>
         </div>
         <div className={styles.titleBlockCell}>
-          <span className={styles.titleBlockLabel}>Sheet</span>
+          <span className={styles.titleBlockLabel}>{ui.sheet}</span>
           <span className={styles.titleBlockValue}>
-            {ROMAN[index]} of {ROMAN[total - 1]}
+            {ROMAN[index]} {ui.sheetOf} {ROMAN[total - 1]}
           </span>
         </div>
       </div>
@@ -303,12 +317,12 @@ function TitleBlock({
 }
 
 /** Summary + spec list + action buttons. */
-function Meta({ project }: { project: Project }) {
+function Meta({ project, ui }: { project: Project; ui: ProjectsCopy['ui'] }) {
   return (
     <div className={styles.meta}>
       <p className={styles.summary}>{project.summary}</p>
 
-      <ul className={styles.spec} aria-label={`${project.title} stack`}>
+      <ul className={styles.spec} aria-label={ui.stackOf(project.title)}>
         {project.stack.map((tech) => (
           <li key={tech} className={styles.specItem}>
             <span className={styles.marker} aria-hidden="true" />
@@ -320,10 +334,7 @@ function Meta({ project }: { project: Project }) {
       {project.links.length > 0 && (
         <div className={styles.actions}>
           {project.links.map((link, linkIndex) => {
-            const label = link.label.toLowerCase()
-            const isPrimary =
-              linkIndex === 0 &&
-              (label === 'try it' || label === 'live demo')
+            const isPrimary = linkIndex === 0
             const isExternal = link.href.startsWith('http')
             return (
               <Button

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { navLinks } from '../../content/nav'
+import { useLanguage } from '../../lib/useLanguage'
 import styles from './Tracker.module.css'
 
 /**
@@ -10,6 +11,8 @@ export function Tracker() {
   const listRef = useRef<HTMLOListElement>(null)
   const pingRef = useRef<HTMLSpanElement>(null)
   const prevActiveRef = useRef<string | null>(null)
+  const { lang } = useLanguage()
+  const links = navLinks[lang]
 
   // When activeId changes, animate the ping element along the rule
   // from the previous active dot's Y to the new active dot's Y, then
@@ -97,7 +100,7 @@ export function Tracker() {
     }
 
     // Mobile vertical long-scroll — original IntersectionObserver path.
-    const ids = navLinks.map((l) => l.spy).filter((s): s is string => Boolean(s))
+    const ids = links.map((l) => l.spy).filter((s): s is string => Boolean(s))
     if (ids.length === 0) return
 
     const elements = ids
@@ -121,12 +124,12 @@ export function Tracker() {
 
     elements.forEach((el) => observer.observe(el))
     return () => observer.disconnect()
-  }, [])
+  }, [links])
 
   return (
     <aside className={styles.tracker} aria-label="Page sections">
       <ol ref={listRef} className={styles.list}>
-        {navLinks.map((link) => {
+        {links.map((link) => {
           const isActive = link.spy != null && link.spy === activeId
           return (
             <li key={link.href} className={styles.item}>
