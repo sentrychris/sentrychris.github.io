@@ -1,31 +1,17 @@
 import type { NavLink } from '../components/Nav'
 import type { Lang } from '../lib/useLanguage'
+import { navLinks as en } from './locales/en'
+import { navLinks as es } from './locales/es'
+import { navLinks as ru } from './locales/ru'
+import { navLinks as de } from './locales/de'
+import { navLinks as fr } from './locales/fr'
+import { navLinks as pt } from './locales/pt'
+import { navLinks as pl } from './locales/pl'
+import { navLinks as ro } from './locales/ro'
+import { navLinks as zh } from './locales/zh'
+import { navLinks as ja } from './locales/ja'
+import { navLinks as ko } from './locales/ko'
 
-const en: NavLink[] = [
-  { href: '#top', label: 'Home', spy: 'top' },
-  { href: '#about', label: 'About', spy: 'about' },
-  { href: '#skills', label: 'Skills', spy: 'skills' },
-  { href: '#experience', label: 'Experience', spy: 'experience' },
-  { href: '#work', label: 'Work', spy: 'work' },
-  { href: '#contact', label: 'Contact', spy: 'contact' },
-]
-
-const ru: NavLink[] = [
-  { href: '#top', label: 'Главная', spy: 'top' },
-  { href: '#about', label: 'Обо мне', spy: 'about' },
-  { href: '#skills', label: 'Навыки', spy: 'skills' },
-  { href: '#experience', label: 'Опыт', spy: 'experience' },
-  { href: '#work', label: 'Проекты', spy: 'work' },
-  { href: '#contact', label: 'Контакты', spy: 'contact' },
-]
-
-const es: NavLink[] = [
-  { href: '#top', label: 'Inicio', spy: 'top' },
-  { href: '#about', label: 'Sobre mí', spy: 'about' },
-  { href: '#skills', label: 'Habilidades', spy: 'skills' },
-  { href: '#experience', label: 'Experiencia', spy: 'experience' },
-  { href: '#work', label: 'Proyectos', spy: 'work' },
-  { href: '#contact', label: 'Contacto', spy: 'contact' },
-]
-
-export const navLinks: Record<Lang, NavLink[]> = { en, es, ru }
+export const navLinks: Record<Lang, NavLink[]> = {
+  en, es, ru, de, fr, pt, pl, ro, zh, ja, ko,
+}
