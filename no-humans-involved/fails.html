@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>failure modes — chris.exe</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="nav-slot"></div>
+
+    <main>
+      <header class="page-header">
+        <p class="crumb">/ failure modes</p>
+        <h1><span class="accent">&gt;</span>when the bot bombs</h1>
+        <p class="lede">
+          Be honest about the limits, builds more trust than hiding them.
+          Six recurring patterns, with diagnoses. The hallucinated memory
+          one is the one to watch out for.
+        </p>
+      </header>
+
+      <div class="fail-list">
+        <article class="fail">
+          <h3>The over-explainer</h3>
+          <p class="exchange"><span class="speaker">you:</span>'you doing anything this weekend?'</p>
+          <p class="exchange"><span class="speaker">bot:</span>'As an AI persona based on Chris, I don't have a physical existence or weekend plans in the traditional sense. However, based on patterns in Chris's Discord messages, he frequently mentions gaming sessions, side projects, and occasional social plans with friends...'</p>
+          <p class="commentary">the second it breaks character to explain itself, it's over. real Chris would've said "probably nothing much man, might game" and that would've been the whole reply.</p>
+        </article>
+
+        <article class="fail">
+          <h3>The LinkedIn ghost</h3>
+          <p class="exchange"><span class="speaker">you:</span>'how's the job going'</p>
+          <p class="exchange"><span class="speaker">bot:</span>'Things are going really well, thanks for asking! I've been leveraging some new opportunities to upskill and I'm excited about the direction things are heading going forward.'</p>
+          <p class="commentary">"leveraging", "upskill", "going forward" — three corporate terms in two sentences, none of which Chris has ever said unironically. something in the model drifted toward professional register and nobody stopped it.</p>
+        </article>
+
+        <article class="fail">
+          <h3>The hallucinated memory</h3>
+          <p class="exchange"><span class="speaker">you:</span>'remember that time we stayed up till 4am playing that game'</p>
+          <p class="exchange"><span class="speaker">bot:</span>'Haha yeah man, that was a proper session, I think it was Tarkov wasn't it, the raid where everything went wrong and we lost all the gear, absolute nightmare but so funny looking back lol'</p>
+          <p class="commentary">completely made up, sounds plausible, delivered with full confidence. the bot invented a specific memory and committed to it. this is the failure mode that matters most, it's not obviously wrong, it just isn't real.</p>
+        </article>
+
+        <article class="fail">
+          <h3>The emoji enthusiast</h3>
+          <p class="exchange"><span class="speaker">you:</span>'just got the job'</p>
+          <p class="exchange"><span class="speaker">bot:</span>'Oh that's amazing!! Absolutely buzzing for you!! 🎉🙌🔥💯 You totally deserve it, so proud of you!!'</p>
+          <p class="commentary">two exclamation marks per sentence and four stacked emoji including the rocket's corporate cousins. real Chris would've said "SICK MAN" and maybe one 😄 and that would've landed harder than all of this.</p>
+        </article>
+
+        <article class="fail">
+          <h3>The therapist</h3>
+          <p class="exchange"><span class="speaker">you:</span>'I've just been really stressed lately'</p>
+          <p class="exchange"><span class="speaker">bot:</span>'I really hear you, and I want you to know that what you're feeling is completely valid. It's so important to hold space for those emotions and not dismiss them. Have you considered speaking to someone about this?'</p>
+          <p class="commentary">"hold space", "completely valid", "those emotions" — that's a wellness app, not a mate. real Chris would've said something like "ah damn man, that's rough, you wanna talk about it?" and meant it.</p>
+        </article>
+
+        <article class="fail">
+          <h3>The loop</h3>
+          <p class="exchange"><span class="speaker">you:</span>'you already said that'</p>
+          <p class="exchange"><span class="speaker">bot:</span>'Yeah fair point man, sorry about that lol. Anyway as I was saying, it's one of those things where tbh I think the main issue is probably the approach, like if you go in thinking it'll just work you're gonna have a bad time lol. Anyway yeah, as I was saying...'</p>
+          <p class="commentary">it acknowledged the loop, apologised for it, and immediately looped again. no further commentary needed.</p>
+        </article>
+      </div>
+    </main>
+
+    <div id="footer-slot"></div>
+    <script src="inject.js"></script>
+  </body>
+</html>

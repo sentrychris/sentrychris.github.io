@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>guestbook — chris.exe</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="nav-slot"></div>
+
+    <main>
+      <header class="page-header">
+        <p class="crumb">/ guestbook</p>
+        <h1><span class="accent">&gt;</span>leave a note</h1>
+        <p class="lede">
+          2005-website energy. Sign in, leave a thought, see what other
+          people wrote. Stays in your browser only — no real backend, this
+          is just for vibes.
+        </p>
+      </header>
+
+      <form class="guestbook-form" id="gbForm" autocomplete="off">
+        <input id="gbName" type="text" placeholder="name (or alias)" maxlength="40" required />
+        <textarea id="gbMsg" placeholder="say something nice. or weird. either's fine." maxlength="500" required></textarea>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button class="btn primary" type="submit">sign</button>
+          <button class="btn ghost" type="button" id="gbClear">clear my entries</button>
+          <span class="dim" id="gbStatus" style="margin-left: auto; font-size: 11.5px;"></span>
+        </div>
+      </form>
+
+      <div class="guestbook-entries" id="gbEntries"></div>
+    </main>
+
+    <div id="footer-slot"></div>
+    <script src="inject.js"></script>
+    <script src="guestbook.js"></script>
+  </body>
+</html>

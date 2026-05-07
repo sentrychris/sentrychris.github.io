@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>where it gets weird — chris.exe</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="nav-slot"></div>
+
+    <main class="wide">
+      <header class="page-header">
+        <p class="crumb">/ where it gets weird</p>
+        <h1><span class="accent">&gt;</span>real chris vs bot, side by side</h1>
+        <p class="lede">
+          Five pairs that are eerily close. The rule: real chris on the left,
+          bot's unprompted output on the right. The fact that they keep
+          landing in the same place is the whole point of the page.
+        </p>
+      </header>
+
+      <div class="weird-list">
+        <article class="weird">
+          <div class="pair">
+            <div class="side">
+              <div class="label">real chris — 2022 discord</div>
+              <p class="quote">'I've gone so far down this rabbit hole man, it's 1am and I'm still reading about it lol'</p>
+            </div>
+            <div class="side bot">
+              <div class="label">bot — unprompted, when asked if it ever gets distracted</div>
+              <p class="quote">'tbh yeah, I go down rabbit holes pretty easily man, it's 1am territory before I've even noticed lol'</p>
+            </div>
+          </div>
+          <p class="commentary">"1am territory" wasn't a prompt, wasn't a hint. the bot just reached for that specific framing on its own. that's the bit.</p>
+        </article>
+
+        <article class="weird">
+          <div class="pair">
+            <div class="side">
+              <div class="label">real chris — 2021 discord</div>
+              <p class="quote">'turns out I was just doing it wrong the whole time, classic lol'</p>
+            </div>
+            <div class="side bot">
+              <div class="label">bot — after explaining a technical fix</div>
+              <p class="quote">'and yeah, turns out it was me doing it wrong the whole time, which tracks lol'</p>
+            </div>
+          </div>
+          <p class="commentary">"turns out it was me doing it wrong the whole time" is such a specific self-deprecating construction. the bot uses it naturally, unprompted, because it showed up enough times in the training data to become a default.</p>
+        </article>
+
+        <article class="weird">
+          <div class="pair">
+            <div class="side">
+              <div class="label">real chris — 2023 discord</div>
+              <p class="quote">'it just works now and I genuinely don't know why, I'm not questioning it'</p>
+            </div>
+            <div class="side bot">
+              <div class="label">bot — after a debugging conversation</div>
+              <p class="quote">'it's working now tbh, no idea why, not gonna question it lol'</p>
+            </div>
+          </div>
+          <p class="commentary">same thought, same rhythm, same decision to not investigate. the bot didn't learn that specific response, it just independently arrived at the same place real Chris did.</p>
+        </article>
+
+        <article class="weird">
+          <div class="pair">
+            <div class="side">
+              <div class="label">real chris — 2022 discord</div>
+              <p class="quote">'ah no man, that's peak, sorry to hear that bro'</p>
+            </div>
+            <div class="side bot">
+              <div class="label">bot — responding to bad news, unprompted</div>
+              <p class="quote">'ah no that's peak man, sorry to hear it bro'</p>
+            </div>
+          </div>
+          <p class="commentary">word for word almost. "ah no" into "peak" into "sorry to hear" is a very specific sequence and the bot reaches for it every time, because real Chris reaches for it every time. at some point a pattern stops being a pattern and starts being a personality.</p>
+        </article>
+
+        <article class="weird">
+          <div class="pair">
+            <div class="side">
+              <div class="label">real chris — 2020 discord</div>
+              <p class="quote">'I've absolutely over-engineered this but I'm not changing it now, it works and that's enough lol'</p>
+            </div>
+            <div class="side bot">
+              <div class="label">bot — unprompted, describing its own architecture</div>
+              <p class="quote">'tbh I've probably over-engineered the explanation but it works so I'm leaving it lol'</p>
+            </div>
+          </div>
+          <p class="commentary">the phrase "over-engineered" plus the immediate "but I'm not changing it" energy, applied to a completely different context. the bot inherited the exact flavour of stubbornness. that one's a bit much honestly.</p>
+        </article>
+      </div>
+    </main>
+
+    <div id="footer-slot"></div>
+    <script src="inject.js"></script>
+  </body>
+</html>

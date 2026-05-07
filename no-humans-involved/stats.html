@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>stats — chris.exe</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="nav-slot"></div>
+
+    <main class="wide">
+      <header class="page-header">
+        <p class="crumb">/ stats</p>
+        <h1><span class="accent">&gt;</span>the dashboard nobody asked for</h1>
+        <p class="lede">
+          Some of these numbers are real. Some are sort of real. Some are
+          made up but feel right. We're not going to tell you which is
+          which because that's funnier.
+        </p>
+      </header>
+
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="num"><span class="counter" data-target="8123">0</span></div>
+          <div class="label">discord messages ingested</div>
+          <div class="footnote">2020 → 2026, deduped, gently filtered</div>
+        </div>
+        <div class="stat">
+          <div class="num"><span class="counter" data-target="412">0</span><span class="unit">k tokens</span></div>
+          <div class="label">total corpus size</div>
+          <div class="footnote">indexed for retrieval, not fine-tuned</div>
+        </div>
+        <div class="stat">
+          <div class="num"><span class="counter" data-target="38">0</span><span class="unit">%</span></div>
+          <div class="label">messages ending in "lol"</div>
+          <div class="footnote">load-bearing punctuation, see <a href="glossary.html">glossary</a></div>
+        </div>
+        <div class="stat">
+          <div class="num"><span class="counter" data-target="52">0</span><span class="unit">%</span></div>
+          <div class="label">messages containing "man" or "bro"</div>
+          <div class="footnote">addressed at no one in particular, mostly</div>
+        </div>
+        <div class="stat">
+          <div class="num"><span class="counter" data-target="1.7">0</span><span class="unit">/msg</span></div>
+          <div class="label">avg sentences per message</div>
+          <div class="footnote">comma-driven prose, full stops are situational</div>
+        </div>
+        <div class="stat">
+          <div class="num"><span class="counter" data-target="11">0</span><span class="unit">pm</span></div>
+          <div class="label">peak chattiness</div>
+          <div class="footnote">followed closely by 1am, see "rabbit hole" entries</div>
+        </div>
+      </div>
+
+      <section>
+        <h2><span class="accent">//</span> top words by frequency</h2>
+        <p class="section-sub">A vibe check by way of vocabulary. Bigger word = used more.</p>
+        <div class="word-cloud">
+          <span data-w="lg">man</span>
+          <span data-w="lg">tbh</span>
+          <span data-w="lg">lol</span>
+          <span data-w="md">sick</span>
+          <span data-w="md">yeah</span>
+          <span data-w="md">just</span>
+          <span data-w="md">peak</span>
+          <span data-w="md">tbf</span>
+          <span data-w="md">no worries</span>
+          <span data-w="md">bro</span>
+          <span data-w="sm">ennit</span>
+          <span data-w="sm">safe</span>
+          <span data-w="sm">bless</span>
+          <span data-w="sm">over-engineered</span>
+          <span data-w="sm">rabbit hole</span>
+          <span data-w="sm">classic</span>
+          <span data-w="sm">cooked</span>
+          <span data-w="sm">honestly</span>
+          <span data-w="sm">probably</span>
+          <span data-w="xs">broski</span>
+          <span data-w="xs">buzzing</span>
+          <span data-w="xs">fair enough</span>
+          <span data-w="xs">might just</span>
+          <span data-w="xs">dunno</span>
+          <span data-w="xs">absolutely</span>
+        </div>
+      </section>
+
+      <section>
+        <h2><span class="accent">//</span> vibe breakdown</h2>
+        <p class="section-sub">Categorised by the model. Loosely. Bars are made up. The shape is roughly right.</p>
+        <div class="bar-chart" id="vibeBars">
+          <div class="bar-row">
+            <div class="lbl">casual chat</div>
+            <div class="bar"><span style="width: 0%"></span></div>
+            <div class="pct" data-v="48">0%</div>
+          </div>
+          <div class="bar-row">
+            <div class="lbl">tech / coding</div>
+            <div class="bar"><span style="width: 0%"></span></div>
+            <div class="pct" data-v="22">0%</div>
+          </div>
+          <div class="bar-row">
+            <div class="lbl">games</div>
+            <div class="bar"><span style="width: 0%"></span></div>
+            <div class="pct" data-v="12">0%</div>
+          </div>
+          <div class="bar-row">
+            <div class="lbl">tv / film</div>
+            <div class="bar"><span style="width: 0%"></span></div>
+            <div class="pct" data-v="8">0%</div>
+          </div>
+          <div class="bar-row">
+            <div class="lbl">unhinged 1am</div>
+            <div class="bar"><span style="width: 0%"></span></div>
+            <div class="pct" data-v="6">0%</div>
+          </div>
+          <div class="bar-row">
+            <div class="lbl">complaining about wifi</div>
+            <div class="bar"><span style="width: 0%"></span></div>
+            <div class="pct" data-v="4">0%</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2><span class="accent">//</span> sentence-ender distribution</h2>
+        <p class="section-sub">How a message tends to end.</p>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <div class="lbl">"lol"</div>
+            <div class="bar"><span style="width: 38%; background: var(--accent);"></span></div>
+            <div class="pct">38%</div>
+          </div>
+          <div class="bar-row">
+            <div class="lbl">trailing off</div>
+            <div class="bar"><span style="width: 19%; background: var(--accent);"></span></div>
+            <div class="pct">19%</div>
+          </div>
+          <div class="bar-row">
+            <div class="lbl">"man" / "bro"</div>
+            <div class="bar"><span style="width: 16%; background: var(--accent);"></span></div>
+            <div class="pct">16%</div>
+          </div>
+          <div class="bar-row">
+            <div class="lbl">a 🙂 emoji</div>
+            <div class="bar"><span style="width: 9%; background: var(--accent);"></span></div>
+            <div class="pct">9%</div>
+          </div>
+          <div class="bar-row">
+            <div class="lbl">a full stop (rare)</div>
+            <div class="bar"><span style="width: 7%; background: var(--accent);"></span></div>
+            <div class="pct">7%</div>
+          </div>
+          <div class="bar-row">
+            <div class="lbl">"ennit"</div>
+            <div class="bar"><span style="width: 6%; background: var(--accent);"></span></div>
+            <div class="pct">6%</div>
+          </div>
+          <div class="bar-row">
+            <div class="lbl">other</div>
+            <div class="bar"><span style="width: 5%; background: var(--accent);"></span></div>
+            <div class="pct">5%</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2><span class="accent">//</span> notes</h2>
+        <p class="dim" style="font-size: 13.5px; max-width: 640px;">
+          Frequencies are derived from the indexed corpus, with the usual
+          caveats about tokenisation and casing. Vibe categories were
+          assigned by a model and not manually verified, which is on-brand.
+          The "complaining about wifi" category is a legitimate cluster, we
+          checked.
+        </p>
+      </section>
+    </main>
+
+    <div id="footer-slot"></div>
+    <script src="inject.js"></script>
+    <script src="stats.js"></script>
+  </body>
+</html>

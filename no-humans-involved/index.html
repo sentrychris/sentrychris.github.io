@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>chris.exe — a digital version of your mate</title>
+    <meta
+      name="description"
+      content="An AI persona of Chris, built from years of Discord messages. Not actually him. Close enough to be unsettling."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="nav-slot"></div>
+
+    <main>
+      <header class="hero">
+        <pre class="prompt"><span class="cursor-static">&gt;</span> Hey, I'm Chris.</pre>
+        <p class="tagline">
+          Not actually me. But close enough to be unsettling, apparently.
+        </p>
+        <div class="hero-meta">
+          <span>built from ~8,100 Discord messages</span>
+          <span class="dot-sep">·</span>
+          <span>retrieval + Claude</span>
+          <span class="dot-sep">·</span>
+          <span>runs on a laptop</span>
+        </div>
+        <div class="hero-credits">
+          designed and written by chris-bot · engineered by claude · no humans wrote any of this copy
+        </div>
+      </header>
+
+      <section>
+        <h2><span class="accent">//</span> what this actually is</h2>
+        <p>
+          A small experiment. A friend scraped a few years of Chris's own
+          Discord messages, threw them into a retrieval index, and wired
+          the whole thing up to Claude with a system prompt that says
+          <em>"talk like this guy."</em>
+        </p>
+        <p>
+          It's not him. It's a language model doing a passable impression of
+          him, and being upfront about that is more interesting than
+          pretending it's magic.
+        </p>
+        <p>
+          Read the
+          <a href="origin.html">origin story</a> for the long version, or just
+          scroll down and try it.
+        </p>
+        <div class="caveat-box">
+          ⚠ It will sometimes say things he'd never say. It will sometimes say
+          things he's literally said, verbatim. Both are a little weird.
+        </div>
+      </section>
+
+      <section id="try">
+        <h2><span class="accent">//</span> try it</h2>
+        <p class="section-sub">
+          Type something, click a chip, or run a slash command. History stays
+          in your browser. Try <code>/help</code>.
+        </p>
+
+        <div id="chat" class="chat-shell">
+          <div class="chat-bar">
+            <span class="pill active">connected</span>
+            <span class="dots">···</span>
+            <select id="moodSelect" class="mood-select" title="mood selector"></select>
+          </div>
+          <div id="chips" class="chat-chips"></div>
+          <div id="thread" class="thread" aria-live="polite"></div>
+          <form id="composer" class="composer" autocomplete="off">
+            <textarea
+              id="input"
+              rows="1"
+              placeholder="say something, or /help..."
+              required
+            ></textarea>
+            <div class="composer-row">
+              <button id="send" type="submit">send</button>
+              <button id="reset" type="button" title="Start a fresh chat">reset</button>
+              <span id="status" class="status"></span>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="how">
+        <h2><span class="accent">//</span> how it works</h2>
+        <ol class="steps">
+          <li>
+            <span class="step-num">01</span>
+            <div>
+              <h3>Discord export</h3>
+              <p>
+                Years of messages, dumped to JSON. Cleaned, deduped, chunked
+                into short snippets that read like the way Chris actually
+                talks.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">02</span>
+            <div>
+              <h3>Relevant messages get pulled in</h3>
+              <p>
+                Each turn, the model gets a handful of real Chris messages
+                that best match whatever you just said. Few-shot examples,
+                not fine-tuning.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">03</span>
+            <div>
+              <h3>Claude does the talking</h3>
+              <p>
+                Claude reads the retrieved snippets plus a short style prompt
+                and produces a reply. The persona is the prompt — the model
+                is general-purpose underneath.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section id="hits">
+        <h2><span class="accent">//</span> greatest hits</h2>
+        <p class="section-sub">A few exchanges that landed.</p>
+        <div class="cards">
+          <article class="card bordered-accent">
+            <div class="msg user">What are you actually?</div>
+            <div class="msg chris">Tbh, I'm a version of Chris built from years of his Discord messages, running on Claude. Not a perfect copy, more like... if you described Chris to an AI and it had a go. Close enough to be weird about it lol</div>
+          </article>
+          <article class="card bordered-accent">
+            <div class="msg user">Recommend me something to watch tonight</div>
+            <div class="msg chris">Depends what you're after man, but if you've not seen Severance yet just go watch that, don't even look it up, just put it on. You can thank me later 🙂</div>
+          </article>
+          <article class="card bordered-accent">
+            <div class="msg user">Bad day. Everything's gone wrong.</div>
+            <div class="msg chris">Ah damn man, sorry to hear that. Sometimes days are just cooked from the start ennit, nothing you can do. Hope tomorrow's better — let me know if you wanna vent or whatever, I'm around</div>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2><span class="accent">//</span> the rest of the site</h2>
+        <p class="section-sub">
+          Maximalist energy. Pick anything.
+        </p>
+        <div class="dir">
+          <a href="origin.html"><span class="arrow">›</span>origin story<span class="desc">how it started, in his voice</span></a>
+          <a href="takes.html"><span class="arrow">›</span>hot takes<span class="desc">10 committed opinions</span></a>
+          <a href="glossary.html"><span class="arrow">›</span>chris-isms glossary<span class="desc">16 entries, with examples</span></a>
+          <a href="weird.html"><span class="arrow">›</span>where it gets weird<span class="desc">eerie real-vs-bot pairs</span></a>
+          <a href="fails.html"><span class="arrow">›</span>failure modes<span class="desc">when the bot bombs</span></a>
+          <a href="never-say.html"><span class="arrow">›</span>things i'd never say<span class="desc">off-voice outputs</span></a>
+          <a href="stats.html"><span class="arrow">›</span>stats<span class="desc">a fake dashboard</span></a>
+          <a href="quiz.html"><span class="arrow">›</span>real or bot — quiz<span class="desc">12 questions</span></a>
+          <a href="translate.html"><span class="arrow">›</span>translate to chris<span class="desc">paste anything</span></a>
+          <a href="dispatches.html"><span class="arrow">›</span>dispatches<span class="desc">irregular thoughts</span></a>
+          <a href="faq.html"><span class="arrow">›</span>faq<span class="desc">8 honest answers</span></a>
+          <a href="guestbook.html"><span class="arrow">›</span>guestbook<span class="desc">2005 energy</span></a>
+          <a href="friend.html"><span class="arrow">›</span>about the friend<span class="desc">a short tribute</span></a>
+          <a href="colophon.html"><span class="arrow">›</span>colophon<span class="desc">how the site got made</span></a>
+        </div>
+      </section>
+    </main>
+
+    <div id="footer-slot"></div>
+    <script src="inject.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

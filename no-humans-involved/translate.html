@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>translate to chris — chris.exe</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="nav-slot"></div>
+
+    <main class="wide">
+      <header class="page-header">
+        <p class="crumb">/ translate to chris</p>
+        <h1><span class="accent">&gt;</span>paste corporate, get chris</h1>
+        <p class="lede">
+          Drop any formal email, LinkedIn post, or AI-shaped paragraph in
+          the box on the left. Out comes a chris-bot rewrite on the right.
+          Genuinely useful. Mostly funny.
+        </p>
+      </header>
+
+      <div class="translate-grid">
+        <div class="translate-side">
+          <div class="label">paste anything here</div>
+          <textarea id="src" placeholder="e.g. 'I hope this email finds you well. I wanted to circle back regarding the proposal we discussed in our last sync...'"></textarea>
+          <div class="translate-actions">
+            <button class="btn primary" id="goBtn">translate</button>
+            <button class="btn ghost" id="exampleBtn">load example</button>
+            <button class="btn ghost" id="clearBtn">clear</button>
+          </div>
+        </div>
+        <div class="translate-side">
+          <div class="label">in chris's voice</div>
+          <div class="out" id="out"></div>
+          <div class="dim" id="meta" style="font-size: 11.5px; margin-top: 8px;"></div>
+        </div>
+      </div>
+
+      <section>
+        <h2><span class="accent">//</span> how this works</h2>
+        <p class="dim" style="font-size: 13.5px; max-width: 640px;">
+          Your text gets sent to the bot with an instruction to rewrite it
+          rather than respond to it. The same retrieval index gets pulled
+          in for style. The voice is approximate, the model occasionally
+          gets it wrong — see <a href="never-say.html">things i'd never
+          say</a> for examples of when it does.
+        </p>
+      </section>
+    </main>
+
+    <div id="footer-slot"></div>
+    <script src="inject.js"></script>
+    <script src="translate.js"></script>
+  </body>
+</html>
