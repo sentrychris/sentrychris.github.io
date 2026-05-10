@@ -235,6 +235,20 @@ export const projects: ProjectsCopy = {
         { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
       ],
     },
+    {
+      title: 'OMG',
+      summary:
+        '一门从头到尾自己写的迷你编程语言——既为了好玩,也为了亲手看看编译器是怎么搭起来的。OMG 的编译器本身就是用 OMG 写的。Rust 运行时产出原生二进制,同一套工具链编译成 JavaScript 供浏览器 Playground 使用。',
+      url: 'https://omg-playground.edcs.app',
+      image: '/projects/omg-playground.webp',
+      alt: 'OMG Playground——左侧 Fibonacci 源码,右侧 stdout。',
+      badge: '编程语言',
+      stack: ['Rust', 'OMG', 'JavaScript', '字节码虚拟机'],
+      links: [
+        { label: '试用', href: 'https://omg-playground.edcs.app' },
+        { label: 'GitHub', href: 'https://github.com/sentrychris/omglang' },
+      ],
+    },
   ],
   ui: {
     sheet: '图纸',

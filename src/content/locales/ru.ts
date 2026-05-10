@@ -235,6 +235,20 @@ export const projects: ProjectsCopy = {
         { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
       ],
     },
+    {
+      title: 'OMG',
+      summary:
+        'Небольшой язык программирования, написанный от начала до конца — ради удовольствия и чтобы увидеть, как собирается компилятор. Сам компилятор OMG написан на OMG. Нативные бинарники собираются Rust-рантаймом; тот же тулчейн компилирует в JavaScript для браузерного плейграунда.',
+      url: 'https://omg-playground.edcs.app',
+      image: '/projects/omg-playground.webp',
+      alt: 'Плейграунд OMG — слева исходник Фибоначчи, справа stdout.',
+      badge: 'Язык программирования',
+      stack: ['Rust', 'OMG', 'JavaScript', 'Байткод-ВМ'],
+      links: [
+        { label: 'Попробовать', href: 'https://omg-playground.edcs.app' },
+        { label: 'GitHub', href: 'https://github.com/sentrychris/omglang' },
+      ],
+    },
   ],
   ui: {
     sheet: 'Лист',

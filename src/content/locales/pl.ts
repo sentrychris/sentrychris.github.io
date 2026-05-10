@@ -235,6 +235,20 @@ export const projects: ProjectsCopy = {
         { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
       ],
     },
+    {
+      title: 'OMG',
+      summary:
+        'Mały język programowania zbudowany od podstaw — dla zabawy i by zobaczyć, jak składa się kompilator. Kompilator OMG jest sam napisany w OMG. Binaria natywne przez runtime w Rust; ten sam łańcuch narzędzi kompiluje do JavaScriptu na potrzeby przeglądarkowego placu zabaw.',
+      url: 'https://omg-playground.edcs.app',
+      image: '/projects/omg-playground.webp',
+      alt: 'Playground OMG — źródło Fibonacciego po lewej, stdout po prawej.',
+      badge: 'Język programowania',
+      stack: ['Rust', 'OMG', 'JavaScript', 'Bytecode VM'],
+      links: [
+        { label: 'Wypróbuj', href: 'https://omg-playground.edcs.app' },
+        { label: 'GitHub', href: 'https://github.com/sentrychris/omglang' },
+      ],
+    },
   ],
   ui: {
     sheet: 'Arkusz',

@@ -235,6 +235,20 @@ export const projects: ProjectsCopy = {
         { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
       ],
     },
+    {
+      title: 'OMG',
+      summary:
+        'ゼロから作った小さなプログラミング言語——楽しみのために、そしてコンパイラがどう組み上がるかを見るために。OMG のコンパイラ自体が OMG で書かれています。Rust ランタイムでネイティブバイナリを生成し、同じツールチェーンがブラウザ用に JavaScript へとコンパイルします。',
+      url: 'https://omg-playground.edcs.app',
+      image: '/projects/omg-playground.webp',
+      alt: 'OMG プレイグラウンド — 左にフィボナッチのソース、右に標準出力。',
+      badge: 'プログラミング言語',
+      stack: ['Rust', 'OMG', 'JavaScript', 'バイトコード VM'],
+      links: [
+        { label: '試す', href: 'https://omg-playground.edcs.app' },
+        { label: 'GitHub', href: 'https://github.com/sentrychris/omglang' },
+      ],
+    },
   ],
   ui: {
     sheet: 'シート',
