@@ -210,6 +210,20 @@ export const projects: ProjectsCopy = {
       ],
     },
     {
+      title: 'ED:CS',
+      summary:
+        'Um projeto dedicado aos fãs do jogo Elite Dangerous - site companheiro com API própria. Dados de ~100 milhões de sistemas estelares servidos na velocidade da luz, vindos de ferramentas da comunidade e logs do próprio jogo.',
+      url: 'https://edcs.app',
+      image: '/projects/edcs.webp',
+      alt: 'Captura de tela placeholder - visão geral do Vigil, substituir pelo terceiro projeto.',
+      badge: 'App companheira',
+      stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
+      links: [
+        { label: 'Testar', href: 'https://edcs.app' },
+        { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
+      ],
+    },
+    {
       title: 'MKEditor',
       summary:
         'Um editor de markdown online simples, rápido e gratuito, com pré-visualização ao vivo. Escreva, formate e exporte seus documentos para HTML ou PDF instantaneamente. Construído sobre o Monaco - o motor que roda no Visual Studio Code.',
@@ -224,21 +238,7 @@ export const projects: ProjectsCopy = {
       ],
     },
     {
-      title: 'ED:CS Terminal',
-      summary:
-        'Um projeto dedicado aos fãs do jogo Elite Dangerous - site companheiro com API própria. Dados de ~100 milhões de sistemas estelares servidos na velocidade da luz, vindos de ferramentas da comunidade e logs do próprio jogo.',
-      url: 'https://edcs.app',
-      image: '/projects/edcs.webp',
-      alt: 'Captura de tela placeholder - visão geral do Vigil, substituir pelo terceiro projeto.',
-      badge: 'App companheira',
-      stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
-      links: [
-        { label: 'Testar', href: 'https://edcs.app' },
-        { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
-      ],
-    },
-    {
-      title: 'OMG',
+      title: 'OMGLang',
       summary:
         'Uma pequena linguagem de programação construída de ponta a ponta - por diversão e para ver como um compilador se encaixa. O próprio compilador do OMG é escrito em OMG. Binários nativos através de um runtime em Rust; a mesma toolchain compila para JavaScript no playground do navegador.',
       url: 'https://omg-playground.edcs.app',

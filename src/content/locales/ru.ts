@@ -210,6 +210,20 @@ export const projects: ProjectsCopy = {
       ],
     },
     {
+      title: 'ED:CS',
+      summary:
+        'Отдельный проект для фанатов игры Elite Dangerous - сайт-компаньон со своим API. Данные о ~100 миллионах звёздных систем подаются на скорости света. Источники - инструменты сообщества и внутриигровые журналы.',
+      url: 'https://edcs.app',
+      image: '/projects/edcs.webp',
+      alt: 'Скриншот-заглушка - обзор Vigil, замените на скриншот третьего проекта.',
+      badge: 'Приложение-компаньон',
+      stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
+      links: [
+        { label: 'Попробовать', href: 'https://edcs.app' },
+        { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
+      ],
+    },
+    {
       title: 'MKEditor',
       summary:
         'Простой, быстрый и бесплатный онлайн-редактор Markdown с живым предпросмотром. Пишите, форматируйте и мгновенно экспортируйте документы в HTML или PDF. Построен на Monaco - движке, на котором работает Visual Studio Code.',
@@ -224,21 +238,7 @@ export const projects: ProjectsCopy = {
       ],
     },
     {
-      title: 'ED:CS Terminal',
-      summary:
-        'Отдельный проект для фанатов игры Elite Dangerous - сайт-компаньон со своим API. Данные о ~100 миллионах звёздных систем подаются на скорости света. Источники - инструменты сообщества и внутриигровые журналы.',
-      url: 'https://edcs.app',
-      image: '/projects/edcs.webp',
-      alt: 'Скриншот-заглушка - обзор Vigil, замените на скриншот третьего проекта.',
-      badge: 'Приложение-компаньон',
-      stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
-      links: [
-        { label: 'Попробовать', href: 'https://edcs.app' },
-        { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
-      ],
-    },
-    {
-      title: 'OMG',
+      title: 'OMGLang',
       summary:
         'Небольшой язык программирования, написанный от начала до конца - ради удовольствия и чтобы увидеть, как собирается компилятор. Сам компилятор OMG написан на OMG. Нативные бинарники собираются Rust-рантаймом; тот же тулчейн компилирует в JavaScript для браузерного плейграунда.',
       url: 'https://omg-playground.edcs.app',

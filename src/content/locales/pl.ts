@@ -210,6 +210,20 @@ export const projects: ProjectsCopy = {
       ],
     },
     {
+      title: 'ED:CS',
+      summary:
+        'Projekt dla fanów gry Elite Dangerous - strona-towarzysz z własnym API. Dane o ~100 milionach systemów gwiezdnych dostarczane z prędkością światła, źródła to narzędzia społeczności i wewnątrzgrowe dzienniki.',
+      url: 'https://edcs.app',
+      image: '/projects/edcs.webp',
+      alt: 'Zrzut zastępczy - przegląd Vigil, do podmiany na trzeci projekt.',
+      badge: 'Aplikacja towarzysząca',
+      stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
+      links: [
+        { label: 'Wypróbuj', href: 'https://edcs.app' },
+        { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
+      ],
+    },
+    {
       title: 'MKEditor',
       summary:
         'Prosty, szybki i darmowy edytor markdown online z podglądem na żywo. Pisz, formatuj i eksportuj swoje dokumenty natychmiast do HTML lub PDF. Zbudowany na Monaco - silniku napędzającym Visual Studio Code.',
@@ -224,21 +238,7 @@ export const projects: ProjectsCopy = {
       ],
     },
     {
-      title: 'ED:CS Terminal',
-      summary:
-        'Projekt dla fanów gry Elite Dangerous - strona-towarzysz z własnym API. Dane o ~100 milionach systemów gwiezdnych dostarczane z prędkością światła, źródła to narzędzia społeczności i wewnątrzgrowe dzienniki.',
-      url: 'https://edcs.app',
-      image: '/projects/edcs.webp',
-      alt: 'Zrzut zastępczy - przegląd Vigil, do podmiany na trzeci projekt.',
-      badge: 'Aplikacja towarzysząca',
-      stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
-      links: [
-        { label: 'Wypróbuj', href: 'https://edcs.app' },
-        { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
-      ],
-    },
-    {
-      title: 'OMG',
+      title: 'OMGLang',
       summary:
         'Mały język programowania zbudowany od podstaw - dla zabawy i by zobaczyć, jak składa się kompilator. Kompilator OMG jest sam napisany w OMG. Binaria natywne przez runtime w Rust; ten sam łańcuch narzędzi kompiluje do JavaScriptu na potrzeby przeglądarkowego placu zabaw.',
       url: 'https://omg-playground.edcs.app',

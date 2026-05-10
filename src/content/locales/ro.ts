@@ -210,6 +210,20 @@ export const projects: ProjectsCopy = {
       ],
     },
     {
+      title: 'ED:CS',
+      summary:
+        'Un proiect dedicat fanilor jocului Elite Dangerous - un site companion alimentat de propriul API. Date despre ~100 de milioane de sisteme stelare livrate cu viteza luminii, din unelte ale comunității și jurnale din joc.',
+      url: 'https://edcs.app',
+      image: '/projects/edcs.webp',
+      alt: 'Captură placeholder - vedere generală Vigil, de înlocuit cu al treilea proiect.',
+      badge: 'Aplicație companion',
+      stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
+      links: [
+        { label: 'Încearcă', href: 'https://edcs.app' },
+        { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
+      ],
+    },
+    {
       title: 'MKEditor',
       summary:
         'Un editor markdown online simplu, rapid și gratuit cu previzualizare live. Scrie, formatează și exportă instant documentele tale în HTML sau PDF. Construit pe Monaco - motorul care alimentează Visual Studio Code.',
@@ -224,21 +238,7 @@ export const projects: ProjectsCopy = {
       ],
     },
     {
-      title: 'ED:CS Terminal',
-      summary:
-        'Un proiect dedicat fanilor jocului Elite Dangerous - un site companion alimentat de propriul API. Date despre ~100 de milioane de sisteme stelare livrate cu viteza luminii, din unelte ale comunității și jurnale din joc.',
-      url: 'https://edcs.app',
-      image: '/projects/edcs.webp',
-      alt: 'Captură placeholder - vedere generală Vigil, de înlocuit cu al treilea proiect.',
-      badge: 'Aplicație companion',
-      stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
-      links: [
-        { label: 'Încearcă', href: 'https://edcs.app' },
-        { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
-      ],
-    },
-    {
-      title: 'OMG',
+      title: 'OMGLang',
       summary:
         'Un mic limbaj de programare construit de la cap la coadă - pentru distracție și pentru a vedea cum se îmbină un compilator. Compilatorul OMG este el însuși scris în OMG. Binare native printr-un runtime Rust; aceeași toolchain compilează către JavaScript pentru playground-ul din browser.',
       url: 'https://omg-playground.edcs.app',

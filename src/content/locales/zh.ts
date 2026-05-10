@@ -210,6 +210,20 @@ export const projects: ProjectsCopy = {
       ],
     },
     {
+      title: 'ED:CS',
+      summary:
+        '专为 Elite Dangerous(精英:危险)粉丝打造的项目--由独立 API 驱动的伴侣站点。涵盖约 1 亿个恒星系统的数据,以光速送达,数据来源于社区工具和游戏内日志。',
+      url: 'https://edcs.app',
+      image: '/projects/edcs.webp',
+      alt: '占位截图--Vigil 概览,后续替换为第三个项目。',
+      badge: '伴侣应用',
+      stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
+      links: [
+        { label: '试用', href: 'https://edcs.app' },
+        { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
+      ],
+    },
+    {
       title: 'MKEditor',
       summary:
         '一个简单、快速、免费的在线 Markdown 编辑器,支持实时预览。即时撰写、排版并将文档导出为 HTML 或 PDF。基于 Visual Studio Code 同款的 Monaco 引擎构建。',
@@ -224,21 +238,7 @@ export const projects: ProjectsCopy = {
       ],
     },
     {
-      title: 'ED:CS Terminal',
-      summary:
-        '专为 Elite Dangerous(精英:危险)粉丝打造的项目--由独立 API 驱动的伴侣站点。涵盖约 1 亿个恒星系统的数据,以光速送达,数据来源于社区工具和游戏内日志。',
-      url: 'https://edcs.app',
-      image: '/projects/edcs.webp',
-      alt: '占位截图--Vigil 概览,后续替换为第三个项目。',
-      badge: '伴侣应用',
-      stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
-      links: [
-        { label: '试用', href: 'https://edcs.app' },
-        { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
-      ],
-    },
-    {
-      title: 'OMG',
+      title: 'OMGLang',
       summary:
         '一门从头到尾自己写的迷你编程语言--既为了好玩,也为了亲手看看编译器是怎么搭起来的。OMG 的编译器本身就是用 OMG 写的。Rust 运行时产出原生二进制,同一套工具链编译成 JavaScript 供浏览器 Playground 使用。',
       url: 'https://omg-playground.edcs.app',

@@ -210,6 +210,20 @@ export const projects: ProjectsCopy = {
       ],
     },
     {
+      title: 'ED:CS',
+      summary:
+        'ゲーム『Elite Dangerous』ファン向けのプロジェクト。独自 API を備えたコンパニオンサイトで、約1億の恒星系データを光速で配信。データはコミュニティツールとゲーム内ログに由来。',
+      url: 'https://edcs.app',
+      image: '/projects/edcs.webp',
+      alt: 'プレースホルダー画像 - Vigil の概要、三つ目のプロジェクトに差し替え予定。',
+      badge: 'コンパニオンアプリ',
+      stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
+      links: [
+        { label: '試す', href: 'https://edcs.app' },
+        { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
+      ],
+    },
+    {
       title: 'MKEditor',
       summary:
         'シンプル・高速・無料のオンライン Markdown エディタ。ライブプレビューつきで、HTML や PDF にすぐにエクスポートできます。Visual Studio Code を支える Monaco 上に構築。',
@@ -224,21 +238,7 @@ export const projects: ProjectsCopy = {
       ],
     },
     {
-      title: 'ED:CS Terminal',
-      summary:
-        'ゲーム『Elite Dangerous』ファン向けのプロジェクト。独自 API を備えたコンパニオンサイトで、約1億の恒星系データを光速で配信。データはコミュニティツールとゲーム内ログに由来。',
-      url: 'https://edcs.app',
-      image: '/projects/edcs.webp',
-      alt: 'プレースホルダー画像 - Vigil の概要、三つ目のプロジェクトに差し替え予定。',
-      badge: 'コンパニオンアプリ',
-      stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
-      links: [
-        { label: '試す', href: 'https://edcs.app' },
-        { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
-      ],
-    },
-    {
-      title: 'OMG',
+      title: 'OMGLang',
       summary:
         'ゼロから作った小さなプログラミング言語--楽しみのために、そしてコンパイラがどう組み上がるかを見るために。OMG のコンパイラ自体が OMG で書かれています。Rust ランタイムでネイティブバイナリを生成し、同じツールチェーンがブラウザ用に JavaScript へとコンパイルします。',
       url: 'https://omg-playground.edcs.app',

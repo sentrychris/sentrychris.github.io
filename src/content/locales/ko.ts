@@ -210,6 +210,20 @@ export const projects: ProjectsCopy = {
       ],
     },
     {
+      title: 'ED:CS',
+      summary:
+        '게임 Elite Dangerous 팬을 위한 프로젝트 - 자체 API로 동작하는 컴패니언 사이트입니다. 커뮤니티 도구와 인게임 로그에서 가져온 약 1억 개 항성계 데이터를 광속으로 제공합니다.',
+      url: 'https://edcs.app',
+      image: '/projects/edcs.webp',
+      alt: '플레이스홀더 스크린샷 - Vigil 전반, 세 번째 프로젝트로 교체 예정.',
+      badge: '컴패니언 앱',
+      stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
+      links: [
+        { label: '체험', href: 'https://edcs.app' },
+        { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
+      ],
+    },
+    {
       title: 'MKEditor',
       summary:
         '간결하고 빠르며 무료인 온라인 마크다운 에디터. 라이브 프리뷰와 함께 HTML 또는 PDF로 즉시 내보낼 수 있습니다. Visual Studio Code를 구동하는 Monaco 위에 구축했습니다.',
@@ -224,21 +238,7 @@ export const projects: ProjectsCopy = {
       ],
     },
     {
-      title: 'ED:CS Terminal',
-      summary:
-        '게임 Elite Dangerous 팬을 위한 프로젝트 - 자체 API로 동작하는 컴패니언 사이트입니다. 커뮤니티 도구와 인게임 로그에서 가져온 약 1억 개 항성계 데이터를 광속으로 제공합니다.',
-      url: 'https://edcs.app',
-      image: '/projects/edcs.webp',
-      alt: '플레이스홀더 스크린샷 - Vigil 전반, 세 번째 프로젝트로 교체 예정.',
-      badge: '컴패니언 앱',
-      stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
-      links: [
-        { label: '체험', href: 'https://edcs.app' },
-        { label: 'GitHub', href: 'https://github.com/sentrychris/edcs-api' },
-      ],
-    },
-    {
-      title: 'OMG',
+      title: 'OMGLang',
       summary:
         '처음부터 끝까지 직접 만든 작은 프로그래밍 언어 - 재미로, 그리고 컴파일러가 어떻게 맞물리는지 보기 위해. OMG의 컴파일러 자체가 OMG로 작성되어 있습니다. Rust 런타임으로 네이티브 바이너리를 만들고, 같은 툴체인이 브라우저 플레이그라운드를 위해 JavaScript로 컴파일합니다.',
       url: 'https://omg-playground.edcs.app',
