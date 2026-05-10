@@ -216,6 +216,7 @@ export const projects: ProjectsCopy = {
       url: 'https://versyxdigital.github.io/mkeditor',
       image: '/projects/mkeditor.webp',
       alt: 'Platzhalter-Screenshot - Vigil-Hub-Ansicht, durch Bild des zweiten Projekts ersetzen.',
+      badge: 'Dokumentbearbeitung',
       stack: ['TypeScript', 'Monaco (VS Code)', 'Bootstrap', 'Electron', 'Webpack'],
       links: [
         { label: 'Ausprobieren', href: 'https://versyxdigital.github.io/mkeditor' },
@@ -229,6 +230,7 @@ export const projects: ProjectsCopy = {
       url: 'https://edcs.app',
       image: '/projects/edcs.webp',
       alt: 'Platzhalter-Screenshot - Vigil-Übersicht, durch Bild des dritten Projekts ersetzen.',
+      badge: 'Begleit-App',
       stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
       links: [
         { label: 'Ausprobieren', href: 'https://edcs.app' },
