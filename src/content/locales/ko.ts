@@ -145,7 +145,7 @@ export const experience: ExperienceCopy = {
     {
       role: '리드 개발자',
       company: 'SentryBay Ltd',
-      period: '2022 — 현재',
+      period: '2022 - 현재',
       sectors: ['SaaS', '사이버 보안', '국방', 'NDA'],
       summary:
         '소비자 대상 플랫폼 개발 리드. 아키텍처 결정을 책임지고, 여러 팀을 병렬로 운영하며, 신규 제품을 출시하면서 레거시 서비스를 표준 수준으로 끌어올립니다.',
@@ -158,7 +158,7 @@ export const experience: ExperienceCopy = {
     {
       role: '프린시펄 디벨로퍼',
       company: 'Go Deploy Labs',
-      period: '2020 — 2022',
+      period: '2020 - 2022',
       sectors: ['LMS', '가상 랩', '이커머스', 'MCT'],
       summary:
         '제품 전반의 풀스택 엔지니어. 학습자와 멘토가 MCT 등 인증 과정을 위한 가상 랩을 운영할 수 있도록 지원했습니다. Go Deploy 제품군의 프린시펄 디벨로퍼.',
@@ -171,7 +171,7 @@ export const experience: ExperienceCopy = {
     {
       role: '창업자',
       company: 'Versyx Digital',
-      period: '2019 — 현재',
+      period: '2019 - 현재',
       sectors: ['에이전시', '컨설팅', '개발', '디자인'],
       summary:
         '컨설팅, 인프라, 프런트엔드에 집중하는 맞춤형 개발 스튜디오. 다양한 산업의 클라이언트를 지원하며 오픈소스 프로젝트를 만들고 기여합니다.',
@@ -198,10 +198,10 @@ export const projects: ProjectsCopy = {
     {
       title: 'Vigil',
       summary:
-        '서버용 가벼운 실시간 모니터링 대시보드. WebSocket으로 라이브 메트릭을 전송 — 게이지, 차트, 서비스 프로브까지 — Vigil Collector 앞단에 그대로 얹을 수 있는 깔끔한 UI입니다.',
+        '서버용 가벼운 실시간 모니터링 대시보드. WebSocket으로 라이브 메트릭을 전송 - 게이지, 차트, 서비스 프로브까지 - Vigil Collector 앞단에 그대로 얹을 수 있는 깔끔한 UI입니다.',
       url: 'https://status.edcs.app',
       image: '/projects/vigil.webp',
-      alt: 'Vigil 대시보드 — CPU, 메모리, 디스크, 네트워크 그래프 라이브 표시.',
+      alt: 'Vigil 대시보드 - CPU, 메모리, 디스크, 네트워크 그래프 라이브 표시.',
       badge: '시스템 모니터링',
       stack: ['Python', 'Tornado', 'FastAPI', 'TypeScript', 'Vue 3', 'D3', 'WebSocket'],
       links: [
@@ -215,7 +215,7 @@ export const projects: ProjectsCopy = {
         '간결하고 빠르며 무료인 온라인 마크다운 에디터. 라이브 프리뷰와 함께 HTML 또는 PDF로 즉시 내보낼 수 있습니다. Visual Studio Code를 구동하는 Monaco 위에 구축했습니다.',
       url: 'https://versyxdigital.github.io/mkeditor',
       image: '/projects/mkeditor.webp',
-      alt: '플레이스홀더 스크린샷 — Vigil 허브 화면, 두 번째 프로젝트로 교체 예정.',
+      alt: '플레이스홀더 스크린샷 - Vigil 허브 화면, 두 번째 프로젝트로 교체 예정.',
       stack: ['TypeScript', 'Monaco (VS Code)', 'Bootstrap', 'Electron', 'Webpack'],
       links: [
         { label: '체험', href: 'https://versyxdigital.github.io/mkeditor' },
@@ -225,10 +225,10 @@ export const projects: ProjectsCopy = {
     {
       title: 'ED:CS Terminal',
       summary:
-        '게임 Elite Dangerous 팬을 위한 프로젝트 — 자체 API로 동작하는 컴패니언 사이트입니다. 커뮤니티 도구와 인게임 로그에서 가져온 약 1억 개 항성계 데이터를 광속으로 제공합니다.',
+        '게임 Elite Dangerous 팬을 위한 프로젝트 - 자체 API로 동작하는 컴패니언 사이트입니다. 커뮤니티 도구와 인게임 로그에서 가져온 약 1억 개 항성계 데이터를 광속으로 제공합니다.',
       url: 'https://edcs.app',
       image: '/projects/edcs.webp',
-      alt: '플레이스홀더 스크린샷 — Vigil 전반, 세 번째 프로젝트로 교체 예정.',
+      alt: '플레이스홀더 스크린샷 - Vigil 전반, 세 번째 프로젝트로 교체 예정.',
       stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
       links: [
         { label: '체험', href: 'https://edcs.app' },
@@ -238,10 +238,10 @@ export const projects: ProjectsCopy = {
     {
       title: 'OMG',
       summary:
-        '처음부터 끝까지 직접 만든 작은 프로그래밍 언어 — 재미로, 그리고 컴파일러가 어떻게 맞물리는지 보기 위해. OMG의 컴파일러 자체가 OMG로 작성되어 있습니다. Rust 런타임으로 네이티브 바이너리를 만들고, 같은 툴체인이 브라우저 플레이그라운드를 위해 JavaScript로 컴파일합니다.',
+        '처음부터 끝까지 직접 만든 작은 프로그래밍 언어 - 재미로, 그리고 컴파일러가 어떻게 맞물리는지 보기 위해. OMG의 컴파일러 자체가 OMG로 작성되어 있습니다. Rust 런타임으로 네이티브 바이너리를 만들고, 같은 툴체인이 브라우저 플레이그라운드를 위해 JavaScript로 컴파일합니다.',
       url: 'https://omg-playground.edcs.app',
       image: '/projects/omg-playground.webp',
-      alt: 'OMG 플레이그라운드 — 왼쪽에 피보나치 소스, 오른쪽에 stdout.',
+      alt: 'OMG 플레이그라운드 - 왼쪽에 피보나치 소스, 오른쪽에 stdout.',
       badge: '프로그래밍 언어',
       stack: ['Rust', 'OMG', 'JavaScript', '바이트코드 VM'],
       links: [
@@ -252,7 +252,7 @@ export const projects: ProjectsCopy = {
   ],
   ui: {
     sheet: '시트',
-    sheetValue: 'A — 프로젝트',
+    sheetValue: 'A - 프로젝트',
     plates: '플레이트',
     scale: '축척',
     scaleValue: '1:1 · MMXXVI',
@@ -265,7 +265,7 @@ export const projects: ProjectsCopy = {
     sheetOf: '/',
     annexedPlates: '부속 플레이트',
     plateIndex: '플레이트 색인',
-    currentlyFeatured: (title) => `${title} — 현재 표시 중`,
+    currentlyFeatured: (title) => `${title} - 현재 표시 중`,
     feature: (title) => `${title} 표시`,
     stackOf: (title) => `${title} 스택`,
   },

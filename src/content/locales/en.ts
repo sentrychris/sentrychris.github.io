@@ -1,5 +1,5 @@
 /* English dictionary.
- * One file per locale — keep keys aligned with the type definitions in
+ * One file per locale - keep keys aligned with the type definitions in
  * the feature files (`src/content/<feature>.ts`). To add a new locale,
  * copy this file as `<code>.ts` and translate the strings, then wire it
  * up in each feature aggregator. */
@@ -149,7 +149,7 @@ export const experience: ExperienceCopy = {
     {
       role: 'Lead Developer',
       company: 'SentryBay Ltd',
-      period: '2022 — present',
+      period: '2022 - present',
       sectors: ['SaaS', 'Cybersecurity', 'Defence', 'NDA'],
       summary:
         'Development Lead on consumer platforms. Owning architecture decisions, running parallel teams, bringing legacy services up to standard while shipping new products.',
@@ -162,7 +162,7 @@ export const experience: ExperienceCopy = {
     {
       role: 'Principal Developer',
       company: 'Go Deploy Labs',
-      period: '2020 — 2022',
+      period: '2020 - 2022',
       sectors: ['LMS', 'Virtual Labs', 'E-commerce', 'MCT'],
       summary:
         "Full-stack engineer across the estate. Enabled learners and mentors to run virtual labs for MCT and other certified courses. Principal Developer on Go Deploy's offerings.",
@@ -175,7 +175,7 @@ export const experience: ExperienceCopy = {
     {
       role: 'Founder',
       company: 'Versyx Digital',
-      period: '2019 — present',
+      period: '2019 - present',
       sectors: ['Agency', 'Consulting', 'Development', 'Design'],
       summary:
         'Bespoke development agency focused on consultation, infrastructure and frontend for clients across sectors. We also build and contribute to open source projects.',
@@ -205,7 +205,7 @@ export const projects: ProjectsCopy = {
         'A lightweight, real-time monitoring dashboard for your servers. Live metrics streamed over WebSocket, gauges, charts, service probes - all in one polished UI that drops in front of Vigil Collector.',
       url: 'https://status.edcs.app',
       image: '/projects/vigil.webp',
-      alt: 'Vigil dashboard — CPU, memory, disk and network charts streaming live.',
+      alt: 'Vigil dashboard - CPU, memory, disk and network charts streaming live.',
       badge: 'System Monitoring',
       stack: ['Python', 'Tornado', 'FastAPI', 'TypeScript', 'Vue 3', 'D3', 'WebSocket'],
       links: [
@@ -219,7 +219,7 @@ export const projects: ProjectsCopy = {
         'A simple, fast, and free online markdown editor with live preview rendering. Write, format, and export your markdown documents instantly to HTML or PDF. Built on top of Monaco which powers Visual Studio Code.',
       url: 'https://versyxdigital.github.io/mkeditor',
       image: '/projects/mkeditor.webp',
-      alt: 'Placeholder screenshot — Vigil hub view, swap for project two.',
+      alt: 'Placeholder screenshot - Vigil hub view, swap for project two.',
       stack: ['TypeScript', 'Monaco (VS Code)', 'Bootstrap', 'Electron', 'Webpack'],
       links: [
         { label: 'Try it', href: 'https://versyxdigital.github.io/mkeditor' },
@@ -232,7 +232,7 @@ export const projects: ProjectsCopy = {
         'A dedicated project for fans of the game Elite Dangerous. A companion site powered by its own API. Data on ~100 million star systems is served at light speed. Data is sourced from communtiy tools and in-game journals. ',
       url: 'https://edcs.app',
       image: '/projects/edcs.webp',
-      alt: 'Placeholder screenshot — Vigil overview, swap for project three.',
+      alt: 'Placeholder screenshot - Vigil overview, swap for project three.',
       stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
       links: [
         { label: 'Try it', href: 'https://edcs.app' },
@@ -242,10 +242,10 @@ export const projects: ProjectsCopy = {
     {
       title: 'OMG',
       summary:
-        'A small programming language built end-to-end — for fun, and to see how a compiler fits together. The OMG compiler is itself written in OMG. Native binaries through a Rust runtime; the same toolchain compiles to JavaScript for the in-browser playground.',
+        'A small programming language built end-to-end - for fun, and to see how a compiler fits together. The OMG compiler is itself written in OMG. Native binaries through a Rust runtime; the same toolchain compiles to JavaScript for the in-browser playground.',
       url: 'https://omg-playground.edcs.app',
       image: '/projects/omg-playground.webp',
-      alt: 'OMG playground — Fibonacci source on the left, stdout on the right.',
+      alt: 'OMG playground - Fibonacci source on the left, stdout on the right.',
       badge: 'Programming Language',
       stack: ['Rust', 'OMG', 'JavaScript', 'Bytecode VM'],
       links: [
@@ -256,7 +256,7 @@ export const projects: ProjectsCopy = {
   ],
   ui: {
     sheet: 'Sheet',
-    sheetValue: 'A — Projects',
+    sheetValue: 'A - Projects',
     plates: 'Plates',
     scale: 'Scale',
     scaleValue: '1:1 · MMXXVI',
@@ -269,7 +269,7 @@ export const projects: ProjectsCopy = {
     sheetOf: 'of',
     annexedPlates: 'Annexed Plates',
     plateIndex: 'Plate index',
-    currentlyFeatured: (title) => `${title} — currently featured`,
+    currentlyFeatured: (title) => `${title} - currently featured`,
     feature: (title) => `Feature ${title}`,
     stackOf: (title) => `${title} stack`,
   },

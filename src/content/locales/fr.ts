@@ -145,7 +145,7 @@ export const experience: ExperienceCopy = {
     {
       role: 'Lead Developer',
       company: 'SentryBay Ltd',
-      period: '2022 — aujourd’hui',
+      period: '2022 - aujourd’hui',
       sectors: ['SaaS', 'Cybersécurité', 'Défense', 'NDA'],
       summary:
         'Lead développement sur des plateformes grand public. En charge des décisions d’architecture, je pilote plusieurs équipes en parallèle et remets les services legacy au niveau tout en livrant de nouveaux produits.',
@@ -158,7 +158,7 @@ export const experience: ExperienceCopy = {
     {
       role: 'Principal Developer',
       company: 'Go Deploy Labs',
-      period: '2020 — 2022',
+      period: '2020 - 2022',
       sectors: ['LMS', 'Labs virtuels', 'E-commerce', 'MCT'],
       summary:
         'Ingénieur full-stack sur tout le périmètre. Ai permis aux apprenants et mentors de lancer des labs virtuels pour MCT et autres parcours certifiants. Principal Developer sur les offres de Go Deploy.',
@@ -171,7 +171,7 @@ export const experience: ExperienceCopy = {
     {
       role: 'Fondateur',
       company: 'Versyx Digital',
-      period: '2019 — aujourd’hui',
+      period: '2019 - aujourd’hui',
       sectors: ['Agence', 'Conseil', 'Développement', 'Design'],
       summary:
         'Studio de développement sur mesure axé sur le conseil, l’infrastructure et le frontend pour des clients de tous secteurs. Nous construisons et contribuons aussi à des projets open source.',
@@ -193,15 +193,15 @@ export const projects: ProjectsCopy = {
   title: 'Quelques-uns de mes',
   titleAccent: 'projets.',
   lede:
-    'L’essentiel du travail en production est sous NDA — les projets ouverts sont ci-dessous. Écris-moi pour le reste.',
+    'L’essentiel du travail en production est sous NDA - les projets ouverts sont ci-dessous. Écris-moi pour le reste.',
   projects: [
     {
       title: 'Vigil',
       summary:
-        'Un tableau de bord de monitoring serveur léger et en temps réel. Métriques en direct via WebSocket — jauges, graphiques, sondes de service — le tout dans une UI soignée qui s’installe devant Vigil Collector.',
+        'Un tableau de bord de monitoring serveur léger et en temps réel. Métriques en direct via WebSocket - jauges, graphiques, sondes de service - le tout dans une UI soignée qui s’installe devant Vigil Collector.',
       url: 'https://status.edcs.app',
       image: '/projects/vigil.webp',
-      alt: 'Tableau de bord Vigil — graphiques CPU, mémoire, disque et réseau en direct.',
+      alt: 'Tableau de bord Vigil - graphiques CPU, mémoire, disque et réseau en direct.',
       badge: 'Monitoring système',
       stack: ['Python', 'Tornado', 'FastAPI', 'TypeScript', 'Vue 3', 'D3', 'WebSocket'],
       links: [
@@ -212,10 +212,10 @@ export const projects: ProjectsCopy = {
     {
       title: 'MKEditor',
       summary:
-        'Un éditeur Markdown en ligne simple, rapide et gratuit avec aperçu en direct. Écris, formate et exporte tes documents au format HTML ou PDF en un instant. Bâti sur Monaco — le moteur qui anime Visual Studio Code.',
+        'Un éditeur Markdown en ligne simple, rapide et gratuit avec aperçu en direct. Écris, formate et exporte tes documents au format HTML ou PDF en un instant. Bâti sur Monaco - le moteur qui anime Visual Studio Code.',
       url: 'https://versyxdigital.github.io/mkeditor',
       image: '/projects/mkeditor.webp',
-      alt: 'Capture d’écran de remplacement — vue Vigil, à remplacer par le second projet.',
+      alt: 'Capture d’écran de remplacement - vue Vigil, à remplacer par le second projet.',
       stack: ['TypeScript', 'Monaco (VS Code)', 'Bootstrap', 'Electron', 'Webpack'],
       links: [
         { label: 'Essayer', href: 'https://versyxdigital.github.io/mkeditor' },
@@ -225,10 +225,10 @@ export const projects: ProjectsCopy = {
     {
       title: 'ED:CS Terminal',
       summary:
-        'Un projet dédié aux fans du jeu Elite Dangerous — un site compagnon propulsé par sa propre API. Données sur ~100 millions de systèmes stellaires servies à la vitesse de la lumière, alimentées par les outils de la communauté et les journaux du jeu.',
+        'Un projet dédié aux fans du jeu Elite Dangerous - un site compagnon propulsé par sa propre API. Données sur ~100 millions de systèmes stellaires servies à la vitesse de la lumière, alimentées par les outils de la communauté et les journaux du jeu.',
       url: 'https://edcs.app',
       image: '/projects/edcs.webp',
-      alt: 'Capture d’écran de remplacement — aperçu Vigil, à remplacer par le troisième projet.',
+      alt: 'Capture d’écran de remplacement - aperçu Vigil, à remplacer par le troisième projet.',
       stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
       links: [
         { label: 'Essayer', href: 'https://edcs.app' },
@@ -238,10 +238,10 @@ export const projects: ProjectsCopy = {
     {
       title: 'OMG',
       summary:
-        'Un petit langage de programmation construit de bout en bout — pour le plaisir, et pour voir comment un compilateur s’assemble. Le compilateur d’OMG est lui-même écrit en OMG. Binaires natifs via un runtime Rust ; la même toolchain compile vers JavaScript pour le playground en navigateur.',
+        'Un petit langage de programmation construit de bout en bout - pour le plaisir, et pour voir comment un compilateur s’assemble. Le compilateur d’OMG est lui-même écrit en OMG. Binaires natifs via un runtime Rust ; la même toolchain compile vers JavaScript pour le playground en navigateur.',
       url: 'https://omg-playground.edcs.app',
       image: '/projects/omg-playground.webp',
-      alt: 'Playground OMG — source Fibonacci à gauche, stdout à droite.',
+      alt: 'Playground OMG - source Fibonacci à gauche, stdout à droite.',
       badge: 'Langage de programmation',
       stack: ['Rust', 'OMG', 'JavaScript', 'VM bytecode'],
       links: [
@@ -252,7 +252,7 @@ export const projects: ProjectsCopy = {
   ],
   ui: {
     sheet: 'Feuille',
-    sheetValue: 'A — Projets',
+    sheetValue: 'A - Projets',
     plates: 'Planches',
     scale: 'Échelle',
     scaleValue: '1:1 · MMXXVI',
@@ -265,7 +265,7 @@ export const projects: ProjectsCopy = {
     sheetOf: 'sur',
     annexedPlates: 'Planches annexes',
     plateIndex: 'Index des planches',
-    currentlyFeatured: (title) => `${title} — actuellement en vedette`,
+    currentlyFeatured: (title) => `${title} - actuellement en vedette`,
     feature: (title) => `Mettre ${title} en vedette`,
     stackOf: (title) => `Stack de ${title}`,
   },

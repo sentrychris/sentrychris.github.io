@@ -145,7 +145,7 @@ export const experience: ExperienceCopy = {
     {
       role: 'Lead Developer',
       company: 'SentryBay Ltd',
-      period: '2022 — prezent',
+      period: '2022 - prezent',
       sectors: ['SaaS', 'Securitate cibernetică', 'Apărare', 'NDA'],
       summary:
         'Lead de dezvoltare pe platforme pentru consumatori. Răspund de deciziile de arhitectură, conduc echipe în paralel și aduc serviciile legacy la standard în timp ce livrez produse noi.',
@@ -158,7 +158,7 @@ export const experience: ExperienceCopy = {
     {
       role: 'Principal Developer',
       company: 'Go Deploy Labs',
-      period: '2020 — 2022',
+      period: '2020 - 2022',
       sectors: ['LMS', 'Laboratoare virtuale', 'E-commerce', 'MCT'],
       summary:
         'Inginer full-stack pe tot ecosistemul. Am permis cursanților și mentorilor să ruleze laboratoare virtuale pentru MCT și alte cursuri certificate. Principal Developer pe ofertele Go Deploy.',
@@ -171,7 +171,7 @@ export const experience: ExperienceCopy = {
     {
       role: 'Fondator',
       company: 'Versyx Digital',
-      period: '2019 — prezent',
+      period: '2019 - prezent',
       sectors: ['Agenție', 'Consultanță', 'Dezvoltare', 'Design'],
       summary:
         'Studio de dezvoltare la comandă, axat pe consultanță, infrastructură și frontend pentru clienți din diverse industrii. Construim și contribuim și la proiecte open source.',
@@ -193,15 +193,15 @@ export const projects: ProjectsCopy = {
   title: 'Câteva dintre',
   titleAccent: 'proiectele mele.',
   lede:
-    'Cea mai mare parte a muncii în producție este sub NDA — proiectele deschise sunt mai jos. Scrie-mi pentru restul.',
+    'Cea mai mare parte a muncii în producție este sub NDA - proiectele deschise sunt mai jos. Scrie-mi pentru restul.',
   projects: [
     {
       title: 'Vigil',
       summary:
-        'Un dashboard ușor de monitorizare în timp real pentru serverele tale. Metrici live transmise prin WebSocket — indicatoare, grafice, sonde de servicii — toate într-un UI îngrijit care rulează în fața Vigil Collector.',
+        'Un dashboard ușor de monitorizare în timp real pentru serverele tale. Metrici live transmise prin WebSocket - indicatoare, grafice, sonde de servicii - toate într-un UI îngrijit care rulează în fața Vigil Collector.',
       url: 'https://status.edcs.app',
       image: '/projects/vigil.webp',
-      alt: 'Dashboard Vigil — grafice CPU, memorie, disc și rețea în timp real.',
+      alt: 'Dashboard Vigil - grafice CPU, memorie, disc și rețea în timp real.',
       badge: 'Monitorizare sisteme',
       stack: ['Python', 'Tornado', 'FastAPI', 'TypeScript', 'Vue 3', 'D3', 'WebSocket'],
       links: [
@@ -212,10 +212,10 @@ export const projects: ProjectsCopy = {
     {
       title: 'MKEditor',
       summary:
-        'Un editor markdown online simplu, rapid și gratuit cu previzualizare live. Scrie, formatează și exportă instant documentele tale în HTML sau PDF. Construit pe Monaco — motorul care alimentează Visual Studio Code.',
+        'Un editor markdown online simplu, rapid și gratuit cu previzualizare live. Scrie, formatează și exportă instant documentele tale în HTML sau PDF. Construit pe Monaco - motorul care alimentează Visual Studio Code.',
       url: 'https://versyxdigital.github.io/mkeditor',
       image: '/projects/mkeditor.webp',
-      alt: 'Captură placeholder — vedere Vigil, de înlocuit cu al doilea proiect.',
+      alt: 'Captură placeholder - vedere Vigil, de înlocuit cu al doilea proiect.',
       stack: ['TypeScript', 'Monaco (VS Code)', 'Bootstrap', 'Electron', 'Webpack'],
       links: [
         { label: 'Încearcă', href: 'https://versyxdigital.github.io/mkeditor' },
@@ -225,10 +225,10 @@ export const projects: ProjectsCopy = {
     {
       title: 'ED:CS Terminal',
       summary:
-        'Un proiect dedicat fanilor jocului Elite Dangerous — un site companion alimentat de propriul API. Date despre ~100 de milioane de sisteme stelare livrate cu viteza luminii, din unelte ale comunității și jurnale din joc.',
+        'Un proiect dedicat fanilor jocului Elite Dangerous - un site companion alimentat de propriul API. Date despre ~100 de milioane de sisteme stelare livrate cu viteza luminii, din unelte ale comunității și jurnale din joc.',
       url: 'https://edcs.app',
       image: '/projects/edcs.webp',
-      alt: 'Captură placeholder — vedere generală Vigil, de înlocuit cu al treilea proiect.',
+      alt: 'Captură placeholder - vedere generală Vigil, de înlocuit cu al treilea proiect.',
       stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
       links: [
         { label: 'Încearcă', href: 'https://edcs.app' },
@@ -238,10 +238,10 @@ export const projects: ProjectsCopy = {
     {
       title: 'OMG',
       summary:
-        'Un mic limbaj de programare construit de la cap la coadă — pentru distracție și pentru a vedea cum se îmbină un compilator. Compilatorul OMG este el însuși scris în OMG. Binare native printr-un runtime Rust; aceeași toolchain compilează către JavaScript pentru playground-ul din browser.',
+        'Un mic limbaj de programare construit de la cap la coadă - pentru distracție și pentru a vedea cum se îmbină un compilator. Compilatorul OMG este el însuși scris în OMG. Binare native printr-un runtime Rust; aceeași toolchain compilează către JavaScript pentru playground-ul din browser.',
       url: 'https://omg-playground.edcs.app',
       image: '/projects/omg-playground.webp',
-      alt: 'Playground OMG — sursă Fibonacci în stânga, stdout în dreapta.',
+      alt: 'Playground OMG - sursă Fibonacci în stânga, stdout în dreapta.',
       badge: 'Limbaj de programare',
       stack: ['Rust', 'OMG', 'JavaScript', 'VM bytecode'],
       links: [
@@ -252,7 +252,7 @@ export const projects: ProjectsCopy = {
   ],
   ui: {
     sheet: 'Foaie',
-    sheetValue: 'A — Proiecte',
+    sheetValue: 'A - Proiecte',
     plates: 'Planșe',
     scale: 'Scală',
     scaleValue: '1:1 · MMXXVI',
@@ -265,7 +265,7 @@ export const projects: ProjectsCopy = {
     sheetOf: 'din',
     annexedPlates: 'Planșe anexate',
     plateIndex: 'Index planșe',
-    currentlyFeatured: (title) => `${title} — în prim-plan acum`,
+    currentlyFeatured: (title) => `${title} - în prim-plan acum`,
     feature: (title) => `Adu ${title} în prim-plan`,
     stackOf: (title) => `Stack-ul pentru ${title}`,
   },

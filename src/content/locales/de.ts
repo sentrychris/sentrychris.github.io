@@ -145,20 +145,20 @@ export const experience: ExperienceCopy = {
     {
       role: 'Lead Developer',
       company: 'SentryBay Ltd',
-      period: '2022 — heute',
+      period: '2022 - heute',
       sectors: ['SaaS', 'Cybersicherheit', 'Verteidigung', 'NDA'],
       summary:
         'Development Lead für Consumer-Plattformen. Verantwortlich für Architekturentscheidungen, leite parallele Teams und bringe Legacy-Services auf Standard, während ich neue Produkte ausliefere.',
       points: [
         'Leite derzeit die Entwicklung von Webplattformen und Services.',
         'Habe die Einführung von KI-gestützten Workflows zur Produktivitätssteigerung geleitet.',
-        'Habe Armored Client ausgeliefert — eine zentrale Produktoberfläche, die einen erheblichen Teil des Unternehmenswachstums getragen hat.',
+        'Habe Armored Client ausgeliefert - eine zentrale Produktoberfläche, die einen erheblichen Teil des Unternehmenswachstums getragen hat.',
       ],
     },
     {
       role: 'Principal Developer',
       company: 'Go Deploy Labs',
-      period: '2020 — 2022',
+      period: '2020 - 2022',
       sectors: ['LMS', 'Virtuelle Labs', 'E-Commerce', 'MCT'],
       summary:
         'Full-Stack-Engineer über das gesamte Produkt. Habe Lernenden und Mentoren ermöglicht, virtuelle Labs für MCT und andere zertifizierte Kurse zu betreiben. Principal Developer für Go Deploys Angebote.',
@@ -171,7 +171,7 @@ export const experience: ExperienceCopy = {
     {
       role: 'Gründer',
       company: 'Versyx Digital',
-      period: '2019 — heute',
+      period: '2019 - heute',
       sectors: ['Agentur', 'Beratung', 'Entwicklung', 'Design'],
       summary:
         'Maßgeschneiderte Entwicklungs-Boutique mit Fokus auf Beratung, Infrastruktur und Frontend für Kunden aus verschiedenen Branchen. Wir bauen und unterstützen außerdem Open-Source-Projekte.',
@@ -193,15 +193,15 @@ export const projects: ProjectsCopy = {
   title: 'Einige meiner',
   titleAccent: 'Projekte.',
   lede:
-    'Der Großteil der Produktionsarbeit unterliegt einem NDA — die offenen Projekte sind unten. Schreib mich für den Rest an.',
+    'Der Großteil der Produktionsarbeit unterliegt einem NDA - die offenen Projekte sind unten. Schreib mich für den Rest an.',
   projects: [
     {
       title: 'Vigil',
       summary:
-        'Ein leichtgewichtiges Echtzeit-Monitoring-Dashboard für deine Server. Live-Metriken über WebSocket, Anzeigen, Charts, Service-Probes — alles in einer aufgeräumten Oberfläche, die vor Vigil Collector läuft.',
+        'Ein leichtgewichtiges Echtzeit-Monitoring-Dashboard für deine Server. Live-Metriken über WebSocket, Anzeigen, Charts, Service-Probes - alles in einer aufgeräumten Oberfläche, die vor Vigil Collector läuft.',
       url: 'https://status.edcs.app',
       image: '/projects/vigil.webp',
-      alt: 'Vigil-Dashboard — CPU-, Speicher-, Festplatten- und Netzwerk-Charts in Echtzeit.',
+      alt: 'Vigil-Dashboard - CPU-, Speicher-, Festplatten- und Netzwerk-Charts in Echtzeit.',
       badge: 'System-Monitoring',
       stack: ['Python', 'Tornado', 'FastAPI', 'TypeScript', 'Vue 3', 'D3', 'WebSocket'],
       links: [
@@ -212,10 +212,10 @@ export const projects: ProjectsCopy = {
     {
       title: 'MKEditor',
       summary:
-        'Ein einfacher, schneller und kostenloser Online-Markdown-Editor mit Live-Vorschau. Schreibe, formatiere und exportiere deine Markdown-Dokumente sofort als HTML oder PDF. Aufgebaut auf Monaco — der Engine, die auch in Visual Studio Code läuft.',
+        'Ein einfacher, schneller und kostenloser Online-Markdown-Editor mit Live-Vorschau. Schreibe, formatiere und exportiere deine Markdown-Dokumente sofort als HTML oder PDF. Aufgebaut auf Monaco - der Engine, die auch in Visual Studio Code läuft.',
       url: 'https://versyxdigital.github.io/mkeditor',
       image: '/projects/mkeditor.webp',
-      alt: 'Platzhalter-Screenshot — Vigil-Hub-Ansicht, durch Bild des zweiten Projekts ersetzen.',
+      alt: 'Platzhalter-Screenshot - Vigil-Hub-Ansicht, durch Bild des zweiten Projekts ersetzen.',
       stack: ['TypeScript', 'Monaco (VS Code)', 'Bootstrap', 'Electron', 'Webpack'],
       links: [
         { label: 'Ausprobieren', href: 'https://versyxdigital.github.io/mkeditor' },
@@ -225,10 +225,10 @@ export const projects: ProjectsCopy = {
     {
       title: 'ED:CS Terminal',
       summary:
-        'Ein Projekt für Fans des Spiels Elite Dangerous — eine Begleit-Site mit eigener API. Daten zu ~100 Millionen Sternensystemen werden in Lichtgeschwindigkeit ausgeliefert, gespeist aus Community-Tools und In-Game-Logbüchern.',
+        'Ein Projekt für Fans des Spiels Elite Dangerous - eine Begleit-Site mit eigener API. Daten zu ~100 Millionen Sternensystemen werden in Lichtgeschwindigkeit ausgeliefert, gespeist aus Community-Tools und In-Game-Logbüchern.',
       url: 'https://edcs.app',
       image: '/projects/edcs.webp',
-      alt: 'Platzhalter-Screenshot — Vigil-Übersicht, durch Bild des dritten Projekts ersetzen.',
+      alt: 'Platzhalter-Screenshot - Vigil-Übersicht, durch Bild des dritten Projekts ersetzen.',
       stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
       links: [
         { label: 'Ausprobieren', href: 'https://edcs.app' },
@@ -238,10 +238,10 @@ export const projects: ProjectsCopy = {
     {
       title: 'OMG',
       summary:
-        'Eine kleine Programmiersprache, von Grund auf gebaut — aus Spaß und um zu sehen, wie ein Compiler zusammenpasst. Der OMG-Compiler ist selbst in OMG geschrieben. Native Binaries über eine Rust-Runtime; dieselbe Toolchain kompiliert nach JavaScript für den Browser-Playground.',
+        'Eine kleine Programmiersprache, von Grund auf gebaut - aus Spaß und um zu sehen, wie ein Compiler zusammenpasst. Der OMG-Compiler ist selbst in OMG geschrieben. Native Binaries über eine Rust-Runtime; dieselbe Toolchain kompiliert nach JavaScript für den Browser-Playground.',
       url: 'https://omg-playground.edcs.app',
       image: '/projects/omg-playground.webp',
-      alt: 'OMG-Playground — Fibonacci-Quelltext links, stdout rechts.',
+      alt: 'OMG-Playground - Fibonacci-Quelltext links, stdout rechts.',
       badge: 'Programmiersprache',
       stack: ['Rust', 'OMG', 'JavaScript', 'Bytecode-VM'],
       links: [
@@ -252,7 +252,7 @@ export const projects: ProjectsCopy = {
   ],
   ui: {
     sheet: 'Blatt',
-    sheetValue: 'A — Projekte',
+    sheetValue: 'A - Projekte',
     plates: 'Tafeln',
     scale: 'Maßstab',
     scaleValue: '1:1 · MMXXVI',
@@ -265,7 +265,7 @@ export const projects: ProjectsCopy = {
     sheetOf: 'von',
     annexedPlates: 'Anhang-Tafeln',
     plateIndex: 'Tafel-Index',
-    currentlyFeatured: (title) => `${title} — derzeit hervorgehoben`,
+    currentlyFeatured: (title) => `${title} - derzeit hervorgehoben`,
     feature: (title) => `${title} hervorheben`,
     stackOf: (title) => `${title} Stack`,
   },

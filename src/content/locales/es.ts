@@ -145,7 +145,7 @@ export const experience: ExperienceCopy = {
     {
       role: 'Lead Developer',
       company: 'SentryBay Ltd',
-      period: '2022 — actualidad',
+      period: '2022 - actualidad',
       sectors: ['SaaS', 'Ciberseguridad', 'Defensa', 'NDA'],
       summary:
         'Lead de desarrollo en plataformas de consumidor. Responsable de las decisiones arquitectónicas, coordinando equipos en paralelo y devolviendo servicios legacy al estándar mientras lanzo nuevos productos.',
@@ -158,7 +158,7 @@ export const experience: ExperienceCopy = {
     {
       role: 'Principal Developer',
       company: 'Go Deploy Labs',
-      period: '2020 — 2022',
+      period: '2020 - 2022',
       sectors: ['LMS', 'Laboratorios virtuales', 'E-commerce', 'MCT'],
       summary:
         'Ingeniero full-stack en todo el ecosistema. Permití a estudiantes y mentores ejecutar laboratorios virtuales para MCT y otros cursos certificados. Principal Developer de los productos de Go Deploy.',
@@ -171,7 +171,7 @@ export const experience: ExperienceCopy = {
     {
       role: 'Fundador',
       company: 'Versyx Digital',
-      period: '2019 — actualidad',
+      period: '2019 - actualidad',
       sectors: ['Agencia', 'Consultoría', 'Desarrollo', 'Diseño'],
       summary:
         'Estudio de desarrollo a medida centrado en consultoría, infraestructura y frontend para clientes de varios sectores. También construimos y contribuimos a proyectos open source.',
@@ -198,10 +198,10 @@ export const projects: ProjectsCopy = {
     {
       title: 'Vigil',
       summary:
-        'Un panel de monitorización ligero y en tiempo real para tus servidores. Métricas en vivo a través de WebSocket — indicadores, gráficas, sondas de servicio — todo en una interfaz pulida que se monta delante de Vigil Collector.',
+        'Un panel de monitorización ligero y en tiempo real para tus servidores. Métricas en vivo a través de WebSocket - indicadores, gráficas, sondas de servicio - todo en una interfaz pulida que se monta delante de Vigil Collector.',
       url: 'https://status.edcs.app',
       image: '/projects/vigil.webp',
-      alt: 'Panel de Vigil — gráficas de CPU, memoria, disco y red en directo.',
+      alt: 'Panel de Vigil - gráficas de CPU, memoria, disco y red en directo.',
       badge: 'Monitorización de sistemas',
       stack: ['Python', 'Tornado', 'FastAPI', 'TypeScript', 'Vue 3', 'D3', 'WebSocket'],
       links: [
@@ -215,7 +215,7 @@ export const projects: ProjectsCopy = {
         'Un editor de markdown online simple, rápido y gratuito con previsualización en vivo. Escribe, formatea y exporta tus documentos al instante a HTML o PDF. Construido sobre Monaco, el motor que utiliza Visual Studio Code.',
       url: 'https://versyxdigital.github.io/mkeditor',
       image: '/projects/mkeditor.webp',
-      alt: 'Captura de marcador — vista de Vigil, sustituye por el segundo proyecto.',
+      alt: 'Captura de marcador - vista de Vigil, sustituye por el segundo proyecto.',
       stack: ['TypeScript', 'Monaco (VS Code)', 'Bootstrap', 'Electron', 'Webpack'],
       links: [
         { label: 'Probar', href: 'https://versyxdigital.github.io/mkeditor' },
@@ -228,7 +228,7 @@ export const projects: ProjectsCopy = {
         'Un proyecto dedicado a los fans del juego Elite Dangerous. Un sitio compañero impulsado por su propia API. Datos de ~100 millones de sistemas estelares servidos a velocidad luz, alimentados por herramientas de la comunidad y registros del propio juego.',
       url: 'https://edcs.app',
       image: '/projects/edcs.webp',
-      alt: 'Captura de marcador — vista general de Vigil, sustituye por el tercer proyecto.',
+      alt: 'Captura de marcador - vista general de Vigil, sustituye por el tercer proyecto.',
       stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
       links: [
         { label: 'Probar', href: 'https://edcs.app' },
@@ -238,10 +238,10 @@ export const projects: ProjectsCopy = {
     {
       title: 'OMG',
       summary:
-        'Un pequeño lenguaje de programación construido de principio a fin — por diversión y para ver cómo encaja un compilador. El propio compilador de OMG está escrito en OMG. Binarios nativos mediante un runtime en Rust; la misma toolchain compila a JavaScript para el playground en el navegador.',
+        'Un pequeño lenguaje de programación construido de principio a fin - por diversión y para ver cómo encaja un compilador. El propio compilador de OMG está escrito en OMG. Binarios nativos mediante un runtime en Rust; la misma toolchain compila a JavaScript para el playground en el navegador.',
       url: 'https://omg-playground.edcs.app',
       image: '/projects/omg-playground.webp',
-      alt: 'Playground de OMG — código Fibonacci a la izquierda, stdout a la derecha.',
+      alt: 'Playground de OMG - código Fibonacci a la izquierda, stdout a la derecha.',
       badge: 'Lenguaje de programación',
       stack: ['Rust', 'OMG', 'JavaScript', 'VM de bytecode'],
       links: [
@@ -252,7 +252,7 @@ export const projects: ProjectsCopy = {
   ],
   ui: {
     sheet: 'Lámina',
-    sheetValue: 'A — Proyectos',
+    sheetValue: 'A - Proyectos',
     plates: 'Planchas',
     scale: 'Escala',
     scaleValue: '1:1 · MMXXVI',
@@ -265,7 +265,7 @@ export const projects: ProjectsCopy = {
     sheetOf: 'de',
     annexedPlates: 'Planchas anexas',
     plateIndex: 'Índice de planchas',
-    currentlyFeatured: (title) => `${title} — destacado actualmente`,
+    currentlyFeatured: (title) => `${title} - destacado actualmente`,
     feature: (title) => `Destacar ${title}`,
     stackOf: (title) => `Stack de ${title}`,
   },

@@ -145,7 +145,7 @@ export const experience: ExperienceCopy = {
     {
       role: 'リードデベロッパー',
       company: 'SentryBay Ltd',
-      period: '2022 — 現在',
+      period: '2022 - 現在',
       sectors: ['SaaS', 'サイバーセキュリティ', '防衛', 'NDA'],
       summary:
         'コンシューマー向けプラットフォームの開発リード。アーキテクチャ判断を担い、複数チームを並行運営しつつ、レガシーサービスを標準に戻しながら新規プロダクトをリリース。',
@@ -158,7 +158,7 @@ export const experience: ExperienceCopy = {
     {
       role: 'プリンシパルデベロッパー',
       company: 'Go Deploy Labs',
-      period: '2020 — 2022',
+      period: '2020 - 2022',
       sectors: ['LMS', 'バーチャルラボ', 'EC', 'MCT'],
       summary:
         'プロダクト全体を支えるフルスタックエンジニア。MCT などの認定コース向けバーチャルラボを学習者・メンター双方が運用できるようにした。Go Deploy 各プロダクトのプリンシパル。',
@@ -171,7 +171,7 @@ export const experience: ExperienceCopy = {
     {
       role: 'ファウンダー',
       company: 'Versyx Digital',
-      period: '2019 — 現在',
+      period: '2019 - 現在',
       sectors: ['エージェンシー', 'コンサルティング', '開発', 'デザイン'],
       summary:
         'コンサルティング、インフラ、フロントエンドに特化したカスタム開発スタジオ。各業界のクライアントを支援するとともに、オープンソースの開発・貢献も行なう。',
@@ -198,10 +198,10 @@ export const projects: ProjectsCopy = {
     {
       title: 'Vigil',
       summary:
-        'サーバ向けの軽量・リアルタイム監視ダッシュボード。WebSocket でメトリクスをライブ配信——ゲージ、グラフ、サービスプローブまで——洗練された UI を Vigil Collector の前段に配置できます。',
+        'サーバ向けの軽量・リアルタイム監視ダッシュボード。WebSocket でメトリクスをライブ配信--ゲージ、グラフ、サービスプローブまで--洗練された UI を Vigil Collector の前段に配置できます。',
       url: 'https://status.edcs.app',
       image: '/projects/vigil.webp',
-      alt: 'Vigil ダッシュボード — CPU・メモリ・ディスク・ネットワークのグラフをライブ表示。',
+      alt: 'Vigil ダッシュボード - CPU・メモリ・ディスク・ネットワークのグラフをライブ表示。',
       badge: 'システム監視',
       stack: ['Python', 'Tornado', 'FastAPI', 'TypeScript', 'Vue 3', 'D3', 'WebSocket'],
       links: [
@@ -215,7 +215,7 @@ export const projects: ProjectsCopy = {
         'シンプル・高速・無料のオンライン Markdown エディタ。ライブプレビューつきで、HTML や PDF にすぐにエクスポートできます。Visual Studio Code を支える Monaco 上に構築。',
       url: 'https://versyxdigital.github.io/mkeditor',
       image: '/projects/mkeditor.webp',
-      alt: 'プレースホルダー画像 — Vigil のハブ表示、二つ目のプロジェクトに差し替え予定。',
+      alt: 'プレースホルダー画像 - Vigil のハブ表示、二つ目のプロジェクトに差し替え予定。',
       stack: ['TypeScript', 'Monaco (VS Code)', 'Bootstrap', 'Electron', 'Webpack'],
       links: [
         { label: '試す', href: 'https://versyxdigital.github.io/mkeditor' },
@@ -228,7 +228,7 @@ export const projects: ProjectsCopy = {
         'ゲーム『Elite Dangerous』ファン向けのプロジェクト。独自 API を備えたコンパニオンサイトで、約1億の恒星系データを光速で配信。データはコミュニティツールとゲーム内ログに由来。',
       url: 'https://edcs.app',
       image: '/projects/edcs.webp',
-      alt: 'プレースホルダー画像 — Vigil の概要、三つ目のプロジェクトに差し替え予定。',
+      alt: 'プレースホルダー画像 - Vigil の概要、三つ目のプロジェクトに差し替え予定。',
       stack: ['TypeScript', 'Next.js', 'Tailwind', 'Laravel', 'Redis', 'MySQL'],
       links: [
         { label: '試す', href: 'https://edcs.app' },
@@ -238,10 +238,10 @@ export const projects: ProjectsCopy = {
     {
       title: 'OMG',
       summary:
-        'ゼロから作った小さなプログラミング言語——楽しみのために、そしてコンパイラがどう組み上がるかを見るために。OMG のコンパイラ自体が OMG で書かれています。Rust ランタイムでネイティブバイナリを生成し、同じツールチェーンがブラウザ用に JavaScript へとコンパイルします。',
+        'ゼロから作った小さなプログラミング言語--楽しみのために、そしてコンパイラがどう組み上がるかを見るために。OMG のコンパイラ自体が OMG で書かれています。Rust ランタイムでネイティブバイナリを生成し、同じツールチェーンがブラウザ用に JavaScript へとコンパイルします。',
       url: 'https://omg-playground.edcs.app',
       image: '/projects/omg-playground.webp',
-      alt: 'OMG プレイグラウンド — 左にフィボナッチのソース、右に標準出力。',
+      alt: 'OMG プレイグラウンド - 左にフィボナッチのソース、右に標準出力。',
       badge: 'プログラミング言語',
       stack: ['Rust', 'OMG', 'JavaScript', 'バイトコード VM'],
       links: [
@@ -252,7 +252,7 @@ export const projects: ProjectsCopy = {
   ],
   ui: {
     sheet: 'シート',
-    sheetValue: 'A — プロジェクト',
+    sheetValue: 'A - プロジェクト',
     plates: 'プレート',
     scale: '縮尺',
     scaleValue: '1:1 · MMXXVI',
@@ -265,7 +265,7 @@ export const projects: ProjectsCopy = {
     sheetOf: '/',
     annexedPlates: '別添プレート',
     plateIndex: 'プレート索引',
-    currentlyFeatured: (title) => `${title} — 現在表示中`,
+    currentlyFeatured: (title) => `${title} - 現在表示中`,
     feature: (title) => `${title} を表示`,
     stackOf: (title) => `${title} のスタック`,
   },
