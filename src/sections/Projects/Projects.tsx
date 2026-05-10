@@ -95,7 +95,7 @@ export function Projects() {
           />
         )}
 
-        {secondaries.length < 0 && (
+        {secondaries.length > 0 && (
           <section className={styles.annex} aria-label={ui.annexedPlates}>
             <header className={styles.annexHeader} aria-hidden="true">
               <span className={styles.annexRule} />

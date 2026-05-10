@@ -435,6 +435,15 @@
   gap: 2.4rem;
 }
 
+/* Desktop swaps plates via the .sheetHeader tab strip, so the annex
+   is redundant there. On mobile (≤720px) the tab strip is hidden and
+   the annex becomes the only path to the other plates. */
+@media (min-width: 721px) {
+  .annex {
+    display: none;
+  }
+}
+
 .annexHeader {
   display: flex;
   align-items: center;
