@@ -1,0 +1,80 @@
+.frame {
+  position: absolute;
+  inset: clamp(20px, 4vh, 56px) clamp(24px, 4vw, 80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  /* Strokes are screen-space, not stretched with the viewBox. */
+  overflow: visible;
+}
+
+/* The corner brackets are drawn over a 100×100 box that's stretched to
+   the section. Use non-scaling stroke so the line weight stays at 1px
+   regardless of section dimensions. */
+.corner,
+.rule,
+.spine {
+  stroke: var(--accent);
+  stroke-opacity: 0.45;
+  stroke-width: 1;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  vector-effect: non-scaling-stroke;
+}
+
+.rule { stroke-opacity: 0.18; }
+.spine { stroke-opacity: 0.12; }
+
+.pip {
+  position: absolute;
+  top: 16px;
+  right: 22px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.7;
+}
+
+.pipPrefix {
+  color: rgba(var(--ink-rgb), 0.45);
+}
+
+.pipNumeral {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+
+.marg {
+  position: absolute;
+  bottom: 14px;
+  left: 22px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: rgba(var(--ink-rgb), 0.38);
+}
+
+@media (max-width: 720px) {
+  .frame {
+    inset: 16px 12px;
+  }
+  .pip, .marg { font-size: 9px; }
+  .pipNumeral { font-size: 12px; }
+}

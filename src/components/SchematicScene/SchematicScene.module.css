@@ -1,0 +1,11 @@
+.canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -3;
+  pointer-events: none;
+  /* The scene draws on a transparent buffer; the page's --paper colour
+     shows through from below. */
+  background: transparent;
+}

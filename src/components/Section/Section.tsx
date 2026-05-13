@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { useReveal } from '../../lib/useReveal'
+import { SectionFrame } from '../SectionFrame'
 import styles from './Section.module.css'
 
 export interface SectionProps {
@@ -42,6 +43,9 @@ export function Section({
 
   return (
     <section id={id} className={styles.section}>
+      <SectionFrame
+        pip={index !== undefined ? index.toString().padStart(2, '0') : undefined}
+      />
       <div className={styles.wrap}>
         {hasOpener && (
           <header

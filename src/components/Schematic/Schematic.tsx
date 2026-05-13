@@ -1,139 +1,201 @@
 import { useEffect, useRef } from 'react'
 import styles from './Schematic.module.css'
+import { subscribeMotion } from '../../lib/motion'
 
 /**
- * Schematic — ambient blueprint texture mounted once at the app root.
+ * Schematic — ambient 2D blueprint overlay sitting above the Three.js
+ * scene and below site content.
  *
- * Layered backdrops, all fixed-position behind everything,
- * pointer-events none. Each layer drifts at a different rate as the
- * user horizontally pages through the panels — classic parallax:
+ * Layers:
+ *   1. Grid (.parallaxGrid)         — fastest horizontal drift
+ *   2. SVG construction shapes      — slower drift + mouse tilt; each
+ *                                     shape draws in via stroke-dashoffset
+ *                                     tied to global scrollProgress
+ *   3. HTML corner ornaments        — anchored
  *
- *   1. Grid (.parallaxGrid)         — fastest drift  (~15% of scrollLeft)
- *   2. SVG construction shapes      — slower drift   (~5% of scrollLeft)
- *   3. HTML corner ornaments        — anchored       (no drift)
- *
- * The SVG canvas spans 3× the viewport (viewBox 0 0 4800 1200) and
- * carries shapes scattered across the full width, so the slow drift
- * always reveals new geometry instead of the same content scrolling
- * off-screen.
+ * Driven by the shared motion pipeline (lib/motion.ts) — one rAF, one
+ * scroll listener for the whole app.
  */
 export function Schematic() {
-  const ref = useRef<HTMLDivElement>(null)
+  const rootRef = useRef<HTMLDivElement>(null)
+  const shapesRef = useRef<SVGSVGElement>(null)
+  const compassRef = useRef<HTMLDivElement>(null)
+  const datumRef = useRef<SVGGElement>(null)
 
-  // Subtle parallax: as <main> scrolls horizontally between panels,
-  // write the raw scroll distance to --schematic-x. The CSS applies
-  // different multipliers per layer for a sense of depth.
+  // Per-shape getTotalLength cache, keyed by element reference order.
   useEffect(() => {
-    if (!window.matchMedia('(min-width: 921px)').matches) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const main = document.querySelector('main')
-    const el = ref.current
-    if (!main || !el) return
+    const root = rootRef.current
+    const svg = shapesRef.current
+    const compass = compassRef.current
+    if (!root || !svg) return
 
-    let raf = 0
-    const update = () => {
-      el.style.setProperty('--schematic-x', `${main.scrollLeft}px`)
-      raf = 0
-    }
-    const onScroll = () => {
-      if (raf) return
-      raf = requestAnimationFrame(update)
-    }
-    update()
-    main.addEventListener('scroll', onScroll, { passive: true })
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    // Collect every traceable shape and prep its stroke-dash.
+    const shapes = Array.from(
+      svg.querySelectorAll<SVGGeometryElement>(
+        'circle[data-trace], line[data-trace], path[data-trace], polygon[data-trace], rect[data-trace]',
+      ),
+    )
+
+    // Compute per-shape (length, start) — start is its normalised
+    // x-position within the SVG canvas so shapes on the left draw
+    // earlier in the scroll progression than shapes on the right.
+    const SVG_W = 4800
+    const entries = shapes.map((shape) => {
+      let length = 0
+      try {
+        length = shape.getTotalLength()
+      } catch {
+        length = 0
+      }
+      const bbox = (() => {
+        try {
+          return shape.getBBox()
+        } catch {
+          return { x: 0, width: 0 }
+        }
+      })()
+      const centreX = bbox.x + bbox.width / 2
+      const start = Math.max(0, Math.min(1, centreX / SVG_W))
+      if (length) {
+        shape.style.strokeDasharray = `${length}`
+        shape.style.strokeDashoffset = reduce ? '0' : `${length}`
+      }
+      return { shape, length, start }
+    })
+
+    // Datum-mark pings — each datum activates as scroll progress
+    // passes its normalised x-position.
+    const datums = Array.from(
+      svg.querySelectorAll<SVGPathElement>('g[data-datum] path'),
+    )
+    const datumX = datums.map((d) => {
+      try {
+        const b = d.getBBox()
+        return Math.max(0, Math.min(1, (b.x + b.width / 2) / SVG_W))
+      } catch {
+        return 0
+      }
+    })
+
+    const unsub = subscribeMotion((s) => {
+      // ─── Layer 1 — grid parallax ─────────────────────────────
+      // Background-position-x driven by scrollPx (used in CSS too).
+      root.style.setProperty('--schematic-x', `${s.scrollPx}px`)
+
+      // ─── Layer 2 — SVG shapes parallax + mouse tilt ─────────
+      // Translate the SVG horizontally with scroll, and add a small
+      // rotation/translate based on mouse for depth.
+      const drift = -s.scrollPx * 0.05
+      const tiltX = -s.pointerY * 6 // deg
+      const tiltY = s.pointerX * 8
+      const offX = s.pointerX * 12
+      const offY = s.pointerY * 8
+      svg.style.transform =
+        `translate3d(${drift + offX}px, ${offY}px, 0) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`
+
+      if (compass) {
+        // Compass needle drifts with cursor — points toward the pointer.
+        const angle = Math.atan2(s.pointerY, s.pointerX) * (180 / Math.PI) + 90
+        compass.style.setProperty('--needle-angle', `${angle}deg`)
+      }
+
+      // ─── Scroll-driven path tracing ─────────────────────────
+      if (reduce) return
+      const p = s.scrollProgress
+      // Each shape draws over a window of width 0.35 starting at its
+      // normalised x. Clamp 0..1; offset = (1 - localProgress) * length.
+      const WIN = 0.35
+      for (const { shape, length, start } of entries) {
+        if (!length) continue
+        const local = Math.max(0, Math.min(1, (p - start + WIN * 0.5) / WIN))
+        shape.style.strokeDashoffset = `${(1 - local) * length}`
+      }
+
+      // Datum marks: become "lit" as the playhead crosses their x.
+      datums.forEach((d, i) => {
+        const lit = p >= datumX[i]
+        d.style.opacity = lit ? '1' : '0.25'
+      })
+    })
+
     return () => {
-      main.removeEventListener('scroll', onScroll)
-      if (raf) cancelAnimationFrame(raf)
+      unsub()
     }
   }, [])
 
   return (
-    <div ref={ref} className={styles.schematic} aria-hidden="true">
+    <div ref={rootRef} className={styles.schematic} aria-hidden="true">
       {/* Layer 1 — engineering paper grid (fastest drift). */}
       <div className={styles.parallaxGrid} />
 
       {/* Layer 2 — construction shapes spread across a 3× viewport
-          canvas (slower drift). */}
+          canvas (slower drift + mouse tilt). */}
       <svg
+        ref={shapesRef}
         className={styles.shapes}
         viewBox="0 0 4800 1200"
         preserveAspectRatio="xMidYMid slice"
       >
-        {/* ─── Region A (0–1600) — the original blueprint ─── */}
-        <circle cx="180"  cy="260" r="220" />
-        <circle cx="1380" cy="820" r="340" />
-        <circle cx="780"  cy="180" r="80"  strokeDasharray="3 6" />
-        <circle cx="540"  cy="900" r="160" strokeDasharray="2 7" />
-        <circle cx="1180" cy="240" r="60"  strokeDasharray="4 5" />
+        {/* ─── Region A (0–1600) ─── */}
+        <circle data-trace cx="180" cy="260" r="220" />
+        <circle data-trace cx="1380" cy="820" r="340" />
+        <circle data-trace cx="780" cy="180" r="80" strokeDasharray="3 6" />
+        <circle data-trace cx="540" cy="900" r="160" strokeDasharray="2 7" />
+        <circle data-trace cx="1180" cy="240" r="60" strokeDasharray="4 5" />
 
-        <polygon className={styles.geo} points="0,1030 500,1030 0,600" />
-        <polygon className={styles.geo} points="300,510 380,510 340,580" />
+        <polygon data-trace className={styles.geo} points="0,1030 500,1030 0,600" />
+        <polygon data-trace className={styles.geo} points="300,510 380,510 340,580" />
         <polygon
+          data-trace
           className={styles.geo}
           points="990,720 955,781 885,781 850,720 885,659 955,659"
         />
-        <rect className={styles.geo} x="800" y="360" width="180" height="80" />
-        <line className={styles.geo} x1="1180" y1="180" x2="1180" y2="1100" />
+        <rect data-trace className={styles.geo} x="800" y="360" width="180" height="80" />
+        <line data-trace className={styles.geo} x1="1180" y1="180" x2="1180" y2="1100" />
 
-        {/* ─── Region B (1600–3200) — middle constellation ─── */}
-        <circle cx="2200" cy="600" r="200" />
-        <circle cx="2820" cy="320" r="120" strokeDasharray="3 6" />
-        <circle cx="2680" cy="980" r="90"  strokeDasharray="4 5" />
-        <circle cx="3120" cy="650" r="55"  strokeDasharray="2 7" />
+        {/* ─── Region B (1600–3200) ─── */}
+        <circle data-trace cx="2200" cy="600" r="200" />
+        <circle data-trace cx="2820" cy="320" r="120" strokeDasharray="3 6" />
+        <circle data-trace cx="2680" cy="980" r="90" strokeDasharray="4 5" />
+        <circle data-trace cx="3120" cy="650" r="55" strokeDasharray="2 7" />
 
+        <polygon data-trace className={styles.geo} points="2400,260 2480,260 2440,330" />
+        <polygon data-trace className={styles.geo} points="3050,180 3170,400 2930,400" />
+        <polygon data-trace className={styles.geo} points="2520,1080 2620,1080 2570,990" />
         <polygon
-          className={styles.geo}
-          points="2400,260 2480,260 2440,330"
-        />
-        <polygon
-          className={styles.geo}
-          points="3050,180 3170,400 2930,400"
-        />
-        <polygon
-          className={styles.geo}
-          points="2520,1080 2620,1080 2570,990"
-        />
-        {/* Hexagon */}
-        <polygon
+          data-trace
           className={styles.geo}
           points="2210,210 2175,271 2105,271 2070,210 2105,149 2175,149"
         />
-        <rect className={styles.geo} x="2800" y="730" width="180" height="80" />
-        <rect className={styles.geo} x="1880" y="900" width="120" height="60" />
-        <line className={styles.geo} x1="1700" y1="500" x2="3120" y2="500" />
-        <line className={styles.geo} x1="2400" y1="60"  x2="2400" y2="1140" />
+        <rect data-trace className={styles.geo} x="2800" y="730" width="180" height="80" />
+        <rect data-trace className={styles.geo} x="1880" y="900" width="120" height="60" />
+        <line data-trace className={styles.geo} x1="1700" y1="500" x2="3120" y2="500" />
+        <line data-trace className={styles.geo} x1="2400" y1="60" x2="2400" y2="1140" />
 
-        {/* ─── Region C (3200–4800) — right-edge geometry ─── */}
-        <circle cx="3500" cy="780" r="260" />
-        <circle cx="4480" cy="280" r="180" />
-        <circle cx="4080" cy="680" r="80"  strokeDasharray="3 6" />
-        <circle cx="3380" cy="220" r="65"  strokeDasharray="4 5" />
-        <circle cx="3950" cy="1020" r="50" strokeDasharray="2 7" />
+        {/* ─── Region C (3200–4800) ─── */}
+        <circle data-trace cx="3500" cy="780" r="260" />
+        <circle data-trace cx="4480" cy="280" r="180" />
+        <circle data-trace cx="4080" cy="680" r="80" strokeDasharray="3 6" />
+        <circle data-trace cx="3380" cy="220" r="65" strokeDasharray="4 5" />
+        <circle data-trace cx="3950" cy="1020" r="50" strokeDasharray="2 7" />
 
+        <polygon data-trace className={styles.geo} points="3760,460 3680,580 3840,580" />
+        <polygon data-trace className={styles.geo} points="4200,890 4350,1100 4050,1100" />
+        <polygon data-trace className={styles.geo} points="4640,560 4720,560 4680,640" />
         <polygon
-          className={styles.geo}
-          points="3760,460 3680,580 3840,580"
-        />
-        <polygon
-          className={styles.geo}
-          points="4200,890 4350,1100 4050,1100"
-        />
-        <polygon
-          className={styles.geo}
-          points="4640,560 4720,560 4680,640"
-        />
-        {/* Hexagon */}
-        <polygon
+          data-trace
           className={styles.geo}
           points="3700,1000 3665,1061 3595,1061 3560,1000 3595,939 3665,939"
         />
-        <rect className={styles.geo} x="3300" y="450" width="160" height="70" />
-        <rect className={styles.geo} x="4250" y="450" width="200" height="60" />
-        <line className={styles.geo} x1="3260" y1="160" x2="4760" y2="160" />
-        <line className={styles.geo} x1="3700" y1="200" x2="3700" y2="1100" />
-        <line className={styles.geo} x1="4480" y1="500" x2="4480" y2="1140" />
+        <rect data-trace className={styles.geo} x="3300" y="450" width="160" height="70" />
+        <rect data-trace className={styles.geo} x="4250" y="450" width="200" height="60" />
+        <line data-trace className={styles.geo} x1="3260" y1="160" x2="4760" y2="160" />
+        <line data-trace className={styles.geo} x1="3700" y1="200" x2="3700" y2="1100" />
+        <line data-trace className={styles.geo} x1="4480" y1="500" x2="4480" y2="1140" />
 
-        {/* ─── Crosshair plus-marks at the centres of every big circle ─── */}
+        {/* Crosshair plus-marks at the centres of every big circle. */}
         <g className={styles.cross}>
           <path d="M 180 248 v 24 M 168 260 h 24" />
           <path d="M 1380 808 v 24 M 1368 820 h 24" />
@@ -143,14 +205,14 @@ export function Schematic() {
           <path d="M 4480 268 v 24 M 4468 280 h 24" />
         </g>
 
-        {/* ─── Long compass-arc sweep — extended to span the canvas ─── */}
+        {/* Long compass-arc sweep — flowing dashes (CSS animation). */}
         <path
+          data-trace
           className={styles.sweep}
           d="M -100 200 Q 1200 1200 2400 200 T 4900 200"
-          strokeDasharray="2 10"
         />
 
-        {/* ─── Ruler ticks along the top edge of every region ─── */}
+        {/* Ruler ticks. */}
         <g className={styles.ruler}>
           {Array.from({ length: 58 }, (_, i) => {
             const x = (i + 1) * 80
@@ -167,8 +229,8 @@ export function Schematic() {
           })}
         </g>
 
-        {/* ─── Datum plus-marks scattered across the canvas ─── */}
-        <g className={styles.datum}>
+        {/* Datum plus-marks (each path's opacity is pulsed by scroll). */}
+        <g ref={datumRef} className={styles.datum} data-datum>
           <path d="M 480 480 v 10 M 475 485 h 10" />
           <path d="M 1120 640 v 10 M 1115 645 h 10" />
           <path d="M 320 720 v 10 M 315 725 h 10" />
@@ -184,25 +246,24 @@ export function Schematic() {
           <path d="M 4640 1000 v 10 M 4635 1005 h 10" />
         </g>
 
-        {/* ─── Dimension annotations near the larger circles ─── */}
         <g className={styles.annotations}>
-          <text x="950"  y="466"  textAnchor="middle">Ø.220</text>
-          <text x="1380" y="448"  textAnchor="middle">Ø.340</text>
-          <text x="190"  y="515"  textAnchor="middle">Ø.160</text>
-          <text x="300"  y="830"  textAnchor="middle">R.080</text>
-          <text x="2200" y="380"  textAnchor="middle">Ø.200</text>
-          <text x="2820" y="180"  textAnchor="middle">R.120</text>
-          <text x="3500" y="500"  textAnchor="middle">Ø.260</text>
-          <text x="4480" y="80"   textAnchor="middle">Ø.180</text>
+          <text x="950" y="466" textAnchor="middle">Ø.220</text>
+          <text x="1380" y="448" textAnchor="middle">Ø.340</text>
+          <text x="190" y="515" textAnchor="middle">Ø.160</text>
+          <text x="300" y="830" textAnchor="middle">R.080</text>
+          <text x="2200" y="380" textAnchor="middle">Ø.200</text>
+          <text x="2820" y="180" textAnchor="middle">R.120</text>
+          <text x="3500" y="500" textAnchor="middle">Ø.260</text>
+          <text x="4480" y="80" textAnchor="middle">Ø.180</text>
         </g>
       </svg>
 
-      {/* ─── Layer 3 — corner ornaments (anchored, no drift) ─── */}
-      <div className={styles.compass}>
+      {/* Layer 3 — corner ornaments. Compass needle follows pointer. */}
+      <div ref={compassRef} className={styles.compass}>
         <svg viewBox="0 0 60 60">
           <circle cx="30" cy="30" r="22" />
-          <line x1="30" y1="8"  x2="30" y2="52" />
-          <line x1="8"  y1="30" x2="52" y2="30" />
+          <line x1="30" y1="8" x2="30" y2="52" />
+          <line x1="8" y1="30" x2="52" y2="30" />
           <path
             className={styles.compassNeedle}
             d="M 30 8 L 25 26 L 30 22 L 35 26 Z"

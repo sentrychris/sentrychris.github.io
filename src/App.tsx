@@ -2,6 +2,8 @@ import { Nav } from './components/Nav'
 import { Tracker } from './components/Tracker'
 import { Footer } from './components/Footer'
 import { Schematic } from './components/Schematic'
+import { SchematicScene } from './components/SchematicScene'
+import { WireDiagram } from './components/WireDiagram'
 import { Hero } from './sections/Hero'
 import { About } from './sections/About'
 import { Skills } from './sections/Skills'
@@ -21,6 +23,12 @@ function App() {
 
   return (
     <>
+      {/* Backdrop stack (back to front):
+            z = -3   SchematicScene  — Three.js wireframe field
+            z = -1   Schematic       — flat blueprint marginalia
+            z =  1+  Sections        — content
+            z =  2   WireDiagram     — bottom oscilloscope trace */}
+      <SchematicScene />
       <Schematic />
       <Nav links={navLinks[lang]} />
       <Tracker />
@@ -31,11 +39,6 @@ function App() {
         <Experience />
         <Projects />
         <Contact />
-        {/* Footer lives inside <main> so the desktop horizontal-page
-            layout treats it as a final panel after Contact (instead
-            of an out-of-flow element below the locked viewport). On
-            mobile it falls back to its natural below-the-scroll
-            position via the long-scroll layout. */}
         <Footer
           links={[
             { href: 'https://github.com/sentrychris', label: 'GitHub' },
@@ -43,6 +46,7 @@ function App() {
           ]}
         />
       </main>
+      <WireDiagram />
     </>
   )
 }

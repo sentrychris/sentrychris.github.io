@@ -65,12 +65,63 @@
   border-radius: var(--r-md);
   background: linear-gradient(
     180deg,
-    rgba(var(--ink-rgb), 0.025),
+    rgba(var(--ink-rgb), 0.04),
     rgba(var(--ink-rgb), 0.01)
   );
   border: 1px solid var(--line);
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(2px);
+}
+
+/* Corner brackets — absolutely stretched over the node, animated by
+   stroke-dashoffset on the surrounding [data-trace] IO trigger. */
+.bracket {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  fill: none;
+}
+
+.bracket path {
+  stroke: var(--accent);
+  stroke-opacity: 0.6;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.nodeHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.statusDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  position: relative;
+  box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.6);
+}
+
+.statusDot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  opacity: 0.35;
+  animation: nodePing 2.4s ease-out infinite;
+}
+
+@keyframes nodePing {
+  0%   { transform: scale(0.6); opacity: 0.5; }
+  100% { transform: scale(2.4); opacity: 0; }
 }
 
 .tag {
@@ -116,6 +167,13 @@
   background: rgba(var(--ink-rgb), 0.08);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .arrowFlow,
+  .statusDot::after {
+    animation: none;
+  }
+}
+
 /* ─── Arrow ────────────────────────────────────────────── */
 
 .arrow {
@@ -128,6 +186,20 @@
 
 .arrowSvg {
   filter: drop-shadow(0 0 6px rgba(var(--accent-rgb), 0.45));
+}
+
+/* The visible "flowing dashes" overlay — continuous oscilloscope feel. */
+.arrowFlow {
+  animation: arrowFlow 1.8s linear infinite;
+}
+
+@keyframes arrowFlow {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -40; }
+}
+
+.arrowTrace {
+  vector-effect: non-scaling-stroke;
 }
 
 .arrowCaption {

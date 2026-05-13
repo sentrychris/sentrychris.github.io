@@ -1,5 +1,6 @@
 import { contact as contactI18n } from '../../content/contact'
 import { Section } from '../../components/Section'
+import { TopoMap } from '../../components/TopoMap'
 import { useLanguage } from '../../lib/useLanguage'
 import { useReveal } from '../../lib/useReveal'
 import styles from './Contact.module.css'
@@ -15,6 +16,7 @@ export function Contact() {
 
   return (
     <Section id="contact">
+      <TopoMap />
       <div className={styles.wrap} ref={wrapRef} data-reveal>
         {/* Opener — rendered here (not by Section) so the whole close
             reads as one centred editorial column. */}

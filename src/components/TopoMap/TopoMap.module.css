@@ -1,0 +1,67 @@
+.wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg {
+  width: min(140%, 1400px);
+  height: auto;
+  max-height: 140%;
+  display: block;
+  will-change: transform;
+}
+
+.contour {
+  fill: none;
+  stroke: var(--accent);
+  stroke-opacity: 0.12;
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+}
+
+.contour[data-index='0'],
+.contour[data-index='1'] {
+  stroke-opacity: 0.32;
+  stroke: var(--accent);
+}
+
+.cross line {
+  stroke: var(--accent);
+  stroke-opacity: 0.4;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.cross circle {
+  stroke: var(--accent);
+  stroke-opacity: 0.5;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.label text {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  fill: var(--ink);
+  fill-opacity: 0.2;
+  text-transform: uppercase;
+}
+
+@media (max-width: 720px) {
+  .svg {
+    width: 200%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svg {
+    transform: none !important;
+  }
+}
