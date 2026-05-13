@@ -90,6 +90,51 @@ pre {
   }
 }
 
+/* ─── Legibility halo ───────────────────────────────────────
+   The backdrop (Three.js scene + 2D schematic + wire trace + topo
+   contours) is busy. Every readable element inside <main> gets a
+   short stack of paper-coloured text-shadows so each glyph burns a
+   tiny halo into the backdrop — no panel, no border, just a local
+   contrast wash that keeps text crisp. The halo is the page's own
+   --paper colour so it tracks the theme. */
+
+main h1,
+main h2,
+main h3,
+main h4,
+main p,
+main dt,
+main dd,
+main li,
+main span,
+main a,
+main button {
+  text-shadow:
+    0 0 22px rgba(var(--paper-rgb), 0.92),
+    0 0 10px rgba(var(--paper-rgb), 0.98),
+    0 0 3px  rgba(var(--paper-rgb), 1);
+}
+
+/* Components that supply their own backing (Skills nodes, About
+   facts panel, browser frames, buttons) don't need the halo and
+   sometimes the shadow muddies their crisp panel edges. Opt out. */
+main button,
+main button *,
+main [class*='Button_'],
+main [class*='Button_'] *,
+main [class*='browser_'] *,
+main [class*='node_'] *,
+main [class*='facts_'] *,
+main [class*='panelCard_'] *,
+main [class*='titleBlock_'] *,
+main [class*='Frame_'] *,
+main [class*='compact_'] *,
+main [class*='Sheet_'] *,
+main [class*='exhibits_'] *,
+main [class*='sheet_'] * {
+  text-shadow: none;
+}
+
 /* ─── Desktop horizontal page layout ──────────────────────────
    On wide screens the long-scroll becomes a horizontal page-pager:
    each <section> in <main> becomes a full-viewport panel with its

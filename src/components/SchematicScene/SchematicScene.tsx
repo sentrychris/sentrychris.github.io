@@ -68,7 +68,7 @@ export function SchematicScene() {
       const mat = new THREE.LineBasicMaterial({
         color: ink.clone().lerp(accent, colourMix),
         transparent: true,
-        opacity: 0.32,
+        opacity: 0.03,
         depthWrite: false,
       })
       const mesh = new THREE.LineSegments(edges, mat)
@@ -87,7 +87,7 @@ export function SchematicScene() {
         color: accent,
         size: 0.08,
         transparent: true,
-        opacity: 0.55,
+        opacity: 0.03,
         sizeAttenuation: true,
         depthWrite: false,
       })
@@ -159,7 +159,7 @@ export function SchematicScene() {
     const starMat = new THREE.PointsMaterial({
       size: 0.045,
       transparent: true,
-      opacity: 0.65,
+      opacity: 0.1,
       vertexColors: true,
       sizeAttenuation: true,
       depthWrite: false,
@@ -180,7 +180,7 @@ export function SchematicScene() {
       const mat = new THREE.LineBasicMaterial({
         color: accent,
         transparent: true,
-        opacity: 0.14,
+        opacity: 0.08,
         depthWrite: false,
       })
       const line = new THREE.Line(geo, mat)
@@ -274,7 +274,7 @@ export function SchematicScene() {
 
       // Stars drift, with a subtle breathing on opacity.
       stars.rotation.y += dt * 0.012
-      starMat.opacity = 0.55 + Math.sin(elapsed * 0.4) * 0.08
+      starMat.opacity = 0 //.32 + Math.sin(elapsed * 0.4) * 0.06
 
       renderer.render(scene, camera)
       raf = requestAnimationFrame(tick)

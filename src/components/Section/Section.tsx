@@ -65,19 +65,25 @@ export function Section({
             )}
             {title && (
               <h2 className={styles.title} data-reveal>
-                {title}
-                {titleAccent && (
-                  <>
-                    {' '}
-                    <span className={styles.accent}>
-                      {titleAccent}
-                    </span>
-                  </>
-                )}
+                {/* Leader line — accent hairline that nests against the
+                    h2 baseline. Pure decoration; aria-hidden. */}
+                <span className={styles.titleLead} aria-hidden="true" />
+                <span className={styles.titleText}>
+                  {title}
+                  {titleAccent && (
+                    <>
+                      {' '}
+                      <span className={styles.accent}>
+                        {titleAccent}
+                      </span>
+                    </>
+                  )}
+                </span>
               </h2>
             )}
             {lede && (
               <p className={styles.lede} data-reveal>
+                <span className={styles.ledeMark} aria-hidden="true">¶</span>
                 {lede}
               </p>
             )}

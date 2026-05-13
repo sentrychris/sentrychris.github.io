@@ -7,7 +7,7 @@
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
-  opacity: 0.85;
+  opacity: 0.42;
   /* Perspective lets the SVG inner transform read as a slight 3D tilt. */
   perspective: 1400px;
   --schematic-x: 0px;

@@ -34,6 +34,7 @@
   --ink-rgb:         20, 36, 31;
   --accent-rgb:      42, 113, 89;
   --accent-soft-rgb: 74, 135, 112;
+  --paper-rgb:       240, 228, 208;
 
   /* ─ Lines (deep forest at low alpha) ─────────────────────── */
   --line-faint:  rgba(var(--ink-rgb), 0.06);
@@ -174,6 +175,7 @@
   --ink-rgb:         176, 228, 204;
   --accent-rgb:      64, 138, 113;
   --accent-soft-rgb: 40, 90, 72;
+  --paper-rgb:       9, 20, 19;
 
   /* Status — re-tuned for dark */
   --mustard:       #d4a857;
