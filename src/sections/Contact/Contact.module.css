@@ -1,23 +1,15 @@
-/* Contact — magazine close. Centred editorial composition with the
-   email as the visual centre, italic Playfair throughout, fleuron
-   separators, and a sign-off flourish at the bottom. */
+/* Contact — signal panel.
+   A comms-style schematic close: primary transmission route, secondary
+   channels, status, and compact coordinate metadata. */
 
 .wrap {
-  max-width: 720px;
+  max-width: 980px;
   margin: 0 auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-/* ─── Opener (rendered here, not by Section) ─────────────── */
-
 .opener {
-  /* Matches Section's default opener-bottom — same cadence as the
-     other sections' headers. */
-  margin-bottom: 4rem;
-  max-width: 580px;
+  margin-bottom: 2.8rem;
+  max-width: 720px;
 }
 
 .label {
@@ -33,8 +25,7 @@
   color: var(--accent);
 }
 
-.label::before,
-.label::after {
+.label::before {
   content: "";
   display: inline-block;
   width: 18px;
@@ -60,281 +51,237 @@
   letter-spacing: -0.014em;
   line-height: 1.05;
   color: var(--ink);
+  max-width: 22ch;
 }
 
 .titleAccent {
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 500;
+  font-family: var(--sans);
+  font-style: normal;
+  font-weight: 700;
   color: var(--accent);
-  letter-spacing: -0.005em;
+  letter-spacing: -0.014em;
 }
 
 .lede {
-  margin: 22px auto 0;
+  margin: 22px 0 0;
   font-family: var(--body);
   font-size: 17px;
   line-height: 1.55;
   color: var(--ink-soft);
-  max-width: 50ch;
+  max-width: 52ch;
 }
 
-/* ─── Invitation pull-quote ─────────────────────────────── */
-
-.invitation {
-  margin: 0;
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(28px, 3.4vw, 44px);
-  line-height: 1.15;
-  letter-spacing: -0.005em;
-  color: var(--ink);
-  max-width: 22ch;
+.signalGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr);
+  gap: 1.2rem;
+  align-items: stretch;
 }
 
-.invitationBreak {
-  display: inline;
+.panel {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background:
+    linear-gradient(135deg, rgba(var(--accent-rgb), 0.045), transparent 52%),
+    rgba(var(--ink-rgb), 0.018);
+  overflow: hidden;
 }
 
-@media (min-width: 720px) {
-  /* Allow the two short sentences to break on their own line on
-     larger screens for a more deliberate magazine cadence. */
-  .invitationBreak {
-    display: block;
-    height: 0;
-  }
+.panel::before,
+.panel::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: var(--accent);
+  opacity: 0.55;
+  pointer-events: none;
 }
 
-/* ─── Magazine fleuron divider ──────────────────────────── */
-
-.fleuron {
-  display: flex;
-  align-items: center;
-  gap: 1.4rem;
-  width: 100%;
-  max-width: 460px;
-  margin: 4rem 0;
-  color: var(--accent);
+.panel::before {
+  top: 10px;
+  left: 10px;
+  border-top: 1px solid;
+  border-left: 1px solid;
 }
 
-.fleuronRule {
-  flex: 1 1 auto;
-  height: 1px;
-  background: var(--line);
+.panel::after {
+  right: 10px;
+  bottom: 10px;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
 }
 
-.fleuronMark {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 18px;
-  line-height: 1;
-  color: var(--accent);
-  opacity: 0.9;
-}
-
-/* ─── Correspondence (the email centerpiece) ───────────── */
-
-.correspondence {
+.primaryPanel {
+  padding: 1.2rem;
+  min-height: 260px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1.4rem;
-  width: 100%;
+  justify-content: center;
+  gap: 1rem;
 }
 
-.correspondenceLabel {
-  display: inline-flex;
+.sidePanel {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.panelHeader {
+  display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.7rem;
+  margin-bottom: 0.35rem;
   font-family: var(--mono);
   font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.28em;
+  font-weight: 600;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent);
 }
 
-.correspondenceLabelTick {
+.panelTick {
   width: 18px;
   height: 1px;
   background: var(--accent);
-  flex-shrink: 0;
+  flex: 0 0 auto;
 }
 
-.correspondenceLabelText {
-  display: inline-block;
-}
-
-/* ─── Vogue pill — editorial pill button ─────────────────────
-   Pill-shaped link with a brand icon on the left, italic Playfair
-   value in the middle, and an italic Playfair arrow on the right
-   that slides on hover. Two scales: primary (email centerpiece)
-   + default (channel pills). */
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.85rem;
-  padding: 0.55rem 1.1rem 0.55rem 0.85rem;
-  text-decoration: none;
-  background: rgba(var(--ink-rgb), 0.025);
-  border: 1px solid var(--line);
-  border-radius: var(--r-pill);
-  color: var(--ink);
-  position: relative;
-  isolation: isolate;
-  white-space: nowrap;
+.panelLabel {
   min-width: 0;
-  transition:
-    border-color 240ms ease,
-    background 240ms ease,
-    transform 320ms cubic-bezier(.2, .8, .2, 1),
-    box-shadow 320ms ease;
 }
 
-/* Soft accent rim-glow + lift on hover. Reads editorial, not chunky. */
-.btn:hover,
-.btn:focus-visible {
-  border-color: var(--accent);
+.panelCode {
+  margin-left: auto;
+  color: var(--ink-faint);
+  letter-spacing: 0.14em;
+}
+
+.signalLink {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 22px;
+  gap: 0.8rem;
+  align-items: center;
+  min-width: 0;
+  padding: 0.85rem;
+  color: var(--ink);
+  text-decoration: none;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: rgba(var(--ink-rgb), 0.018);
+}
+
+.signalLink:hover,
+.signalLink:focus-visible {
+  color: var(--ink);
+  border-color: rgba(var(--accent-rgb), 0.65);
   background: rgba(var(--accent-rgb), 0.08);
-  transform: translateY(-2px);
   outline: none;
-  box-shadow: 0 14px 28px -18px rgba(var(--ink-rgb), 0.22);
 }
 
-.btn:focus-visible {
+.signalLink:focus-visible {
   outline: 1px solid var(--accent);
   outline-offset: 4px;
 }
 
-/* Icon sits in a thin accent ring, like a stamped monogram on a
-   calling card. Filled brand glyphs (GitHub / LinkedIn) and the
-   stroke mail icon both inherit currentColor → accent. */
-.btnIcon {
+.signalLinkPrimary {
+  grid-template-columns: 44px minmax(0, 1fr) 28px;
+  padding: 1.05rem;
+  border-color: rgba(var(--accent-rgb), 0.45);
+  background:
+    linear-gradient(90deg, rgba(var(--accent-rgb), 0.09), transparent 60%),
+    rgba(var(--ink-rgb), 0.025);
+}
+
+.linkIcon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 1px solid var(--line-strong);
-  background: rgba(var(--accent-rgb), 0.06);
+  width: 34px;
+  height: 34px;
+  border-radius: 4px;
+  border: 1px solid rgba(var(--accent-rgb), 0.5);
+  background: rgba(var(--accent-rgb), 0.08);
   color: var(--accent);
-  flex-shrink: 0;
-  transition: border-color 240ms ease, background 240ms ease;
 }
 
-.btnIcon svg {
-  width: 14px;
-  height: 14px;
+.signalLinkPrimary .linkIcon {
+  width: 44px;
+  height: 44px;
+}
+
+.linkIcon svg {
+  width: 16px;
+  height: 16px;
   display: block;
 }
 
-.btn:hover .btnIcon,
-.btn:focus-visible .btnIcon {
-  border-color: var(--accent);
-  background: rgba(var(--accent-rgb), 0.18);
+.signalLinkPrimary .linkIcon svg {
+  width: 19px;
+  height: 19px;
 }
 
-.btnValue {
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(15px, 1.6vw, 18px);
-  line-height: 1.15;
+.linkText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.linkLabel {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.linkValue {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.2;
   color: var(--ink);
-  letter-spacing: -0.005em;
   overflow: hidden;
   text-overflow: ellipsis;
-  min-width: 0;
-  transition: color 200ms ease;
+  white-space: nowrap;
 }
 
-.btnArrow {
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(18px, 1.8vw, 22px);
+.signalLinkPrimary .linkValue {
+  font-size: clamp(22px, 3vw, 38px);
+  letter-spacing: -0.02em;
+}
+
+.linkArrow {
+  font-family: var(--mono);
+  font-size: 18px;
   line-height: 1;
   color: var(--accent);
-  flex-shrink: 0;
-  transition: transform 320ms cubic-bezier(.2, .8, .2, 1);
+  justify-self: end;
 }
 
-.btn:hover .btnArrow,
-.btn:focus-visible .btnArrow {
-  transform: translateX(6px);
-}
-
-.btn:hover .btnValue,
-.btn:focus-visible .btnValue {
-  color: var(--accent);
-}
-
-/* ─── Primary variant — the email centerpiece ─────────────── */
-
-.btnPrimary {
-  padding: 0.7rem 1.5rem 0.7rem 1.05rem;
-  gap: 1rem;
-  border-color: rgba(var(--accent-rgb), 0.45);
-  background: rgba(var(--accent-rgb), 0.06);
-}
-
-.btnPrimary .btnIcon {
-  width: 36px;
-  height: 36px;
-  border-color: var(--accent);
-  background: rgba(var(--accent-rgb), 0.12);
-}
-
-.btnPrimary .btnIcon svg {
-  width: 17px;
-  height: 17px;
-}
-
-.btnPrimary .btnValue {
-  font-size: clamp(20px, 2.4vw, 28px);
-  color: var(--accent);
-  letter-spacing: -0.008em;
-}
-
-.btnPrimary .btnArrow {
-  font-size: clamp(22px, 2.4vw, 28px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .btn,
-  .btn:hover,
-  .btn:focus-visible,
-  .btnIcon,
-  .btnValue,
-  .btnArrow {
-    transform: none;
-    transition: none;
-  }
-}
-
-/* Status caption — small italic remark beneath the email. */
 .status {
   margin: 0;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.55rem;
   font-family: var(--mono);
-  font-size: 10.5px;
-  font-weight: 500;
-  letter-spacing: 0.22em;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ink-mute);
 }
 
 .pulse {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent) 35%, transparent);
+  box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.7);
   animation: pulseDot 1.8s ease-in-out infinite;
 }
 
@@ -347,235 +294,137 @@
   50%      { opacity: 0.35; }
 }
 
+.channelsList {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.signalMeta {
+  margin: 1rem 0 0;
+  padding: 0.9rem 0 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem 1.2rem;
+}
+
+.metaItem {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  min-width: 0;
+  font-family: var(--mono);
+  text-transform: uppercase;
+}
+
+.metaItem dt,
+.metaItem dd {
+  margin: 0;
+  min-width: 0;
+}
+
+.metaItem dt {
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+
+.metaItem dd {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pulse {
     animation: none;
   }
 }
 
-/* ─── Channels — also reachable via ──────────────────────── */
-
-.channels {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.2rem;
-  width: 100%;
-  max-width: 560px;
-}
-
-.channelsLabel {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-
-/* Pills sit auto-width side-by-side, centred. Wraps on narrow screens. */
-.channelsList {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.7rem 1rem;
-}
-
-/* ─── Signature flourish ─────────────────────────────────── */
-
-.signature {
-  /* Pairs with .fleuron's 4rem margins above — keeps the bottom of
-     the page on the 4rem rhythm. */
-  margin-top: 4rem;
-  width: 100%;
-  max-width: 520px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.signatureRule {
-  display: block;
-  height: 1px;
-  background: var(--line);
-  width: 100%;
-  margin-bottom: 1.6rem;
-}
-
-.signatureText {
-  margin: 0;
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(20px, 2.4vw, 28px);
-  line-height: 1.1;
-  letter-spacing: -0.005em;
-  color: var(--ink);
-}
-
-.signaturePart {
-  color: var(--ink-mute);
-}
-
-.signatureName {
-  color: var(--accent);
-}
-
-.signatureMeta {
-  margin: 0.7rem 0 0;
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-
-.signatureMetaPart {
-  display: inline-block;
-}
-
-.signatureMetaSep {
-  margin: 0 0.7em;
-  color: var(--accent);
-  opacity: 0.7;
-}
-
-/* ─── Mobile ──────────────────────────────────────────────── */
-
 @media (max-width: 720px) {
-  .wrap {
-    padding: 0 0.4rem;
-  }
-
   .opener {
     margin-bottom: 2.2rem;
   }
 
   .label {
-    margin-bottom: 22px;
-    /* The flanking dashes can crowd the label on narrow screens —
-       drop the trailing one and keep the leading one for cadence. */
-  }
-  .label::after {
-    display: none;
+    margin-bottom: 20px;
+    font-size: 10.5px;
   }
 
   .title {
-    font-size: clamp(34px, 10vw, 48px);
+    font-size: clamp(34px, 9.5vw, 48px);
   }
 
   .lede {
-    font-size: 15px;
+    font-size: 15.5px;
     line-height: 1.5;
+    margin-top: 18px;
   }
 
-  .invitation {
-    font-size: clamp(26px, 9vw, 38px);
-    max-width: 16ch;
+  .signalGrid {
+    grid-template-columns: 1fr;
   }
 
-  .fleuron {
-    margin: 2.6rem 0;
-    max-width: 320px;
-    gap: 1rem;
+  .primaryPanel {
+    min-height: 0;
   }
 
-  /* Channel pills stack into a tidy centred column, each pill auto-
-     widening to its content. The label sits above. */
-  .channelsList {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.7rem;
+  .signalLinkPrimary {
+    grid-template-columns: 38px minmax(0, 1fr) 24px;
+    padding: 0.9rem;
   }
 
-  /* Primary pill grows to the content max so the icon, value and
-     arrow have room to breathe — but never wider than the column. */
-  .btnPrimary {
-    padding: 0.6rem 1.2rem 0.6rem 0.8rem;
-    gap: 0.85rem;
+  .signalLinkPrimary .linkIcon {
+    width: 38px;
+    height: 38px;
   }
 
-  .btnPrimary .btnIcon {
+  .signalLinkPrimary .linkValue {
+    font-size: clamp(18px, 6vw, 25px);
+  }
+
+  .status {
+    flex-wrap: wrap;
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+  }
+
+  .signalMeta {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .signalLink,
+  .signalLinkPrimary {
+    grid-template-columns: 32px minmax(0, 1fr);
+  }
+
+  .linkArrow {
+    display: none;
+  }
+
+  .linkIcon,
+  .signalLinkPrimary .linkIcon {
     width: 32px;
     height: 32px;
   }
 
-  .btnPrimary .btnIcon svg {
-    width: 15px;
-    height: 15px;
+  .linkValue {
+    font-size: 14px;
   }
 
-  .btnPrimary .btnValue {
-    font-size: clamp(18px, 6vw, 24px);
-  }
-
-  .btnPrimary .btnArrow {
-    font-size: clamp(20px, 6vw, 24px);
-  }
-
-  /* Status caption — tighter letter-spacing keeps it on one line on
-     phone widths; wrap onto two if needed. */
-  .status {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.4rem 0.5rem;
-    font-size: 9.5px;
-    letter-spacing: 0.18em;
-    max-width: 28ch;
-  }
-
-  /* Signature wraps gracefully — "Yours," can sit above the name on
-     very narrow screens rather than getting clipped. */
-  .signature {
-    margin-top: 3.2rem;
-  }
-
-  .signatureText {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.4rem 0.6rem;
-    font-size: clamp(18px, 5.6vw, 22px);
-  }
-
-  .signatureMeta {
-    font-size: 9.5px;
-    letter-spacing: 0.22em;
-  }
-
-  .signatureMetaSep {
-    margin: 0 0.5em;
+  .signalLinkPrimary .linkValue {
+    font-size: 17px;
   }
 }
-
-/* Very narrow phones — final tighten. */
-@media (max-width: 420px) {
-  .invitation {
-    font-size: clamp(22px, 9vw, 30px);
-  }
-
-  .fleuron {
-    margin: 2.2rem 0;
-    max-width: 240px;
-  }
-
-  .correspondenceLabel {
-    gap: 0.5rem;
-  }
-
-  .correspondenceLabelTick {
-    width: 14px;
-  }
-}
-
-/* ─── Desktop horizontal-page mode ───────────────────────────
-   The magazine close needs to fit a single 100vh panel — the
-   default 4rem fleurons + 4rem opener + 4rem signature spacing
-   add ~290px of vertical air that doesn't fit. Tighten across
-   the board while keeping the editorial cadence. */
 
 @media (min-width: 921px) {
   .opener {
@@ -583,12 +432,11 @@
   }
 
   .label {
-    margin-bottom: clamp(14px, 1.8vh, 22px);
-    font-size: clamp(10.5px, 0.85vw, 12px);
+    margin-bottom: clamp(12px, 1.5vh, 18px);
+    font-size: clamp(10px, 0.8vw, 11.5px);
   }
 
   .title {
-    /* Unified section header size — matches Section / About / Experience. */
     font-size: clamp(32px, 4vw, 64px);
   }
 
@@ -598,59 +446,33 @@
     line-height: 1.5;
   }
 
-  .invitation {
-    font-size: clamp(22px, 2.6vw, 40px);
-    line-height: 1.15;
+  .signalGrid {
+    gap: clamp(0.8rem, 1.5vw, 1.2rem);
   }
 
-  .fleuron {
-    margin: clamp(1rem, 1.8vh, 2rem) 0;
+  .primaryPanel {
+    min-height: clamp(220px, 30vh, 300px);
+    padding: clamp(0.9rem, 1.6vw, 1.3rem);
   }
 
-  .correspondence {
-    gap: clamp(0.7rem, 1.4vh, 1.2rem);
+  .sidePanel {
+    padding: clamp(0.8rem, 1.3vw, 1.1rem);
   }
 
-  .btnPrimary .btnValue {
-    font-size: clamp(18px, 1.8vw, 28px);
+  .panelHeader {
+    font-size: clamp(9px, 0.72vw, 10px);
   }
 
-  .btnPrimary .btnIcon {
-    width: clamp(34px, 2.6vw, 44px);
-    height: clamp(34px, 2.6vw, 44px);
+  .signalLinkPrimary .linkValue {
+    font-size: clamp(20px, 2.1vw, 36px);
   }
 
-  .btnPrimary .btnIcon svg {
-    width: clamp(16px, 1.3vw, 22px);
-    height: clamp(16px, 1.3vw, 22px);
+  .linkValue {
+    font-size: clamp(13px, 0.95vw, 15px);
   }
 
-  .channels {
-    gap: clamp(0.55rem, 1vh, 1rem);
-  }
-
-  .signature {
-    margin-top: clamp(1.2rem, 2vh, 2rem);
-  }
-
-  .signatureRule {
-    margin-bottom: clamp(0.7rem, 1.2vh, 1.4rem);
-  }
-
-  .signatureText {
-    font-size: clamp(15px, 1.3vw, 22px);
-  }
-
-  .signatureMeta {
-    margin-top: clamp(0.5rem, 0.9vh, 0.9rem);
-    font-size: clamp(10px, 0.78vw, 12px);
-  }
-
-  .status {
-    font-size: clamp(10.5px, 0.85vw, 12.5px);
-  }
-
-  .channelsLabel {
-    font-size: clamp(10px, 0.78vw, 12px);
+  .signalMeta {
+    margin-top: clamp(0.75rem, 1.4vh, 1rem);
+    padding-top: clamp(0.65rem, 1.1vh, 0.9rem);
   }
 }

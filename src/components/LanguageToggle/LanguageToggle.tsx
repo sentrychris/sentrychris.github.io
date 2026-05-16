@@ -33,13 +33,13 @@ const LABELS: Record<Lang, Label> = {
 }
 
 /**
- * LanguageToggle — editorial language picker.
+ * LanguageToggle — schematic language picker.
  *
  * The trigger is a pill mirroring ThemeToggle: flag glyph, mono-caps
  * code, chevron. Click opens a "schedule" panel — bordered card on
  * bone paper with a tick-rule header and a list of every locale, each
- * row showing flag, code, italic Playfair native name, and an Atlas
- * fleuron / arrow mark. Active row is tinted in accent ink.
+ * row showing flag, code, native name, and a compact row marker.
+ * Active row is tinted in accent ink.
  *
  * Closes on outside click and Escape.
  */
@@ -119,7 +119,7 @@ export function LanguageToggle() {
                     <span className={styles.itemCode}>{item.code}</span>
                     <span className={styles.itemName}>{item.name}</span>
                     <span className={styles.itemMark} aria-hidden="true">
-                      {active ? '✻' : '→'}
+                      {active ? '✓' : '→'}
                     </span>
                   </button>
                 </li>

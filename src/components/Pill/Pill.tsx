@@ -9,7 +9,7 @@ export interface PillProps {
 
 /**
  * Pill — Atlas. Quiet mono pill with an optional leading icon slot.
- * Used sparingly in the editorial system — most metadata renders as
+ * Used sparingly in the schematic system — most metadata renders as
  * inline mono caps text instead.
  */
 export function Pill({ icon, children }: PillProps) {

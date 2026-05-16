@@ -5,13 +5,13 @@ import styles from './Section.module.css'
 export interface SectionProps {
   /** Anchor id — used by Nav for in-page links and scroll-spy. */
   id: string
-  /** Numeric index — renders as the section's "Nº" badge. */
+  /** Numeric index — renders as the section's "FIG." badge. */
   index?: number
   /** Mono caps micro-label — e.g. "ABOUT". */
   eyebrow?: string
   /** Section heading. Renders as <h2>. */
   title?: string
-  /** Optional accent phrase rendered in italic Playfair accent color. */
+  /** Optional accent phrase rendered in the current accent color. */
   titleAccent?: string
   /** Intro paragraph below the title. */
   lede?: string
@@ -22,8 +22,8 @@ export interface SectionProps {
  * Section — long-scroll page-level wrapper for the Atlas system.
  *
  * Opener: small accent "label" eyebrow (with leading dash + optional
- * Nº index), then the h2 with an optional italic Playfair accent
- * phrase, then the lede. Children render below.
+ * FIG. index), then the h2 with an optional accent phrase, then the
+ * lede. Children render below.
  *
  * The opener participates in the [data-reveal] reveal-on-scroll
  * pattern; body children handle their own reveal if they want one.
@@ -54,7 +54,7 @@ export function Section({
                 {eyebrow && <span className={styles.labelText}>{eyebrow}</span>}
                 {index !== undefined && (
                   <span className={styles.labelIndex}>
-                    Nº {index.toString().padStart(2, '0')}
+                    FIG. {index.toString().padStart(2, '0')}
                   </span>
                 )}
               </div>

@@ -16,12 +16,10 @@ export function Contact() {
   return (
     <Section id="contact">
       <div className={styles.wrap} ref={wrapRef} data-reveal>
-        {/* Opener — rendered here (not by Section) so the whole close
-            reads as one centred editorial column. */}
         <header className={styles.opener}>
           <div className={styles.label}>
             <span className={styles.labelText}>{contact.eyebrow}</span>
-            <span className={styles.labelIndex}>Nº V</span>
+            <span className={styles.labelIndex}>FIG. 05</span>
           </div>
           <h2 className={styles.title}>
             {contact.title}
@@ -37,134 +35,108 @@ export function Contact() {
           <p className={styles.lede}>{contact.lede}</p>
         </header>
 
-        {/* Italic Playfair invitation — the magazine's closing sentiment. */}
-        <p className={styles.invitation}>
-          {contact.ui.invitationA}
-          <span className={styles.invitationBreak} aria-hidden="true">
-            {' '}
-          </span>
-          {contact.ui.invitationB}
-        </p>
+        <div className={styles.signalGrid}>
+          <section className={`${styles.panel} ${styles.primaryPanel}`}>
+            <PanelHeader label={contact.ui.correspondence} code="TX-01" />
 
-        {/* Fleuron divider */}
-        <Fleuron />
+            <SignalLink
+              href={`mailto:${email}`}
+              icon="mail"
+              label={contact.ui.emailLabel}
+              value={email}
+              primary
+            />
 
-        {/* CORRESPONDENCE — primary Vogue button (the email centerpiece). */}
-        <div className={styles.correspondence}>
-          <div className={styles.correspondenceLabel} aria-hidden="true">
-            <span className={styles.correspondenceLabelTick} />
-            <span className={styles.correspondenceLabelText}>
-              {contact.ui.correspondence}
-            </span>
-            <span className={styles.correspondenceLabelTick} />
-          </div>
+            <p className={styles.status}>
+              <span className={styles.pulse} aria-hidden="true" />
+              <span className={styles.statusText}>
+                {contact.ui.statusText}
+              </span>
+            </p>
+          </section>
 
-          <VogueButton
-            href={`mailto:${email}`}
-            icon="mail"
-            value={contact.ui.emailLabel}
-            primary
-          />
+          <aside className={`${styles.panel} ${styles.sidePanel}`}>
+            <PanelHeader label={contact.ui.alsoReachable} code="RX-02" />
 
-          <p className={styles.status}>
-            <span className={styles.pulse} aria-hidden="true" />
-            <span className={styles.statusText}>
-              {contact.ui.statusText}
-            </span>
-          </p>
+            <div className={styles.channelsList}>
+              {contact.methods.map((method) => (
+                <SignalLink
+                  key={method.label}
+                  href={method.href}
+                  icon={method.label.toLowerCase() as IconName}
+                  label={method.label}
+                  value={method.display}
+                  external
+                />
+              ))}
+            </div>
+          </aside>
         </div>
 
-        {/* Fleuron divider */}
-        <Fleuron />
-
-        {/* Channels — secondary Vogue buttons in a row. */}
-        <div className={styles.channels}>
-          <div className={styles.channelsLabel} aria-hidden="true">
-            {contact.ui.alsoReachable}
+        <dl className={styles.signalMeta} aria-hidden="true">
+          <div className={styles.metaItem}>
+            <dt>{contact.ui.signatureName}</dt>
+            <dd>{contact.ui.signatureLocation}</dd>
           </div>
-          <div className={styles.channelsList}>
-            {contact.methods.map((method) => (
-              <VogueButton
-                key={method.label}
-                href={method.href}
-                icon={method.label.toLowerCase() as IconName}
-                value={method.label}
-                ariaLabel={`${method.label} — ${method.display}`}
-                external
-              />
-            ))}
+          <div className={styles.metaItem}>
+            <dt>{contact.ui.emailLabel}</dt>
+            <dd>{contact.ui.signatureYear}</dd>
           </div>
-        </div>
-
-        {/* Signature flourish — italic Playfair sign-off. */}
-        <div className={styles.signature} aria-hidden="true">
-          <span className={styles.signatureRule} />
-          <p className={styles.signatureText}>
-            <span className={styles.signaturePart}>{contact.ui.signatureThanks}</span>
-            <span className={styles.signatureName}>{contact.ui.signatureName}</span>
-          </p>
-          <p className={styles.signatureMeta}>
-            <span className={styles.signatureMetaPart}>{contact.ui.signatureLocation}</span>
-            <span className={styles.signatureMetaSep}>·</span>
-            <span className={styles.signatureMetaPart}>{contact.ui.signatureYear}</span>
-          </p>
-        </div>
+        </dl>
       </div>
     </Section>
   )
 }
 
+function PanelHeader({ label, code }: { label: string; code: string }) {
+  return (
+    <div className={styles.panelHeader} aria-hidden="true">
+      <span className={styles.panelTick} />
+      <span className={styles.panelLabel}>{label}</span>
+      <span className={styles.panelCode}>{code}</span>
+    </div>
+  )
+}
+
 type IconName = 'mail' | 'github' | 'linkedin'
 
-/**
- * VogueButton — editorial pill.
- *
- * A pill-shaped link with a brand icon on the left, an italic Playfair
- * value in the middle, and a trailing italic Playfair `→` that slides
- * right on hover. Used for the email centerpiece (primary) and the
- * GitHub / LinkedIn channels (default).
- *
- * - `primary` enlarges the pill and tints the border accent so the
- *   email reads as the centerpiece.
- * - `external` adds target/rel for outbound links.
- */
-function VogueButton({
+function SignalLink({
   href,
   icon,
+  label,
   value,
   primary,
   external,
-  ariaLabel,
 }: {
   href: string
   icon: IconName
+  label: string
   value: string
   primary?: boolean
   external?: boolean
-  ariaLabel?: string
 }) {
   return (
     <a
-      className={`${styles.btn} ${primary ? styles.btnPrimary : ''}`}
+      className={`${styles.signalLink} ${primary ? styles.signalLinkPrimary : ''}`}
       href={href}
       target={external ? '_blank' : undefined}
       rel={external ? 'noopener noreferrer' : undefined}
-      aria-label={ariaLabel}
+      aria-label={`${label}: ${value}`}
     >
-      <span className={styles.btnIcon} aria-hidden="true">
+      <span className={styles.linkIcon} aria-hidden="true">
         <Icon name={icon} />
       </span>
-      <span className={styles.btnValue}>{value}</span>
-      <span className={styles.btnArrow} aria-hidden="true">
+      <span className={styles.linkText}>
+        <span className={styles.linkLabel}>{label}</span>
+        <span className={styles.linkValue}>{value}</span>
+      </span>
+      <span className={styles.linkArrow} aria-hidden="true">
         →
       </span>
     </a>
   )
 }
 
-/** Inline SVG icons. Outline mail (per the design system's stroke-icon
- *  convention) and the official GitHub / LinkedIn brand glyphs (filled
- *  so they remain recognisable at pill scale). */
 function Icon({ name }: { name: IconName }) {
   switch (name) {
     case 'mail':
@@ -196,16 +168,4 @@ function Icon({ name }: { name: IconName }) {
         </svg>
       )
   }
-}
-
-/** Magazine fleuron separator — hairline rules with a centred italic
- *  Playfair `✻` mark. Same recipe as the Experience section uses. */
-function Fleuron() {
-  return (
-    <div className={styles.fleuron} aria-hidden="true">
-      <span className={styles.fleuronRule} />
-      <span className={styles.fleuronMark}>✻</span>
-      <span className={styles.fleuronRule} />
-    </div>
-  )
 }

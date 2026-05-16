@@ -1,32 +1,20 @@
-/* About — refined editorial spread.
-   Asymmetric 2-column grid (prose + facts masthead) above 720px,
-   stacked single-column below. Italic Playfair drop cap, italic
-   Playfair pull quote, italic Playfair signature line at the bottom. */
+/* About — schematic profile spread.
+   Prose reads as field notes, facts render as a specifications
+   schedule, and the closing line becomes a compact coordinate strip. */
 
 .layout {
   display: grid;
-  grid-template-columns: 1fr minmax(220px, 280px);
-  gap: 4.5rem;
-  /* Centre the specifications schedule against the left column's
-     full height (opener + prose). The grid row is sized by whichever
-     column is taller (the left one), and align-items: center pulls
-     the right one to its vertical midpoint. */
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 320px);
+  gap: 4rem;
   align-items: center;
 }
 
-/* ─── Left column — opener + prose ──────────────────────── */
-
 .left {
-  display: flex;
-  flex-direction: column;
+  min-width: 0;
 }
 
-/* ─── Opener (rendered here so the specs box can centre against
-       the whole left column, not just the prose) ─────────── */
-
 .opener {
-  /* Matches Section's default opener-bottom for visual rhythm parity. */
-  margin-bottom: 4rem;
+  margin-bottom: 2.8rem;
   max-width: 760px;
 }
 
@@ -73,11 +61,11 @@
 }
 
 .titleAccent {
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 500;
+  font-family: var(--sans);
+  font-style: normal;
+  font-weight: 700;
   color: var(--accent);
-  letter-spacing: -0.005em;
+  letter-spacing: -0.014em;
 }
 
 .lede {
@@ -89,105 +77,38 @@
   max-width: 42ch;
 }
 
-/* ─── Prose ──────────────────────────────────────────────── */
-
 .prose {
-  /* The drop cap floats — `display: block` here, no flex parent. */
+  display: grid;
+  gap: 0.9rem;
+  max-width: 760px;
 }
 
 .paragraph {
-  margin: 0 0 1.6rem;
+  margin: 0;
+  padding: 1rem 1.1rem 1rem 1.25rem;
+  border-left: 2px solid rgba(var(--accent-rgb), 0.7);
+  background:
+    linear-gradient(90deg, rgba(var(--accent-rgb), 0.07), transparent 56%),
+    rgba(var(--ink-rgb), 0.018);
   font-family: var(--body);
-  font-size: 18px;
-  line-height: 1.7;
+  font-size: 16.5px;
+  line-height: 1.62;
   color: var(--ink-soft);
 }
 
-.paragraph:last-child {
-  margin-bottom: 0;
-}
-
-/* ─── First paragraph — drop cap ─────────────────────────── */
-
-/* Italic Playfair accent letter that drops into the first paragraph,
-   with the body text wrapping around it. CSS ::first-letter targets
-   the actual first letter natively, so no JSX changes needed. */
-.paragraph:first-child::first-letter {
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(72px, 9vw, 128px);
-  line-height: 0.8;
-  color: var(--accent);
-  float: left;
-  margin: -10px 10px 0 0;
-  padding: 0;
-}
-
-/* ─── Second paragraph — pull quote ──────────────────────── */
-
-.paragraph:nth-child(2) {
-  margin: 8rem 0 4rem 0;
-  padding: 0.4rem 0 0.4rem 1.8rem;
-  border-left: 1px solid var(--accent);
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(16.5px, 1.8vw, 22.5px);
-  line-height: 1.4;
-  letter-spacing: 0.03em;
-  color: var(--ink);
-  max-width: 32em;
-  /* Clear the floated drop cap so the pull quote starts at the left
-     edge of the prose column rather than wrapping next to the cap. */
-  clear: left;
-}
-
-/* Desktop horizontal-page overrides for About are at the bottom of
-   the file so they win against the base rules below — see the
-   bottom @media (min-width: 921px) block. */
-
-/* Stylized opening / closing quote marks bracketing the pull quote.
-   Inline (not block) so they sit alongside the text. */
-.paragraph:nth-child(2)::before {
-  content: "\201C"; /* opening curly quote */
-  margin-right: 0.05em;
-  font-style: italic;
-  color: var(--accent);
-}
-
-.paragraph:nth-child(2)::after {
-  content: "\201D"; /* closing curly quote */
-  margin-left: 0.05em;
-  font-style: italic;
-  color: var(--accent);
-}
-
-/* ─── Facts schedule (right column) ───────────────────────
-   A bordered "specifications schedule" panel — the architecture-
-   drawing convention for a labeled list of components. Top header
-   strip with mono-caps title bracketed by accent end-ticks (like a
-   dimension label), then each fact as a row with an italic Playfair
-   Roman numeral on the left + mono-caps label over italic Playfair
-   value on the right. Hairline-separated. */
-
 .facts {
-  /* Vertical centring against the full left column comes from the
-     parent grid's align-items: center. No sticky here — that would
-     compete with the center alignment. */
   border: 1px solid var(--line);
   background: rgba(var(--ink-rgb), 0.018);
   border-radius: 4px;
   overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(var(--ink-rgb), 0.03);
 }
-
-/* ─── Schedule header strip ───────────────────────────── */
 
 .factsHeader {
   display: flex;
   align-items: center;
   gap: 0.55rem;
-  padding: 0.55rem 0.9rem;
+  padding: 0.62rem 0.9rem;
   background: rgba(var(--ink-rgb), 0.04);
   border-bottom: 1px solid var(--line);
 }
@@ -203,14 +124,12 @@
   flex: 1;
   font-family: var(--mono);
   font-size: 9.5px;
-  font-weight: 500;
-  letter-spacing: 0.28em;
+  font-weight: 600;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--accent);
   text-align: center;
 }
-
-/* ─── Schedule rows ────────────────────────────────────── */
 
 .factList {
   margin: 0;
@@ -219,8 +138,8 @@
 
 .fact {
   display: grid;
-  grid-template-columns: 36px 1fr;
-  gap: 0.7rem;
+  grid-template-columns: 34px 1fr;
+  gap: 0.75rem;
   align-items: start;
   padding: 0.95rem 1rem;
   border-bottom: 1px solid var(--line-faint);
@@ -232,15 +151,13 @@
 }
 
 .factNumeral {
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 0.9;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
   color: var(--accent);
   text-align: center;
-  /* Optical lift so the italic numeral baseline sits with the label. */
-  margin-top: -3px;
 }
 
 .factBody {
@@ -254,26 +171,23 @@
   font-family: var(--mono);
   font-size: 9.5px;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--ink-faint);
 }
 
 .factValue {
   margin: 0;
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 500;
-  font-size: 16px;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 15.5px;
   line-height: 1.25;
   color: var(--ink);
   letter-spacing: -0.005em;
 }
 
-/* ─── Signature line — italic Playfair under the spread ──── */
-
 .signature {
-  margin-top: 5rem;
+  margin-top: 3rem;
   position: relative;
 }
 
@@ -282,38 +196,34 @@
   height: 1px;
   background: var(--line);
   width: 100%;
-  margin-bottom: 1.4rem;
+  margin-bottom: 1rem;
 }
 
 .signatureText {
   margin: 0;
   text-align: center;
-  font-family: var(--serif);
-  font-style: italic;
+  font-family: var(--mono);
+  font-size: 10px;
   font-weight: 500;
-  font-size: clamp(16px, 1.6vw, 19px);
-  letter-spacing: 0.04em;
-  color: var(--ink-mute);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
 }
 
 .signaturePart {
-  /* default — inherits */
+  display: inline-block;
 }
 
 .signatureSep {
   margin: 0 0.7em;
   color: var(--accent);
-  font-style: normal;
-  opacity: 0.7;
+  opacity: 0.8;
 }
-
-/* ─── Mobile — single column, simplified rhythm ──────────── */
 
 @media (max-width: 720px) {
   .layout {
     grid-template-columns: 1fr;
-    gap: 2.6rem;
-    /* On mobile the facts panel sits below the prose — no centering. */
+    gap: 2.4rem;
     align-items: stretch;
   }
 
@@ -337,84 +247,48 @@
   }
 
   .paragraph {
-    font-size: 16px;
-    line-height: 1.65;
-    margin-bottom: 1.3rem;
+    padding: 0.9rem 1rem;
+    font-size: 15px;
+    line-height: 1.6;
   }
 
-  /* Mobile: drop cap is dropped. The fancy first-letter treatment
-     fights the narrow column — paragraphs read better as plain text. */
-  .paragraph:first-child::first-letter {
-    font-family: inherit;
-    font-style: inherit;
-    font-weight: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    color: inherit;
-    float: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* Pull quote — tighter margins on phones (the desktop value is
-     8rem 0 4rem 0 which is way too generous at narrow widths). */
-  .paragraph:nth-child(2) {
-    margin: 2.4rem 0 2rem;
-    padding-left: 1.2rem;
-    font-size: 16px;
-  }
-
-  /* Facts schedule cells — smaller padding on mobile. */
   .fact {
     padding: 0.85rem 0.9rem;
     grid-template-columns: 30px 1fr;
-    gap: 0.6rem;
-  }
-
-  .factNumeral {
-    font-size: 22px;
+    gap: 0.65rem;
   }
 
   .signature {
-    margin-top: 2.8rem;
+    margin-top: 2.4rem;
   }
 
   .signatureText {
-    font-size: clamp(14px, 4vw, 17px);
-    /* Allow the three signature parts to wrap centred onto multiple
-       lines on very narrow phones rather than overflowing. */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.3em 0.7em;
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
   }
 
   .signatureSep {
-    margin: 0 0.4em;
+    margin: 0 0.35em;
   }
 }
 
 @media (max-width: 420px) {
-  .paragraph:nth-child(2) {
-    margin: 2rem 0 1.6rem;
-    padding-left: 1rem;
-    font-size: 15px;
-  }
-
   .factsHeaderText {
-    letter-spacing: 0.22em;
+    letter-spacing: 0.2em;
   }
 }
 
-/* Desktop horizontal-page mode — every section is a 100vh panel.
-   Compress the editorial spread so it fits without internal scroll:
-   tighten the pull quote's vertical margins, the signature top
-   margin, and the layout gap. Placed last so its same-selector
-   overrides beat the base rules above (media queries don't bump
-   specificity). */
 @media (min-width: 921px) {
   .layout {
-    gap: clamp(2.4rem, 3vw, 4.5rem);
+    gap: clamp(2.2rem, 3vw, 4rem);
+  }
+
+  .opener {
+    margin-bottom: clamp(1rem, 2vh, 2.4rem);
   }
 
   .title {
@@ -422,62 +296,39 @@
   }
 
   .lede {
-    font-size: clamp(15px, 1.4vw, 21px);
+    font-size: clamp(15px, 1.4vw, 20px);
     line-height: 1.5;
-    margin: clamp(14px, 2vh, 22px) 0 0;
-    max-width: 48ch;
+    margin: clamp(12px, 1.6vh, 20px) 0 0;
   }
 
   .paragraph {
-    font-size: clamp(15px, 1.25vw, 20px);
-    line-height: 1.6;
-    margin: 0 0 clamp(0.8rem, 1.4vh, 1.4rem);
-  }
-
-  .paragraph:first-child::first-letter {
-    font-size: clamp(56px, 7vw, 110px);
-  }
-
-  /* The standalone vertical-mode pull-quote margin is generous
-     (8rem 0 4rem 0). Tighten significantly for horizontal panels. */
-  .paragraph:nth-child(2) {
-    margin: clamp(2.8rem, 2.5vh, 2.8rem) 0 clamp(1.4rem, 2.5vh, 2.4rem) 0;
-    font-size: clamp(16px, 1.5vw, 24px);
+    padding: clamp(0.7rem, 1.2vh, 1rem) 1rem;
+    font-size: clamp(13px, 1vw, 16.5px);
+    line-height: 1.5;
   }
 
   .factsHeader {
-    padding: clamp(0.4rem, 0.7vh, 0.8rem) 0.8rem;
+    padding: clamp(0.42rem, 0.7vh, 0.72rem) 0.8rem;
   }
 
   .factsHeaderText {
-    font-size: clamp(9.5px, 0.85vw, 11.5px);
+    font-size: clamp(9px, 0.75vw, 10.5px);
   }
 
   .fact {
-    padding: clamp(0.7rem, 1.2vh, 1.2rem) 0.85rem;
+    padding: clamp(0.65rem, 1vh, 1rem) 0.85rem;
   }
 
-  .factLabel {
-    font-size: clamp(9.5px, 0.8vw, 11px);
+  .factLabel,
+  .factNumeral {
+    font-size: clamp(8.5px, 0.7vw, 10px);
   }
 
   .factValue {
-    font-size: clamp(14.5px, 1.15vw, 18px);
-  }
-
-  .factNumeral {
-    font-size: clamp(22px, 1.7vw, 28px);
+    font-size: clamp(13.5px, 1vw, 16px);
   }
 
   .signature {
-    margin-top: clamp(1.4rem, 2.5vh, 2.8rem);
-  }
-
-  .signatureRule {
-    margin-bottom: clamp(0.7rem, 1.2vh, 1.4rem);
-  }
-
-  .signatureText {
-    font-size: clamp(15px, 1.3vw, 20px);
+    margin-top: clamp(1.2rem, 2.2vh, 2.2rem);
   }
 }

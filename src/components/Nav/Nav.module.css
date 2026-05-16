@@ -1,5 +1,4 @@
-/* Nav — sticky top bar, editorial.
-   The brand mark is a italic Playfair accent "C" — the new logo. */
+/* Nav — sticky top bar, schematic chrome. */
 
 .nav {
   position: sticky;
@@ -71,13 +70,16 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 500;
-  font-size: 32px;
+  font-family: var(--mono);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.08em;
   line-height: 1;
   color: var(--accent);
-  transform: translateY(2px);
+  border: 1px solid rgba(var(--accent-rgb), 0.45);
+  border-radius: 4px;
+  background: rgba(var(--accent-rgb), 0.06);
 }
 
 .brandName {
@@ -149,6 +151,6 @@
   .brandMark {
     width: 28px;
     height: 28px;
-    font-size: 28px;
+    font-size: 12px;
   }
 }

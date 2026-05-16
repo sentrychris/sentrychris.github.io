@@ -1,6 +1,6 @@
 /* Section — Atlas long-scroll wrapper.
-   The opener uses the editorial label-with-dash + huge sans heading +
-   italic Playfair accent. Generous vertical breathing room. */
+   The opener uses a schematic label-with-dash + huge sans heading +
+   accent phrase. Generous vertical breathing room. */
 
 .section {
   position: relative;
@@ -19,8 +19,8 @@
 }
 
 /* ─── Label / eyebrow ─────────────────────────────────────────
-   Coral 11px sans caps with a 18px leading dash and an optional
-   italic Nº index in faint ink. */
+   Accent 11px sans caps with a 18px leading dash and an optional
+   FIG. index in faint ink. */
 
 .label {
   display: inline-flex;
@@ -54,7 +54,7 @@
 }
 
 /* ─── Title ───────────────────────────────────────────────────
-   Inter Tight, fluid clamp scale, italic Playfair accent. */
+   Tight sans display with a colour-only accent phrase. */
 
 .title {
   font-family: var(--sans);
@@ -67,14 +67,15 @@
 }
 
 .accent {
-  font-family: var(--serif);
-  font-style: italic;
+  font-family: var(--sans);
+  font-style: normal;
+  font-weight: 700;
   color: var(--accent);
-  letter-spacing: -0.005em;
+  letter-spacing: -0.014em;
 }
 
 /* ─── Lede ────────────────────────────────────────────────────
-   Inter body, ink-soft. Max-width keeps the paragraph editorial. */
+   Body text, ink-soft. Max-width keeps the paragraph focused. */
 
 .lede {
   margin-top: 22px;

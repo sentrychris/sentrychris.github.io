@@ -41,13 +41,14 @@
   max-width: 18ch;
 }
 
-/* The signature: italic Playfair Display in --accent, sized down very
-   slightly so it sits in line with the sans heading. */
+/* The signature phrase stays in the same technical sans voice; colour
+   carries the accent instead of a cursive type switch. */
 .accent {
-  font-family: var(--serif);
-  font-style: italic;
+  font-family: var(--sans);
+  font-style: normal;
+  font-weight: 700;
   color: var(--accent);
-  letter-spacing: -0.005em;
+  letter-spacing: -0.014em;
 }
 
 /* ─── Lede ────────────────────────────────────────────────── */
@@ -165,7 +166,7 @@
   }
 
   .metaItem {
-    /* Stack label above value so each item reads as a tiny editorial
+    /* Stack label above value so each item reads as a tiny technical
        data block rather than crowding into a single line. */
     flex-direction: column;
     align-items: flex-start;

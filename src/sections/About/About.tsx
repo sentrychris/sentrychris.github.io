@@ -4,24 +4,17 @@ import { useLanguage } from '../../lib/useLanguage'
 import { useReveal } from '../../lib/useReveal'
 import styles from './About.module.css'
 
-/** Roman numerals for the specifications schedule — five entries
- *  is plenty for the foreseeable shape of `about.facts`. */
-const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI'] as const
-
 /**
- * About — refined editorial spread, sitting on the blueprint.
+ * About — schematic profile spread, sitting on the blueprint.
  *
  * The opener (label + h2 + lede) is rendered INSIDE the layout's left
  * column rather than via Section's default opener slot — this lets the
  * specifications schedule on the right vertically centre against the
  * combined opener + prose stack via `align-items: center` on the grid.
  *
- * Typography contracts:
- *   – first paragraph carries a drop cap (CSS ::first-letter)
- *   – second paragraph is a pull quote (italic Playfair, accent border)
- *   – any further paragraphs render as plain body
- *   – facts are a "specifications schedule" — bordered panel with a
- *     mono-caps header strip and Roman-numeralled rows
+ * Contracts:
+ *   - prose renders as compact field notes
+ *   - facts are a specifications schedule with mono-caps rows
  */
 export function About() {
   const wrapRef = useReveal<HTMLDivElement>()
@@ -36,7 +29,7 @@ export function About() {
             <header className={styles.opener}>
               <div className={styles.label}>
                 <span className={styles.labelText}>{about.eyebrow}</span>
-                <span className={styles.labelIndex}>Nº 01</span>
+                <span className={styles.labelIndex}>FIG. 01</span>
               </div>
               <h2 className={styles.title}>
                 {about.title}
@@ -72,7 +65,7 @@ export function About() {
               {about.facts.map((fact, i) => (
                 <div key={fact.label} className={styles.fact}>
                   <span className={styles.factNumeral} aria-hidden="true">
-                    {ROMAN[i]}
+                    {String(i + 1).padStart(2, '0')}
                   </span>
                   <div className={styles.factBody}>
                     <dt className={styles.factLabel}>{fact.label}</dt>

@@ -23,7 +23,7 @@ import styles from './Skills.module.css'
  *
  * Each node is a faint-bordered card with a mono-caps tag, a heading,
  * and devicon-prefixed mono-caps tech chips. Arrows between nodes are
- * inline SVGs in the accent green with a soft drop-shadow glow plus a
+ * inline SVGs in the current accent with a soft drop-shadow glow plus a
  * tiny mono caption beneath.
  *
  * On mobile the layout collapses to a single column with the same

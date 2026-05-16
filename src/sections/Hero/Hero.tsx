@@ -10,9 +10,8 @@ import styles from './Hero.module.css'
  * Hero — Atlas first paint.
  *
  *  - Accent "label" eyebrow (the dash-prefixed micro-caps).
- *  - Massive Inter Tight headline with an italic Playfair accent
- *    phrase — the section's signature visual move.
- *  - Body lede in Inter, narrow max-width for editorial rhythm.
+ *  - Massive tight sans headline with a colour-accent phrase.
+ *  - Body lede in the site body face, narrow max-width for focus.
  *  - Two buttons: accent primary CTA + ghost secondary.
  *  - A small meta strip across the bottom (years · role · stack).
  *  - Reveal-on-scroll handled by [data-reveal] children with the
@@ -72,10 +71,10 @@ export function Hero() {
  */
 function MetaValue({ value }: { value: string }) {
   const match = value.match(/^(\d+)(.*)$/)
-  if (!match) return <>{value}</>
-  const target = parseInt(match[1], 10)
-  const suffix = match[2]
+  const target = match ? parseInt(match[1], 10) : 0
+  const suffix = match?.[2] ?? ''
   const n = useCountUp(target)
+  if (!match) return <>{value}</>
   return (
     <>
       {n}

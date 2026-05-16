@@ -1,5 +1,5 @@
-/* Projects — editorial feature grid.
-   Four visible project articles: screenshot, Nº marker, badge, summary,
+/* Projects — schematic feature grid.
+   Four visible project modules: screenshot, FIG marker, badge, summary,
    stack, and actions. Kept deliberately quieter than the previous
    drawing-sheet treatment so the work itself is easier to scan. */
 
@@ -76,13 +76,14 @@
 
 .number {
   flex: 0 0 auto;
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 500;
-  font-size: 24px;
+  font-family: var(--mono);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 11px;
   line-height: 1;
   color: var(--accent);
-  letter-spacing: -0.01em;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 .badge {
@@ -234,7 +235,7 @@
   }
 
   .number {
-    font-size: clamp(18px, 1.45vw, 24px);
+    font-size: clamp(9.5px, 0.72vw, 11px);
   }
 
   .badge {

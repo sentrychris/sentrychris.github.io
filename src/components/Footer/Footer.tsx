@@ -9,7 +9,7 @@ export interface FooterProps {
 
 /**
  * Footer — minimal closing chrome.
- * Coral italic "C" mark + name on the left, meta links on the right.
+ * Compact monogram + meta links.
  */
 export function Footer({
   year = new Date().getFullYear(),

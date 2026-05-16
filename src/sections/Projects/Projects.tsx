@@ -76,7 +76,7 @@ function ProjectCard({
       <div className={styles.body}>
         <div className={styles.kicker}>
           <span className={styles.number} aria-hidden="true">
-            Nº {number}
+            FIG. {number}
           </span>
           {project.badge && (
             <span className={styles.badge}>{project.badge}</span>

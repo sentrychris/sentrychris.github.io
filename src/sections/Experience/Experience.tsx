@@ -4,9 +4,6 @@ import { useLanguage } from '../../lib/useLanguage'
 import { useReveal } from '../../lib/useReveal'
 import styles from './Experience.module.css'
 
-/** Roman numerals for the per-role exhibits and the section badge. */
-const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'] as const
-
 /**
  * Experience
  */
@@ -18,12 +15,11 @@ export function Experience() {
   return (
     <Section id="experience">
       <div className={styles.wrap} ref={wrapRef} data-reveal>
-        {/* Opener — rendered here (not by Section) so the whole roster
-            below reads as a single editorial spread. */}
+        {/* Opener — rendered here so the roster reads as one schematic. */}
         <header className={styles.opener}>
           <div className={styles.label}>
             <span className={styles.labelText}>{experience.eyebrow}</span>
-            <span className={styles.labelIndex}>Nº III</span>
+            <span className={styles.labelIndex}>FIG. 03</span>
           </div>
           <h2 className={styles.title}>
             {experience.title}
@@ -45,12 +41,12 @@ export function Experience() {
               key={`${entry.role}-${entry.period}`}
               className={styles.entry}
             >
-              {/* Magazine fleuron separator above every entry except the first */}
+              {/* Technical divider above every entry except the first. */}
               {i > 0 && (
-                <div className={styles.fleuron} aria-hidden="true">
-                  <span className={styles.fleuronRule} />
-                  <span className={styles.fleuronMark}>✻</span>
-                  <span className={styles.fleuronRule} />
+                <div className={styles.divider} aria-hidden="true">
+                  <span className={styles.dividerRule} />
+                  <span className={styles.dividerMark}>TRACE</span>
+                  <span className={styles.dividerRule} />
                 </div>
               )}
 
@@ -91,7 +87,7 @@ export function Experience() {
                               className={styles.pointIndex}
                               aria-hidden="true"
                             >
-                              {ROMAN[p]}
+                              {String(p + 1).padStart(2, '0')}
                             </span>
                             <span className={styles.pointText}>{point}</span>
                           </li>

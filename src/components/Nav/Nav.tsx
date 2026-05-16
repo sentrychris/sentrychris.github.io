@@ -15,7 +15,7 @@ export interface NavProps {
 }
 
 /**
- * Nav — sticky top navigation, editorial.
+ * Nav — sticky top navigation, schematic.
  *
  *  - Scroll-spy highlights the link whose target section is closest to
  *    the top of the viewport.

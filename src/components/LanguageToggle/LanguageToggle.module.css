@@ -1,7 +1,6 @@
-/* LanguageToggle — editorial language picker.
+/* LanguageToggle — schematic language picker.
    Trigger pill mirrors ThemeToggle's shape; the dropdown is a bone-
-   paper "schedule" card with tick-rule header, italic Playfair
-   native names, and a fleuron / arrow row mark. */
+   paper schedule card with tick-rule header and compact rows. */
 
 .picker {
   position: relative;
@@ -126,11 +125,12 @@
 }
 
 .headerCount {
-  font-family: var(--serif);
-  font-style: italic;
+  font-family: var(--mono);
+  font-style: normal;
+  font-weight: 600;
   font-size: 0.78rem;
-  letter-spacing: 0;
-  text-transform: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--accent);
 }
 
@@ -142,7 +142,7 @@
   padding: 0.3rem 0;
   max-height: 320px;
   overflow-y: auto;
-  /* Restrained editorial scrollbar. */
+  /* Restrained schematic scrollbar. */
   scrollbar-width: thin;
   scrollbar-color: var(--line) transparent;
 }
@@ -202,20 +202,20 @@
 }
 
 .itemName {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.02rem;
+  font-family: var(--sans);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.92rem;
   line-height: 1.1;
   color: var(--ink);
-  letter-spacing: -0.005em;
+  letter-spacing: -0.01em;
 }
 
-/* Trailing mark — italic arrow on hover, fleuron on the active row.
-   Position is animated in from the left for a small "page turn"
-   gesture. */
+/* Trailing mark — compact arrow/check marker. */
 .itemMark {
-  font-family: var(--serif);
-  font-style: italic;
+  font-family: var(--mono);
+  font-style: normal;
+  font-weight: 600;
   font-size: 0.95rem;
   line-height: 1;
   color: var(--ink-mute);
@@ -235,7 +235,7 @@
   color: var(--accent);
 }
 
-/* Active row — coral code, permanent fleuron, faint coral background
+/* Active row — accent code, permanent marker, faint accent background
    so it reads as "currently selected" before any hover. */
 .itemActive {
   color: var(--ink);
