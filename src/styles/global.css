@@ -36,6 +36,30 @@ body {
   max-width: 100%;
 }
 
+[data-theme="dark"] body {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(var(--glow-ember-rgb), 0.18) 0%,
+      rgba(var(--glow-ember-rgb), 0.08) 18%,
+      transparent 42%
+    ),
+    linear-gradient(
+      315deg,
+      rgba(var(--glow-amber-rgb), 0.13) 0%,
+      transparent 38%
+    ),
+    linear-gradient(
+      78deg,
+      transparent 0%,
+      transparent 38%,
+      rgba(var(--glow-sky-rgb), 0.09) 52%,
+      transparent 68%
+    ),
+    var(--paper);
+  background-attachment: fixed;
+}
+
 h1,
 h2,
 h3,
@@ -166,4 +190,3 @@ pre {
     border-radius: 2px;
   }
 }
-

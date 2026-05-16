@@ -3,7 +3,7 @@
 
    `:root` carries the light (warm cream + deep forest) palette by
    default. `[data-theme="dark"]` on <html> switches to the dark
-   (forest paper + pale mint ink) palette. Components reference
+   (Midnight Ember: warm charcoal, ivory ink, ember accents) palette. Components reference
    tokens by name, so a runtime attribute flip is enough to retheme.
 
    For tints (rgba at low alpha — borders, hovers, glows) use the
@@ -153,31 +153,34 @@
    ═══════════════════════════════════════════════════════════════ */
 
 [data-theme="dark"] {
-  /* ─ Surfaces (paper — dark forest) ───────────────────────── */
-  --paper:       #091413;
-  --paper-warm:  #0c1816;
-  --paper-dark:  #050b0a;
-  --bone:        #13211e;
+  /* ─ Surfaces (paper — midnight plum charcoal) ────────────── */
+  --paper:       #100f14;
+  --paper-warm:  #17131c;
+  --paper-dark:  #09080c;
+  --bone:        #1f1924;
 
-  /* ─ Text (ink — pale mint family) ────────────────────────── */
-  --ink:         #d8ddbe;
-  --ink-soft:    #d8ddbe;
-  --ink-mute:    #abad9d;
-  --ink-faint:   #dfe4c5;
+  /* ─ Text (ink — warm ivory family) ───────────────────────── */
+  --ink:         #fff2df;
+  --ink-soft:    #ead4c1;
+  --ink-mute:    #bda69e;
+  --ink-faint:   #8f7d7a;
 
-  /* ─ Accents (green family — original dark-mode greens) ───── */
-  --accent:        #74b99e;
-  --accent-soft:   #285a48;
-  --accent-bright: #b0e4cc;
+  /* ─ Accents (ember coral + amber, with a cool-blue counterpoint) ─ */
+  --accent:        #ff6b4a;
+  --accent-soft:   #f6a04d;
+  --accent-bright: #8fd3ff;
 
-  /* ─ RGB triplets — flipped: ink is now mint, accent is medium green */
-  --ink-rgb:         176, 228, 204;
-  --accent-rgb:      64, 138, 113;
-  --accent-soft-rgb: 40, 90, 72;
+  /* ─ RGB triplets — dark-mode tints, borders, hovers, glows ── */
+  --ink-rgb:         255, 242, 223;
+  --accent-rgb:      255, 107, 74;
+  --accent-soft-rgb: 246, 160, 77;
+  --glow-ember-rgb:  255, 107, 74;
+  --glow-amber-rgb:  246, 160, 77;
+  --glow-sky-rgb:    143, 211, 255;
 
-  /* Status — re-tuned for dark */
-  --mustard:       #d4a857;
-  --olive:         #408a71;
+  /* Status — warmer, with blue reserved for positive informational states. */
+  --mustard:       #f6a04d;
+  --olive:         #8fd3ff;
 
   /* Shadows — deeper drops to read against dark paper. */
   --shadow:
@@ -187,6 +190,8 @@
     0 24px 48px -24px rgba(0, 0, 0, 0.85),
     0 0 0 1px rgba(var(--ink-rgb), 0.08);
 
-  /* Status crit — desaturated coral that reads on dark. */
-  --status-crit: #c46d5f;
+  --status-ok:   #8fd3ff;
+  --status-warn: #f6a04d;
+  --status-crit: #ff7561;
+  --status-info: var(--ink);
 }

@@ -2,7 +2,7 @@
    Three layers: a CSS gradient grid, an inline SVG with construction
    shapes + ruler ticks + datum marks + dimension labels, and HTML
    corner ornaments (compass + coordinates + drawing reference).
-   All rendered in mint at very low alpha. */
+   All rendered in theme ink at very low alpha. */
 
 .schematic {
   position: fixed;
@@ -15,6 +15,42 @@
   /* JS writes the raw `main.scrollLeft` here; layers below apply
      different multipliers for layered parallax depth. */
   --schematic-x: 0px;
+}
+
+.schematic::before {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+:global([data-theme="dark"]) .schematic {
+  opacity: 0.92;
+}
+
+:global([data-theme="dark"]) .schematic::before {
+  opacity: 1;
+  background:
+    linear-gradient(
+      112deg,
+      transparent 0%,
+      rgba(var(--glow-ember-rgb), 0.13) 22%,
+      transparent 48%
+    ),
+    linear-gradient(
+      248deg,
+      transparent 8%,
+      rgba(var(--glow-amber-rgb), 0.1) 42%,
+      transparent 72%
+    ),
+    linear-gradient(
+      16deg,
+      transparent 40%,
+      rgba(var(--glow-sky-rgb), 0.07) 56%,
+      transparent 76%
+    );
+  filter: blur(34px);
 }
 
 /* ─── Layer 1 — engineering paper grid (fastest drift) ────────
@@ -70,6 +106,20 @@
 .datum {
   stroke: rgba(var(--ink-rgb), 0.16);
   stroke-width: 1;
+}
+
+:global([data-theme="dark"]) .geo,
+:global([data-theme="dark"]) .cross {
+  stroke: rgba(var(--accent-rgb), 0.16);
+}
+
+:global([data-theme="dark"]) .datum,
+:global([data-theme="dark"]) .ruler {
+  stroke: rgba(var(--accent-soft-rgb), 0.14);
+}
+
+:global([data-theme="dark"]) .sweep {
+  stroke: rgba(var(--glow-sky-rgb), 0.12);
 }
 
 .annotations {
